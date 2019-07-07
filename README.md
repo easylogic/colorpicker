@@ -34,7 +34,7 @@ npm install @easylogic/colorpicker
 after npm install 
 
 ## script 
-
+ 
 ```
 // es6
 import '@easylogic/colorpicker/dist/colorpicker.css'
