@@ -39,7 +39,7 @@ import '@easylogic/colorpicker'
 ```
 
 
-# Use 
+# Use ColorPicker 
 
 ```js
 import '@easylogic/colorpicker/dist/colorpicker.css';
@@ -55,6 +55,31 @@ import ColorPickerUI from '@easylogic/colorpicker'
      this.changeColor(c);
    }
  });
+
+```
+
+# Use GradientPicker 
+
+```js
+import '@easylogic/colorpicker/dist/colorpicker.css';
+import ColorPickerUI from '@easylogic/colorpicker'
+
+
+ this.gradientPicker = ColorPickerUI.createGradientPicker({
+   position: "inline",
+   container: this.refs.$color.el,
+   gradient: 'linear-gradient(to right, white 0%, black 100%)',
+   onChange: (gradientString) => {
+     console.log(gradientString);
+   }
+ });
+
+
+ // set value 
+ this.gradientPicker.setValue('radial-gradient(circle, white 0%, black 100%'));
+
+ // get value
+ var gradientString = this.gradientPicker.getValue()
 
 ```
 

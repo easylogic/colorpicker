@@ -4407,6 +4407,11 @@ var Dom = function () {
             return null;
         }
     }, {
+        key: 'checked',
+        value: function checked() {
+            return this.el.checked;
+        }
+    }, {
         key: 'removeClass',
         value: function removeClass(cls) {
             this.el.className = (' ' + this.el.className + ' ').replace(' ' + cls + ' ', ' ').trim();
@@ -4444,11 +4449,14 @@ var Dom = function () {
     }, {
         key: 'html',
         value: function html(_html) {
-
-            if (typeof _html == 'string') {
-                this.el.innerHTML = _html;
-            } else {
-                this.empty().append(_html);
+            try {
+                if (typeof _html == 'string') {
+                    this.el.innerHTML = _html;
+                } else {
+                    this.empty().append(_html);
+                }
+            } catch (e) {
+                console.log(_html);
             }
 
             return this;
@@ -4459,9 +4467,21 @@ var Dom = function () {
             return this.el.querySelector(selector);
         }
     }, {
+        key: '$',
+        value: function $(selector) {
+            return new Dom(this.find(selector));
+        }
+    }, {
         key: 'findAll',
         value: function findAll(selector) {
             return this.el.querySelectorAll(selector);
+        }
+    }, {
+        key: '$$',
+        value: function $$(selector) {
+            return [].concat(toConsumableArray(this.findAll(selector))).map(function (el) {
+                return new Dom(el);
+            });
         }
     }, {
         key: 'empty',
@@ -4543,6 +4563,11 @@ var Dom = function () {
                 top: rect.top + Dom.getScrollTop(),
                 left: rect.left + Dom.getScrollLeft()
             };
+        }
+    }, {
+        key: 'rect',
+        value: function rect() {
+            return this.el.getBoundingClientRect();
         }
     }, {
         key: 'position',
@@ -5045,7 +5070,12 @@ var EventMachin = function () {
 
       // 데이타 로드 하고 
       this.load();
+
+      this.afterRender();
     }
+  }, {
+    key: 'afterRender',
+    value: function afterRender() {}
 
     /**
      * 자식 컴포넌트로 사용될 객체 정의 
@@ -5105,7 +5135,8 @@ var EventMachin = function () {
 
         if (instance) {
           instance.render();
-          $el.replace(node, instance.$el.el);
+          var $parent = new Dom(node.parentNode);
+          $parent.replace(node, instance.$el.el);
         }
       });
     }
@@ -5352,7 +5383,7 @@ var EventMachin = function () {
 
       if (eventObject.delegate) {
         return function (e) {
-
+          e.xy = Event.posXY(e);
           if (_this9.checkEventType(e, eventObject)) {
             var delegateTarget = _this9.matchPath(e.target || e.srcElement, eventObject.delegate);
 
@@ -5366,6 +5397,7 @@ var EventMachin = function () {
         };
       } else {
         return function (e) {
+          e.xy = Event.posXY(e);
           if (_this9.checkEventType(e, eventObject)) {
             return callback(e);
           }
@@ -5461,7 +5493,7 @@ var UIElement = function (_EventMachin) {
     return UIElement;
 }(EventMachin);
 
-function isUndefined(v) {
+function isUndefined$1(v) {
     return typeof v == 'undefined' || v == null;
 }
 
@@ -5511,7 +5543,7 @@ var ColorManager = function (_BaseModule) {
 
             colorObj.source = colorObj.source || source;
 
-            $store.alpha = isUndefined(colorObj.a) ? $store.alpha : colorObj.a;
+            $store.alpha = isUndefined$1(colorObj.a) ? $store.alpha : colorObj.a;
             $store.format = colorObj.type != 'hsv' ? colorObj.type || $store.format : $store.format;
 
             if (colorObj.type == 'hsl') {
@@ -8069,7 +8101,7 @@ var XDColorPicker = function (_BaseColorPicker) {
     return XDColorPicker;
 }(BaseColorPicker);
 
-var ColorPicker = {
+var ColorPickerUI = {
     create: function create(opts) {
         switch (opts.type) {
             case 'macos':
@@ -8097,7 +8129,2645 @@ var ColorPicker = {
     MiniVerticalColorPicker: MiniColorPicker$2
 };
 
-var index = _extends({}, Util, ColorPicker);
+var EmbedColorPicker = function (_UIElement) {
+  inherits(EmbedColorPicker, _UIElement);
+
+  function EmbedColorPicker() {
+    classCallCheck(this, EmbedColorPicker);
+    return possibleConstructorReturn(this, (EmbedColorPicker.__proto__ || Object.getPrototypeOf(EmbedColorPicker)).apply(this, arguments));
+  }
+
+  createClass(EmbedColorPicker, [{
+    key: "afterRender",
+    value: function afterRender() {
+      var _this2 = this;
+
+      this.colorPicker = ColorPickerUI.create({
+        type: "sketch",
+        position: "inline",
+        container: this.refs.$el.el,
+        onChange: function onChange(c) {
+          _this2.changeColor(c);
+        }
+      });
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      return "<div ref=\"$color\"></div>";
+    }
+  }, {
+    key: "changeColor",
+    value: function changeColor(color) {
+      this.$store.emit('changeEmbedColorPicker', color);
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(color) {
+      this.colorPicker.initColorWithoutChangeEvent(color);
+    }
+  }]);
+  return EmbedColorPicker;
+}(UIElement);
+
+function isUndefined$2(value) {
+    return typeof value == 'undefined' || value === null;
+}
+
+function isNotUndefined(value) {
+    return isUndefined$2(value) === false;
+}
+
+
+
+
+
+function isString$1(value) {
+    return typeof value == 'string';
+}
+
+
+
+
+
+function isFunction(value) {
+    return typeof value == 'function';
+}
+
+function isNumber(value) {
+    return typeof value == 'number';
+}
+
+function _traverse(obj) {
+  var results = [];
+
+  obj.layers.length && obj.layers.forEach(function (it) {
+    results.push.apply(results, toConsumableArray(_traverse(it)));
+  });
+
+  results.push(obj);
+
+  return results;
+}
+
+var Item = function () {
+  function Item() {
+    var _this = this;
+
+    var json = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    classCallCheck(this, Item);
+
+    if (json instanceof Item) {
+      json = json.toJSON();
+    }
+    this.json = this.convert(_extends({}, this.getDefaultObject(), json));
+
+    this.ref = new Proxy(this, {
+      get: function get$$1(target, key) {
+        var originMethod = target[key];
+        if (isFunction(originMethod)) {
+          // method tracking
+          return function () {
+            for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+              args[_key] = arguments[_key];
+            }
+
+            return originMethod.apply(target, args);
+          };
+        } else {
+          // getter or json property
+          return originMethod || target.json[key];
+        }
+      },
+      set: function set$$1(target, key, value) {
+        // Dom 객체가 오면 자동으로 입력 해줌
+        if (value && value.realVal && isFunction(value.realVal)) {
+          value = value.realVal();
+        }
+
+        if (_this.checkField(key, value)) {
+          target.json[key] = value;
+        } else {
+          throw new Error(value + " is invalid as " + key + " property value.");
+        }
+
+        return true;
+      }
+    });
+
+    return this.ref;
+  }
+
+  /***********************************
+   *
+   * override
+   *
+   **********************************/
+
+  createClass(Item, [{
+    key: "getDefaultTitle",
+    value: function getDefaultTitle() {
+      return "Item";
+    }
+
+    /**
+     * check attribute object
+     */
+
+  }, {
+    key: "isAttribute",
+    value: function isAttribute() {
+      return false;
+    }
+
+    /***********************************
+     *
+     * getter
+     *
+     **********************************/
+
+  }, {
+    key: "is",
+    value: function is() {
+      if (!this.json) return false;
+
+      for (var _len2 = arguments.length, itemType = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        itemType[_key2] = arguments[_key2];
+      }
+
+      return itemType.indexOf(this.json.itemType) > -1;
+    }
+
+    /***********************************
+     *
+     * action
+     *
+     **********************************/
+
+    /**
+     * when json is loaded, json object is be a new instance
+     *
+     * @param {*} json
+     */
+
+  }, {
+    key: "convert",
+    value: function convert(json) {
+
+      return json;
+    }
+
+    /**
+     * defence to set invalid key-value
+     *
+     * @param {*} key
+     * @param {*} value
+     */
+
+  }, {
+    key: "checkField",
+    value: function checkField(key, value) {
+      return true;
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+      var json = {
+        itemType: this.json.itemType,
+        type: this.json.type,
+        selected: this.json.selected
+      };
+
+      return json;
+    }
+
+    /**
+     * clone Item
+     */
+
+  }, {
+    key: "clone",
+    value: function clone$$1() {
+
+      var ItemClass = this.constructor;
+
+      // 클론을 할 때 꼭 부모 참조를 넘겨줘야 한다. 
+      // 그렇지 않으면 screenX, Y 에 대한 값을 계산할 수가 없다. 
+      var item = new ItemClass(this.toCloneObject());
+      item.parent = this.json.parent;
+
+      return item;
+    }
+
+    /**
+     * set json content
+     *
+     * @param {object} obj
+     */
+
+  }, {
+    key: "reset",
+    value: function reset(obj) {
+      if (obj instanceof Item) {
+        obj = obj.toJSON();
+      }
+
+      this.json = this.convert(_extends({}, this.json, obj));
+    }
+
+    /**
+     * define defaut object for item
+     *
+     * @param {object} obj
+     */
+
+  }, {
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return _extends({
+        // id: uuidShort(),
+        selected: false, // 선택 여부 체크 
+        type: '',
+        itemType: ''
+      }, obj);
+    }
+  }, {
+    key: "add",
+    value: function add(layer) {
+      this.json.layers.push(layer);
+      layer.parent = this.ref;
+      return layer;
+    }
+
+    /**
+     * toggle item's attribute
+     *
+     * @param {*} field
+     * @param {*} toggleValue
+     */
+
+  }, {
+    key: "toggle",
+    value: function toggle(field, toggleValue) {
+      if (isUndefined$2(toggleValue)) {
+        this.json[field] = !this.json[field];
+      } else {
+        this.json[field] = !!toggleValue;
+      }
+    }
+
+    /**
+     * convert to json
+     */
+
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      return this.json;
+    }
+  }, {
+    key: "resize",
+    value: function resize() {}
+  }, {
+    key: "copy",
+    value: function copy() {
+      this.json.parent.copyItem(this.ref);
+    }
+  }, {
+    key: "copyItem",
+    value: function copyItem(childItem) {
+      // clone 을 어떻게 해야하나? 
+
+      var child = childItem.clone();
+
+      child.width.add(10);
+      child.width.add(10);
+
+      var layers = this.json.layers;
+
+      var childIndex = -1;
+      for (var i = 0, len = layers.length; i < len; i++) {
+        if (layers[i] === childItem) {
+          childIndex = i;
+          break;
+        }
+      }
+
+      if (childIndex > -1) {
+        this.json.layers.splice(childIndex, 0, child);
+      }
+    }
+  }, {
+    key: "remove",
+    value: function remove() {
+      this.json.parent.removeItem(this.ref);
+    }
+  }, {
+    key: "removeItem",
+    value: function removeItem(childItem) {
+      var layers = this.json.layers;
+
+      var childIndex = -1;
+      for (var i = 0, len = layers.length; i < len; i++) {
+        if (layers[i] === childItem) {
+          childIndex = i;
+          break;
+        }
+      }
+
+      if (childIndex > -1) {
+        this.json.layers.splice(childIndex, 1);
+      }
+    }
+  }, {
+    key: "title",
+    get: function get$$1() {
+      return this.json.name || this.getDefaultTitle();
+    }
+
+    /**
+     * get id
+     */
+
+  }, {
+    key: "id",
+    get: function get$$1() {
+      return this.json.id;
+    }
+  }, {
+    key: "layers",
+    get: function get$$1() {
+      return this.json.layers;
+    }
+  }, {
+    key: "parent",
+    get: function get$$1() {
+      return this.json.parent;
+    }
+  }, {
+    key: "html",
+    get: function get$$1() {
+      var _json = this.json,
+          elementType = _json.elementType,
+          id = _json.id,
+          layers = _json.layers,
+          itemType = _json.itemType;
+
+
+      var tagName = elementType || 'div';
+
+      return "\n    <" + tagName + " class='element-item " + itemType + "' data-id=\"" + id + "\">\n      " + layers.map(function (it) {
+        return it.html;
+      }).join('') + "\n    </" + tagName + ">\n    ";
+    }
+  }, {
+    key: "allLayers",
+    get: function get$$1() {
+      return [].concat(toConsumableArray(_traverse(this.ref)));
+    }
+  }]);
+  return Item;
+}();
+
+var ImageResource = function (_Item) {
+  inherits(ImageResource, _Item);
+
+  function ImageResource() {
+    classCallCheck(this, ImageResource);
+    return possibleConstructorReturn(this, (ImageResource.__proto__ || Object.getPrototypeOf(ImageResource)).apply(this, arguments));
+  }
+
+  createClass(ImageResource, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return get(ImageResource.prototype.__proto__ || Object.getPrototypeOf(ImageResource.prototype), "getDefaultObject", this).call(this, _extends({
+        itemType: "image-resource",
+        type: "image"
+      }, obj));
+    }
+  }, {
+    key: "isGradient",
+    value: function isGradient() {
+      return false;
+    }
+  }, {
+    key: "isLinear",
+    value: function isLinear() {
+      return false;
+    }
+  }, {
+    key: "isRadial",
+    value: function isRadial() {
+      return false;
+    }
+  }, {
+    key: "isConic",
+    value: function isConic() {
+      return false;
+    }
+  }, {
+    key: "isStatic",
+    value: function isStatic() {
+      return false;
+    }
+  }, {
+    key: "isImage",
+    value: function isImage() {
+      return false;
+    }
+  }, {
+    key: "hasAngle",
+    value: function hasAngle() {
+      return false;
+    }
+  }, {
+    key: "isUrl",
+    value: function isUrl() {
+      return false;
+    }
+  }, {
+    key: "isFile",
+    value: function isFile() {
+      return false;
+    }
+  }, {
+    key: "isAttribute",
+    value: function isAttribute() {
+      return true;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return "none";
+    }
+  }]);
+  return ImageResource;
+}(Item);
+
+var _stringToPercent = {
+  center: 50,
+  top: 0,
+  left: 0,
+  right: 100,
+  bottom: 100
+};
+
+var Position = function Position() {
+  classCallCheck(this, Position);
+};
+
+Position.CENTER = "center";
+Position.TOP = "top";
+Position.RIGHT = "right";
+Position.LEFT = "left";
+Position.BOTTOM = "bottom";
+
+var REG_CSS_UNIT = /([\d.]+)(px|pt|fr|r?em|deg|vh|vw|m?s|%|g?rad|turn)/gi;
+
+var Length = function () {
+  function Length() {
+    var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+    var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+    classCallCheck(this, Length);
+
+    this.value = value;
+    this.unit = unit;
+  }
+
+  createClass(Length, [{
+    key: Symbol.toPrimitive,
+    value: function value(hint) {
+      if (hint == "number") {
+        return this.value;
+      }
+
+      return this.toString();
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+
+      switch (this.unit) {
+        case 'string':
+        case 'number':
+          return this.value + '';
+        case 'var':
+          return "var(--" + this.value + ")";
+        case 'calc':
+          return "calc(" + this.value + ")";
+        default:
+          return this.value + this.unit;
+      }
+    }
+  }, {
+    key: "isUnitType",
+    value: function isUnitType(unit) {
+      return this.unit === unit;
+    }
+  }, {
+    key: "isCalc",
+    value: function isCalc() {
+      return this.isUnitType('calc');
+    }
+  }, {
+    key: "isFr",
+    value: function isFr() {
+      return this.isUnitType('fr');
+    }
+  }, {
+    key: "isPercent",
+    value: function isPercent() {
+      return this.isUnitType('%');
+    }
+  }, {
+    key: "isPx",
+    value: function isPx() {
+      return this.isUnitType('px');
+    }
+  }, {
+    key: "isEm",
+    value: function isEm() {
+      return this.isUnitType('em');
+    }
+  }, {
+    key: "isDeg",
+    value: function isDeg() {
+      return this.isUnitType('deg');
+    }
+  }, {
+    key: "isSecond",
+    value: function isSecond() {
+      return this.isUnitType('s');
+    }
+  }, {
+    key: "isMs",
+    value: function isMs() {
+      return this.isUnitType('ms');
+    }
+  }, {
+    key: "isNumber",
+    value: function isNumber$$1() {
+      return this.isUnitType('number');
+    }
+  }, {
+    key: "isString",
+    value: function isString() {
+      return this.isUnitType('');
+    }
+  }, {
+    key: "isVar",
+    value: function isVar() {
+      return this.isUnitType('--');
+    }
+  }, {
+    key: "set",
+    value: function set$$1(value) {
+      this.value = value;
+
+      return this;
+    }
+  }, {
+    key: "add",
+    value: function add(obj) {
+      this.value += +obj;
+      return this;
+    }
+  }, {
+    key: "sub",
+    value: function sub(obj) {
+      return this.add(-1 * obj);
+    }
+  }, {
+    key: "mul",
+    value: function mul(obj) {
+      this.value *= +obj;
+      return this;
+    }
+  }, {
+    key: "div",
+    value: function div(obj) {
+      this.value /= +obj;
+      return this;
+    }
+  }, {
+    key: "mod",
+    value: function mod(obj) {
+      this.value %= +obj;
+      return this;
+    }
+  }, {
+    key: "clone",
+    value: function clone$$1() {
+      return new Length(this.value, this.unit);
+    }
+  }, {
+    key: "getUnitName",
+    value: function getUnitName() {
+      return this.unit === "%" ? "percent" : this.unit;
+    }
+  }, {
+    key: "toJSON",
+    value: function toJSON() {
+      return { value: this.value, unit: this.unit };
+    }
+  }, {
+    key: "rate",
+    value: function rate(value) {
+      return value / this.value;
+    }
+  }, {
+    key: "stringToPercent",
+    value: function stringToPercent() {
+      if (isNotUndefined(_stringToPercent[this.value])) {
+        return Length.percent(_stringToPercent[this.value]);
+      }
+
+      return Length.percent(0);
+    }
+  }, {
+    key: "stringToEm",
+    value: function stringToEm(maxValue) {
+      return this.stringToPercent().toEm(maxValue);
+    }
+  }, {
+    key: "stringToPx",
+    value: function stringToPx(maxValue) {
+      return this.stringToPercent().toPx(maxValue);
+    }
+  }, {
+    key: "toPercent",
+    value: function toPercent(maxValue) {
+      var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 16;
+
+      if (this.isPercent()) {
+        return this;
+      } else if (this.isPx()) {
+        return Length.percent(this.value * 100 / maxValue);
+      } else if (this.isEm()) {
+        return Length.percent(this.value * fontSize * 100 / maxValue);
+      } else if (this.isString()) {
+        return this.stringToPercent(maxValue);
+      } else if (this.isDeg()) {
+        return Length.percent(this.value / 360 * 100);
+      }
+    }
+  }, {
+    key: "toEm",
+    value: function toEm(maxValue) {
+      var fontSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 16;
+
+      if (this.isPercent()) {
+        return Length.em(this.value / 100 * maxValue / fontSize);
+      } else if (this.isPx()) {
+        return Length.em(this.value / fontSize);
+      } else if (this.isEm()) {
+        return this;
+      } else if (this.isString()) {
+        return this.stringToEm(maxValue);
+      }
+    }
+  }, {
+    key: "toPx",
+    value: function toPx(maxValue) {
+      if (this.isPercent()) {
+        return Length.px(this.value / 100 * maxValue);
+      } else if (this.isPx()) {
+        return this;
+      } else if (this.isEm()) {
+        return Length.px(this.value / 100 * maxValue / 16);
+      } else if (this.isString()) {
+        return this.stringToPx(maxValue);
+      }
+    }
+  }, {
+    key: "toSecond",
+    value: function toSecond() {
+      if (this.isSecond()) {
+        return this;
+      } else if (this.isMs()) {
+        return Length.second(this.value / 1000);
+      }
+    }
+  }, {
+    key: "toMs",
+    value: function toMs() {
+      if (this.isSecond()) {
+        return Length.ms(this.value * 1000);
+      } else if (this.isMs()) {
+        return this;
+      }
+    }
+  }, {
+    key: "to",
+    value: function to(unit, maxValue) {
+      var fontSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 16;
+
+      if (unit === "px") {
+        return this.toPx(maxValue, fontSize);
+      } else if (unit === "%" || unit === "percent") {
+        return this.toPercent(maxValue, fontSize);
+      } else if (unit === "em") {
+        return this.toEm(maxValue, fontSize);
+      }
+    }
+  }, {
+    key: "toUnit",
+    value: function toUnit(unit) {
+      return new Length(this.value, unit);
+    }
+  }, {
+    key: "calculate",
+    value: function calculate(type, dist) {
+      var func = this[type];
+
+      if (func) {
+        return func.call(this, dist);
+      }
+
+      return this;
+    }
+  }, {
+    key: "includes",
+    value: function includes() {
+      for (var _len = arguments.length, arr = Array(_len), _key = 0; _key < _len; _key++) {
+        arr[_key] = arguments[_key];
+      }
+
+      return arr.includes(this.value);
+    }
+  }, {
+    key: "round",
+    value: function round$$1(k) {
+      return new Length(round(this.value, k), this.unit);
+    }
+  }, {
+    key: "equals",
+    value: function equals(t) {
+      return this.value === t.value && this.unit === t.unit;
+    }
+  }], [{
+    key: "min",
+    value: function min() {
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      var min = args.shift();
+
+      for (var i = 0, len = args.length; i < len; i++) {
+        if (min.value > args[i].value) {
+          min = args[i];
+        }
+      }
+
+      return min;
+    }
+  }, {
+    key: "max",
+    value: function max() {
+      for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+      }
+
+      var max = args.shift();
+
+      for (var i = 0, len = args.length; i < len; i++) {
+        if (max.value < args[i].value) {
+          max = args[i];
+        }
+      }
+
+      return max;
+    }
+  }, {
+    key: "string",
+    value: function string(value) {
+      return new Length(value + "", "");
+    }
+  }, {
+    key: "number",
+    value: function number(value) {
+      return new Length(+value, 'number');
+    }
+  }, {
+    key: "px",
+    value: function px(value) {
+      return new Length(+value, "px");
+    }
+  }, {
+    key: "em",
+    value: function em(value) {
+      return new Length(+value, "em");
+    }
+  }, {
+    key: "percent",
+    value: function percent(value) {
+      return new Length(+value, "%");
+    }
+  }, {
+    key: "deg",
+    value: function deg(value) {
+      return new Length(+value, "deg");
+    }
+  }, {
+    key: "fr",
+    value: function fr(value) {
+      return new Length(+value, "fr");
+    }
+  }, {
+    key: "second",
+    value: function second(value) {
+      return new Length(+value, 's');
+    }
+  }, {
+    key: "ms",
+    value: function ms(value) {
+      return new Length(+value, 'ms');
+    }
+  }, {
+    key: "var",
+    value: function _var(value) {
+      return new Length(value + '', '--');
+    }
+
+    /**
+     * return calc()  css fuction string
+     *
+     * Length.calc(`${Length.percent(100)} - ${Length.px(10)}`)
+     *
+     * @param {*} str
+     */
+
+  }, {
+    key: "calc",
+    value: function calc(str) {
+      return new Length(str, "calc");
+    }
+  }, {
+    key: "parse",
+    value: function parse(obj) {
+      if (isString$1(obj)) {
+        if (obj.indexOf("calc(") > -1) {
+          return new Length(obj.split("calc(")[1].split(")")[0], "calc");
+        } else {
+          var arr = obj.replace(REG_CSS_UNIT, "$1 $2").split(" ");
+          var isNumberString = +arr[0] == arr[0];
+          if (isNumberString) {
+            return new Length(+arr[0], arr[1]);
+          } else {
+            return new Length(arr[0]);
+          }
+        }
+      }
+
+      if (obj instanceof Length) {
+        return obj;
+      } else if (obj.unit) {
+        if (obj.unit == "%" || obj.unit == "percent") {
+          var value = 0;
+
+          if (isNotUndefined(obj.percent)) {
+            value = obj.percent;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.percent(value);
+        } else if (obj.unit == "px") {
+          var value = 0;
+
+          if (isNotUndefined(obj.px)) {
+            value = obj.px;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.px(value);
+        } else if (obj.unit == "em") {
+          var value = 0;
+
+          if (isNotUndefined(obj.em)) {
+            value = obj.em;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.em(value);
+        } else if (obj.unit == "deg") {
+          var value = 0;
+
+          if (isNotUndefined(obj.deg)) {
+            value = obj.deg;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.deg(value);
+        } else if (obj.unit == "s") {
+          var value = 0;
+
+          if (isNotUndefined(obj.second)) {
+            value = obj.second;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.second(value);
+        } else if (obj.unit == "ms") {
+          var value = 0;
+
+          if (isNotUndefined(obj.ms)) {
+            value = obj.ms;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.ms(value);
+        } else if (obj.unit == "number") {
+          var value = 0;
+
+          if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.number(value);
+        } else if (obj.unit == "--") {
+          var value = 0;
+
+          if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.var(value);
+        } else if (obj.unit === "" || obj.unit === "string") {
+          var value = "";
+
+          if (isNotUndefined(obj.str)) {
+            value = obj.str;
+          } else if (isNotUndefined(obj.value)) {
+            value = obj.value;
+          }
+
+          return Length.string(value);
+        }
+      }
+
+      return Length.string(obj);
+    }
+  }]);
+  return Length;
+}();
+
+Length.auto = Length.string("auto");
+
+var ColorStep = function (_Item) {
+  inherits(ColorStep, _Item);
+
+  function ColorStep() {
+    classCallCheck(this, ColorStep);
+    return possibleConstructorReturn(this, (ColorStep.__proto__ || Object.getPrototypeOf(ColorStep)).apply(this, arguments));
+  }
+
+  createClass(ColorStep, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      return get(ColorStep.prototype.__proto__ || Object.getPrototypeOf(ColorStep.prototype), "getDefaultObject", this).call(this, {
+        cut: false,
+        percent: 0,
+        unit: "%",
+        px: 0,
+        em: 0,
+        color: "rgba(0, 0, 0, 0)",
+        prevColorStep: null
+      });
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+      return _extends({}, get(ColorStep.prototype.__proto__ || Object.getPrototypeOf(ColorStep.prototype), "toCloneObject", this).call(this), {
+        cut: this.json.cut,
+        percent: this.json.percent,
+        unit: this.json.unit,
+        px: this.json.px,
+        em: this.json.em,
+        color: this.json.color
+      });
+    }
+  }, {
+    key: "on",
+    value: function on() {
+      this.json.cut = true;
+    }
+  }, {
+    key: "off",
+    value: function off() {
+      this.json.cut = false;
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      this.json.cut = !this.json.cut;
+    }
+  }, {
+    key: "getUnit",
+    value: function getUnit() {
+      return this.json.unit == "%" ? "percent" : this.json.unit;
+    }
+  }, {
+    key: "add",
+    value: function add(num) {
+      var unit = this.getUnit();
+      this.json[unit] += +num;
+
+      return this;
+    }
+  }, {
+    key: "sub",
+    value: function sub(num) {
+      var unit = this.getUnit();
+      this.json[unit] -= +num;
+
+      return this;
+    }
+  }, {
+    key: "mul",
+    value: function mul(num) {
+      var unit = this.getUnit();
+      this.json[unit] *= +num;
+
+      return this;
+    }
+  }, {
+    key: "div",
+    value: function div(num) {
+      var unit = this.getUnit();
+      this.json[unit] /= +num;
+
+      return this;
+    }
+  }, {
+    key: "mod",
+    value: function mod(num) {
+      var unit = this.getUnit();
+      this.json[unit] %= +num;
+
+      return this;
+    }
+  }, {
+    key: "toLength",
+
+
+    /**
+     * convert Length instance
+     * @return {Length}
+     */
+    value: function toLength(maxValue) {
+      // TODO: apply maxValue
+      return Length.parse(this.json);
+    }
+  }, {
+    key: "getPrevLength",
+    value: function getPrevLength() {
+      if (!this.json.prevColorStep) return '';
+
+      return this.json.prevColorStep.toLength();
+    }
+
+    /**
+     * get color string
+     *
+     * return {string}
+     */
+
+  }, {
+    key: "toString",
+    value: function toString() {
+      var prev = this.json.cut ? this.getPrevLength() : '';
+      return this.json.color + " " + prev + " " + this.toLength();
+    }
+  }, {
+    key: "reset",
+    value: function reset(json) {
+      get(ColorStep.prototype.__proto__ || Object.getPrototypeOf(ColorStep.prototype), "reset", this).call(this, json);
+      if (this.parent()) {
+        this.parent().sortColorStep();
+      }
+    }
+  }, {
+    key: "isPx",
+    get: function get$$1() {
+      return this.json.unit == "px";
+    }
+  }, {
+    key: "isPercent",
+    get: function get$$1() {
+      return this.json.unit == "%" || this.json.unit === "percent";
+    }
+  }, {
+    key: "isEm",
+    get: function get$$1() {
+      return this.json.unit == "em";
+    }
+  }], [{
+    key: "parse",
+    value: function parse$$1(colorStepString) {
+      var colorsteps = [];
+
+      var results = convertMatches(colorStepString);
+
+      var arr = results.str.split(' ').filter(function (it) {
+        return it.trim();
+      });
+      var colorIndex = +arr[0].replace("@", "");
+      var color = results.matches[colorIndex].color;
+
+      if (arr.length === 1) {
+        colorsteps.push(new ColorStep({
+          color: color,
+          unit: "%",
+          percent: 0
+        }));
+      } else if (arr.length === 2) {
+        var len = Length.parse(arr[1]);
+
+        var data = { unit: len.unit };
+
+        if (len.isPercent()) {
+          data.percent = len.value;
+        } else if (len.isPx()) {
+          data.px = len.value;
+        } else if (len.isEm()) {
+          data.em = len.value;
+        }
+
+        colorsteps.push(new ColorStep(_extends({ color: color }, data)));
+      } else if (arr.length === 3) {
+        [1, 2].forEach(function (index) {
+          var len = Length.parse(arr[index]);
+
+          var data = { unit: len.unit };
+
+          if (len.isPercent()) {
+            data.percent = len.value;
+          } else if (len.isPx()) {
+            data.px = len.value;
+          } else if (len.isEm()) {
+            data.em = len.value;
+          }
+
+          colorsteps.push(new ColorStep(_extends({ color: color }, data)));
+        });
+      }
+
+      return colorsteps;
+    }
+  }]);
+  return ColorStep;
+}(Item);
+
+var DEFINED_ANGLES = {
+  "to top": 0,
+  "to top right": 45,
+  "to right": 90,
+  "to bottom right": 135,
+  "to bottom": 180,
+  "to bottom left": 225,
+  "to left": 270,
+  "to top left": 315
+};
+
+var Gradient = function (_ImageResource) {
+  inherits(Gradient, _ImageResource);
+
+  function Gradient() {
+    classCallCheck(this, Gradient);
+    return possibleConstructorReturn(this, (Gradient.__proto__ || Object.getPrototypeOf(Gradient)).apply(this, arguments));
+  }
+
+  createClass(Gradient, [{
+    key: "isGradient",
+    value: function isGradient() {
+      return true;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return "none";
+    }
+
+    /**
+     * colorsteps = [
+     *    new ColorStep({color: 'red', percent: 0}),
+     *    new ColorStep({color: 'red', percent: 0})
+     * ]
+     *
+     * @param {*} obj
+     */
+
+  }, {
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return get(Gradient.prototype.__proto__ || Object.getPrototypeOf(Gradient.prototype), "getDefaultObject", this).call(this, _extends({
+        type: "gradient",
+        colorsteps: []
+      }, obj));
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+      return _extends({}, get(Gradient.prototype.__proto__ || Object.getPrototypeOf(Gradient.prototype), "toCloneObject", this).call(this), {
+        colorsteps: this.json.colorsteps.map(function (color) {
+          return color.clone();
+        })
+      });
+    }
+  }, {
+    key: "convert",
+    value: function convert(json) {
+      json.colorsteps = json.colorsteps.map(function (c) {
+        return new ColorStep(c);
+      });
+
+      return json;
+    }
+  }, {
+    key: "calculateAngle",
+    value: function calculateAngle() {
+      var angle = this.json.angle;
+      return isUndefined$2(DEFINED_ANGLES[angle]) ? angle : DEFINED_ANGLES[angle] || 0;
+    }
+
+    /**
+     * add ColorStep
+     *
+     * @param {ColorStep} colorstep
+     * @param {boolean} isSort
+     */
+
+  }, {
+    key: "addColorStep",
+    value: function addColorStep(colorstep) {
+      var isSort = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      this.json.colorsteps.push(colorstep);
+
+      if (isSort) this.sortColorStep();
+
+      return colorstep;
+    }
+  }, {
+    key: "insertColorStep",
+    value: function insertColorStep(percent) {
+      var startColor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "rgba(216,216,216,0)";
+      var endColor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "rgba(216,216,216,1)";
+
+      var colorsteps = this.colorsteps;
+      if (!colorsteps.length) {
+        this.addColorStepList([new ColorStep({ color: startColor, percent: percent, index: 0 }), new ColorStep({ color: endColor, percent: 100, index: 100 })]);
+        return;
+      }
+
+      if (percent < colorsteps[0].percent) {
+        colorsteps[0].index = 1;
+
+        this.addColorStep(new ColorStep({ index: 0, color: colorsteps[0].color, percent: percent }));
+        return;
+      }
+
+      var lastIndex = colorsteps.length - 1;
+      if (colorsteps[lastIndex].percent < percent) {
+        var color = colorsteps[lastIndex].color;
+        var index = colorsteps[lastIndex].index + 1;
+
+        this.addColorStep(new ColorStep({ index: index, color: color, percent: percent }));
+
+        return;
+      }
+
+      for (var i = 0, len = colorsteps.length - 1; i < len; i++) {
+        var step = colorsteps[i];
+        var nextStep = colorsteps[i + 1];
+
+        if (step.percent <= percent && percent <= nextStep.percent) {
+          var color = Color.mix(step.color, nextStep.color, (percent - step.percent) / (nextStep.percent - step.percent), "rgb");
+
+          this.addColorStep(new ColorStep({ index: step.index + 1, color: color, percent: percent }));
+
+          return;
+        }
+      }
+    }
+  }, {
+    key: "sortColorStep",
+    value: function sortColorStep() {
+      var children = this.colorsteps;
+
+      children.sort(function (a, b) {
+        if (a.percent > b.percent) return 1;
+        if (a.percent < b.percent) return -1;
+        if (a.percent == b.percent) {
+          if (a.index === b.index) return 0;
+          return a.index > b.index ? 1 : -1;
+        }
+      });
+
+      children.forEach(function (it, index) {
+        it.index = index * 100;
+      });
+    }
+
+    /**
+     * add ColorStep List
+     * @param {Array<ColorStep>} colorstepList
+     */
+
+  }, {
+    key: "addColorStepList",
+    value: function addColorStepList() {
+      var _this2 = this;
+
+      var colorstepList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+      colorstepList.forEach(function (c) {
+        _this2.addColorStep(c, false);
+      });
+
+      this.sortColorStep();
+    }
+
+    /**
+     * get color step by id
+     *
+     * @param {string} id
+     */
+
+  }, {
+    key: "getColorStep",
+    value: function getColorStep(id) {
+      return this.json.colorsteps.filter(function (c) {
+        return c.id == id;
+      })[0];
+    }
+  }, {
+    key: "clear",
+    value: function clear() {
+      if (arguments.length) {
+        this.json.colorsteps.splice(+(arguments.length <= 0 ? undefined : arguments[0]), 1);
+      } else {
+        this.json.colorsteps = [];
+      }
+    }
+
+    /**
+     * get colorstep list
+     *
+     * @return {Array<ColorStep>}
+     */
+
+  }, {
+    key: "getColorString",
+
+
+    /**
+     * get color string
+     *
+     * @return {string}
+     */
+    value: function getColorString() {
+      var colorsteps = this.colorsteps;
+      if (!colorsteps.length) return '';
+
+      var newColors = colorsteps.map(function (c, index) {
+        c.prevColorStep = c.cut && index > 0 ? colorsteps[index - 1] : null;
+        return c;
+      });
+
+      return newColors.map(function (f) {
+        return "" + f;
+      }).join(",");
+    }
+  }, {
+    key: "colorsteps",
+    get: function get$$1() {
+      return this.json.colorsteps;
+    }
+  }], [{
+    key: "random",
+    value: function random() {
+      var angle = Math.floor(Math.random() * 1000) % 360;
+      return "linear-gradient(" + angle + "deg, " + Color.random() + " 0%, " + Color.random() + " 100%)";
+    }
+  }]);
+  return Gradient;
+}(ImageResource);
+
+var radialTypeList = ['circle', 'circle closest-side', 'circle closest-corner', 'circle farthest-side', 'circle farthest-corner', 'ellipse', 'ellipse closest-side', 'ellipse closest-corner', 'ellipse farthest-side', 'ellipse farthest-corner'];
+
+var GradientEditor = function (_UIElement) {
+  inherits(GradientEditor, _UIElement);
+
+  function GradientEditor() {
+    classCallCheck(this, GradientEditor);
+    return possibleConstructorReturn(this, (GradientEditor.__proto__ || Object.getPrototypeOf(GradientEditor)).apply(this, arguments));
+  }
+
+  createClass(GradientEditor, [{
+    key: "initialize",
+    value: function initialize() {
+      get(GradientEditor.prototype.__proto__ || Object.getPrototypeOf(GradientEditor.prototype), "initialize", this).call(this);
+
+      var colorsteps = [{ offset: Length.percent(0), cut: false, color: 'yellow' }, { offset: Length.percent(100), cut: false, color: 'red' }];
+
+      this.type = 'linear-gradient';
+      this.index = 0;
+      this.colorsteps = colorsteps;
+      this.radialPosition = [Length.percent(50), Length.percent(50)];
+      this.radialType = 'ellipse';
+    }
+  }, {
+    key: '@setGradientEditor',
+    value: function setGradientEditor(str) {
+      var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'linear-gradient';
+      var angle = arguments[3];
+      var radialPosition = arguments[4];
+      var radialType = arguments[5];
+
+      var results = convertMatches(str);
+      var colorsteps = results.str.split(',').map(function (it) {
+        return it.trim();
+      }).map(function (it) {
+        var _it$split$filter = it.split(' ').filter(function (str) {
+          return str.length;
+        }),
+            _it$split$filter2 = slicedToArray(_it$split$filter, 3),
+            color = _it$split$filter2[0],
+            offset1 = _it$split$filter2[1],
+            offset2 = _it$split$filter2[2];
+
+        color = reverseMatches(color, results.matches);
+        var cut = false;
+        if (offset2) {
+          cut = true;
+        }
+
+        var offset = cut ? Length.parse(offset2) : Length.parse(offset1);
+
+        if (offset.isDeg()) {
+          offset = Length.percent(offset.value / 360 * 100);
+        }
+
+        return { color: color, offset: offset, cut: cut };
+      });
+
+      if (colorsteps.length == 1) {
+        colorsteps.push({
+          color: colorsteps[0].color,
+          offset: Length.percent(100),
+          cut: false
+        });
+      }
+
+      this.cachedStepListRect = null;
+
+      this.colorsteps = colorsteps;
+      this.index = index;
+      this.type = type;
+      this.angle = Length.parse(angle || '90deg');
+      this.radialPosition = radialPosition || [Length.percent(50), Length.percent(50)];
+      this.radialType = radialType;
+
+      this.refresh();
+
+      this.selectStep(index);
+
+      this.reloadInputValue();
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      var _this2 = this;
+
+      return "\n        <div class='gradient-editor' data-selected-editor='" + this.type + "'>\n            <div class='gradient-steps' data-editor='gradient'>\n                <div class=\"hue-container\" ref=\"$back\"></div>            \n                <div class=\"hue\" ref=\"$steps\">\n                    <div class='step-list' ref=\"$stepList\" ></div>\n                </div>\n            </div>\n            <div class='tools' data-editor='tools'>\n              <label>Offset <input type='checkbox' ref='$cut' checked />  connected</label>\n              <div class='unit'>\n                <div><input type='range' data-key='length' min='0' max=\"100\" step='0.1' ref='$offset' /></div>\n                <div><input type='number' data-key='length' min='0' max=\"100\" step='0.1' ref='$offsetNumber' /></div>              \n                <div><select ref='$offsetSelect'>\n                  <option value='%'>%</option>\n                  <option value='px'>px</option>\n                  <option value='em'>em</option>\n                </select></div>\n              </div>\n            </div>\n            <div class='sub-editor' ref='$subEditor'> \n              <div data-editor='angle'>\n                <label>Angle</label>\n                <div class='unit'>                \n                  <div><input type='range' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angle' /> </div>\n                  <div><input type='number' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angleNumber' /></div> \n                  <span>deg</span>\n                </div>\n              </div>\n              <div data-editor='centerX'>\n                <label>Center X</label>\n                <div class='unit'>\n                  <div><input type='range' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerX' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerXNumber' /></div>\n                  <div><select ref='$centerXSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='centerY'>           \n                <label>Center Y</label>                 \n                <div class='unit'>\n                  <div><input type='range' data-key='centerY' min='-100' max=\"100\" step='0.1' ref='$centerY' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerYNumber' /></div>\n                  <div><select ref='$centerYSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='radialType'>       \n                <label>Radial Type</label>              \n                <div><select ref='$radialType'>\n                  " + radialTypeList.map(function (k) {
+        var selected = _this2.radialType === k ? 'selected' : '';
+        return "<option value=\"" + k + "\" " + selected + ">" + k + "</option>";
+      }).join('') + "\n                </select></div>\n              </div>\n            </div>            \n        </div>\n      ";
+    }
+  }, {
+    key: 'input $offset',
+    value: function input$offset(e) {
+      this.refs.$offsetNumber.val(this.refs.$offset.val());
+      this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
+    }
+  }, {
+    key: 'input $offsetNumber',
+    value: function input$offsetNumber(e) {
+      this.refs.$offset.val(this.refs.$offsetNumber.val());
+      this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
+    }
+  }, {
+    key: 'input $angle',
+    value: function input$angle(e) {
+      this.refs.$angleNumber.val(this.refs.$angle.val());
+      this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()));
+    }
+  }, {
+    key: 'input $angleNumber',
+    value: function input$angleNumber(e) {
+      this.refs.$angle.val(this.refs.$angleNumber.val());
+      this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()));
+    }
+  }, {
+    key: 'input $centerX',
+    value: function input$centerX(e) {
+      this.refs.$centerXNumber.val(this.refs.$centerX.val());
+      this['@changeKeyValue']('radialPositionX');
+    }
+  }, {
+    key: 'input $centerXNumber',
+    value: function input$centerXNumber(e) {
+      this.refs.$centerX.val(this.refs.$centerXNumber.val());
+      this['@changeKeyValue']('radialPositionX');
+    }
+  }, {
+    key: 'input $centerY',
+    value: function input$centerY(e) {
+      this.refs.$centerYNumber.val(this.refs.$centerY.val());
+      this['@changeKeyValue']('radialPositionY');
+    }
+  }, {
+    key: 'input $centerYNumber',
+    value: function input$centerYNumber(e) {
+      this.refs.$centerY.val(this.refs.$centerYNumber.val());
+      this['@changeKeyValue']('radialPositionX');
+    }
+  }, {
+    key: 'change $centerXSelect',
+    value: function change$centerXSelect(e) {
+
+      this['@changeKeyValue']('radialPositionX');
+    }
+  }, {
+    key: 'change $centerYSelect',
+    value: function change$centerYSelect(e) {
+      this['@changeKeyValue']('radialPositionY');
+    }
+  }, {
+    key: 'change $radialType',
+    value: function change$radialType(e) {
+      this['@changeKeyValue']('radialType', this.refs.$radialType.val());
+    }
+  }, {
+    key: '@changeKeyValue',
+    value: function changeKeyValue(key, value) {
+
+      if (key === 'angle') {
+        value = value.value;
+      }
+
+      if (key === 'radialPositionX' || key === 'radialPositionY') {
+        this['radialPosition'] = [this.radialPositionX, this.radialPositionY];
+      } else {
+        this[key] = value;
+      }
+
+      this.updateData();
+    }
+  }, {
+    key: '@changeColorStepOffset',
+    value: function changeColorStepOffset(key, value) {
+      if (this.currentStep) {
+        this.currentStep.offset = value.clone();
+        this.$currentStep.css({
+          left: this.currentStep.offset
+        });
+        this.setColorUI();
+        this.updateData();
+      }
+    }
+  }, {
+    key: 'click $back',
+    value: function click$back(e) {
+      if (this.startXY) return;
+
+      var rect = this.refs.$stepList.rect();
+
+      var minX = rect.x;
+      var maxX = rect.right;
+
+      var x = e.xy.x;
+
+      if (x < minX) x = minX;else if (x > maxX) x = maxX;
+      var percent = (x - minX) / rect.width * 100;
+
+      var list = this.colorsteps.map(function (it, index) {
+        return { index: index, color: it.color, offset: it.offset };
+      });
+
+      var prev = list.filter(function (it) {
+        return it.offset.value <= percent;
+      }).pop();
+      var next = list.filter(function (it) {
+        return it.offset.value >= percent;
+      }).shift();
+
+      if (prev && next) {
+        this.colorsteps.splice(next.index, 0, {
+          cut: false,
+          offset: Length.percent(percent),
+          color: Color.mix(prev.color, next.color, (percent - prev.offset.value) / (next.offset.value - prev.offset.value))
+        });
+      } else if (prev) {
+        this.colorsteps.splice(prev.index + 1, 0, {
+          cut: false,
+          offset: Length.percent(percent),
+          color: 'rgba(0, 0, 0, 1)'
+        });
+      } else if (next) {
+        this.colorsteps.splice(next.index - 1, 0, {
+          cut: false,
+          offset: Length.percent(percent),
+          color: 'rgba(0, 0, 0, 1)'
+        });
+      }
+
+      this.refresh();
+      this.updateData();
+    }
+  }, {
+    key: "reloadStepList",
+    value: function reloadStepList() {
+      this.refs.$stepList.html(this.colorsteps.map(function (it, index) {
+        return "<div class='step' data-index='" + index + "' data-cut='" + it.cut + "' style='left: " + it.offset + ";'>\n        <div class='color-view' style=\"background-color: " + it.color + "\"></div>\n        <div class='arrow' style=\"background-color: " + it.color + "\"></div>\n      </div>";
+      }).join(''));
+    }
+  }, {
+    key: 'click $cut',
+    value: function click$cut() {
+      if (this.currentStep) {
+        this.currentStep.cut = this.refs.$cut.checked();
+        this.$currentStep.attr('data-cut', this.currentStep.cut);
+        this.setColorUI();
+        this.updateData();
+      }
+    }
+  }, {
+    key: "selectStep",
+    value: function selectStep(index) {
+      this.index = index;
+      this.currentStep = this.colorsteps[index];
+      this.$currentStep = this.refs.$stepList.$("[data-index=\"" + index.toString() + "\"]");
+      if (this.$currentStep) {
+        this.$colorView = this.$currentStep.$('.color-view');
+        this.$arrow = this.$currentStep.$('.arrow');
+        this.refs.$cut.el.checked = this.currentStep.cut;
+      }
+      this.prev = this.colorsteps[index - 1];
+      this.next = this.colorsteps[index + 1];
+    }
+  }, {
+    key: 'mousedown $stepList .step',
+    value: function mousedown$stepListStep(e) {
+      var index = +e.$delegateTarget.attr('data-index');
+
+      this.selectStep(index);
+
+      this.startXY = e.xy;
+      this.$store.emit('selectColorStep', this.currentStep.color);
+      this.refs.$cut.checked(this.currentStep.cut);
+      this.refs.$offset.val(this.currentStep.offset.value);
+      this.refs.$stepList.attr('data-selected-index', index);
+      this.cachedStepListRect = this.refs.$stepList.rect();
+    }
+  }, {
+    key: "getStepListRect",
+    value: function getStepListRect() {
+      return this.cachedStepListRect;
+    }
+  }, {
+    key: 'mouseup document',
+    value: function mouseupDocument(e) {
+      if (this.startXY) {
+        this.startXY = null;
+      }
+    }
+  }, {
+    key: 'mousemove document',
+    value: function mousemoveDocument(e) {
+
+      if (!this.startXY) return;
+
+      var dx = e.xy.x - this.startXY.x;
+      var dy = e.xy.y - this.startXY.y;
+
+      var rect = this.getStepListRect();
+
+      var minX = rect.x;
+      var maxX = rect.right;
+
+      var x = this.startXY.x + dx;
+
+      if (x < minX) x = minX;else if (x > maxX) x = maxX;
+      var percent = (x - minX) / rect.width * 100;
+
+      if (this.prev) {
+        if (this.prev.offset.value > percent) {
+          percent = this.prev.offset.value;
+        }
+      }
+
+      if (this.next) {
+        if (this.next.offset.value < percent) {
+          percent = this.next.offset.value;
+        }
+      }
+
+      this.currentStep.offset.set(percent);
+      this.$currentStep.css({
+        left: Length.percent(percent)
+      });
+      this.refs.$offset.val(this.currentStep.offset.value);
+      this.setColorUI();
+      this.updateData();
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      this.reloadStepList();
+      this.setColorUI();
+    }
+  }, {
+    key: "getLinearGradient",
+    value: function getLinearGradient() {
+      var _this3 = this;
+
+      return "linear-gradient(to right, " + this.colorsteps.map(function (it, index) {
+
+        if (it.cut) {
+          var prev = _this3.colorsteps[index - 1];
+          if (prev) {
+            return it.color + " " + prev.offset + " " + it.offset;
+          } else {
+            return it.color + " " + it.offset;
+          }
+        } else {
+          return it.color + " " + it.offset;
+        }
+      }).join(',') + ")";
+    }
+  }, {
+    key: "setColorUI",
+    value: function setColorUI() {
+      this.refs.$stepList.css("background-image", this.getLinearGradient());
+      this.refs.$el.attr("data-selected-editor", this.type);
+    }
+  }, {
+    key: "reloadInputValue",
+    value: function reloadInputValue() {
+      this.refs.$offset.val(this.currentStep.offset.value);
+      this.refs.$offsetNumber.val(this.currentStep.offset.value);
+      this.refs.$offsetSelect.val(this.currentStep.offset.unit);
+
+      this.refs.$angle.val(this.angle.value);
+      this.refs.$angleNumber.val(this.angle.value);
+
+      this.refs.$centerX.val(this.radialPosition[0].value);
+      this.refs.$centerXNumber.val(this.radialPosition[0].value);
+      this.refs.$centerXSelect.val(this.radialPosition[0].unit);
+
+      this.refs.$centerY.val(this.radialPosition[1].value);
+      this.refs.$centerYNumber.val(this.radialPosition[1].value);
+      this.refs.$centerYSelect.val(this.radialPosition[1].unit);
+
+      this.refs.$radialType.val(this.radialType);
+    }
+  }, {
+    key: '@setColorStepColor',
+    value: function setColorStepColor(color) {
+
+      if (this.currentStep) {
+        this.currentStep.color = color;
+        this.$colorView.css({
+          'background-color': color
+        });
+        this.$arrow.css({
+          'background-color': color
+        });
+        this.setColorUI();
+        this.updateData();
+      }
+    }
+  }, {
+    key: "updateData",
+    value: function updateData() {
+
+      this.$store.emit('changeGradientEditor', {
+        type: this.type,
+        index: this.index,
+        angle: this.angle,
+        colorsteps: this.colorsteps,
+        radialPosition: this.radialPosition,
+        radialType: this.radialType
+      });
+    }
+  }, {
+    key: "radialPositionX",
+    get: function get$$1() {
+      return new Length(this.refs.$centerX.val(), this.refs.$centerXSelect.val());
+    }
+  }, {
+    key: "radialPositionY",
+    get: function get$$1() {
+      return new Length(this.refs.$centerY.val(), this.refs.$centerYSelect.val());
+    }
+  }]);
+  return GradientEditor;
+}(UIElement);
+
+var DEFINED_DIRECTIONS = {
+  "0": "to top",
+  "45": "to top right",
+  "90": "to right",
+  "135": "to bottom right",
+  "180": "to bottom",
+  "225": "to bottom left",
+  "270": "to left",
+  "315": "to top left"
+};
+
+var DEFINED_ANGLES$1 = {
+  "to top": "0",
+  "to top right": "45",
+  "to right": "90",
+  "to bottom right": "135",
+  "to bottom": "180",
+  "to bottom left": "225",
+  "to left": "270",
+  "to top left": "315"
+};
+
+var LinearGradient = function (_Gradient) {
+  inherits(LinearGradient, _Gradient);
+
+  function LinearGradient() {
+    classCallCheck(this, LinearGradient);
+    return possibleConstructorReturn(this, (LinearGradient.__proto__ || Object.getPrototypeOf(LinearGradient)).apply(this, arguments));
+  }
+
+  createClass(LinearGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return get(LinearGradient.prototype.__proto__ || Object.getPrototypeOf(LinearGradient.prototype), "getDefaultObject", this).call(this, _extends({
+        type: "linear-gradient",
+        angle: 0
+      }, obj));
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+      return _extends({}, get(LinearGradient.prototype.__proto__ || Object.getPrototypeOf(LinearGradient.prototype), "toCloneObject", this).call(this), {
+        angle: this.json.angle
+      });
+    }
+  }, {
+    key: "isLinear",
+    value: function isLinear() {
+      return true;
+    }
+  }, {
+    key: "hasAngle",
+    value: function hasAngle() {
+      return true;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      var colorString = this.getColorString();
+
+      var opt = '';
+      var angle = this.json.angle || 0;
+
+      opt = angle;
+
+      if (isNumber(opt)) {
+        opt = DEFINED_DIRECTIONS["" + opt] || opt;
+      }
+
+      if (isNumber(opt)) {
+        opt = opt > 360 ? opt % 360 : opt;
+
+        opt = opt + "deg";
+      }
+
+      var result = this.json.type + "(" + opt + ", " + colorString + ")";
+
+      return result;
+    }
+  }], [{
+    key: "toLinearGradient",
+    value: function toLinearGradient(colorsteps) {
+      if (colorsteps.length === 0) {
+        return "none";
+      }
+
+      var gradient = new LinearGradient({
+        angle: "to right",
+        colorsteps: colorsteps
+      });
+
+      return gradient + "";
+    }
+  }, {
+    key: "parse",
+    value: function parse$$1(str) {
+      var results = convertMatches(str);
+      var angle = 0;
+      var colorsteps = [];
+      results.str.split("(")[1].split(")")[0].split(",").map(function (it) {
+        return it.trim();
+      }).forEach(function (newValue, index) {
+        if (newValue.includes("@")) {
+          // color 복원
+          newValue = reverseMatches(newValue, results.matches);
+
+          // 나머지는 ColorStep 이 파싱하는걸로
+          // ColorStep 은 파싱이후 colorsteps 를 리턴해줌... 배열임, 명심 명심
+          colorsteps.push.apply(colorsteps, toConsumableArray(ColorStep.parse(newValue)));
+        } else {
+          // direction
+          angle = isUndefined$2(DEFINED_ANGLES$1[newValue]) ? Length.parse(newValue) : Length.deg(+DEFINED_ANGLES$1[newValue]);
+        }
+      });
+
+      return new LinearGradient({ angle: angle, colorsteps: colorsteps });
+    }
+  }]);
+  return LinearGradient;
+}(Gradient);
+
+var RepeatingLinearGradient = function (_LinearGradient) {
+  inherits(RepeatingLinearGradient, _LinearGradient);
+
+  function RepeatingLinearGradient() {
+    classCallCheck(this, RepeatingLinearGradient);
+    return possibleConstructorReturn(this, (RepeatingLinearGradient.__proto__ || Object.getPrototypeOf(RepeatingLinearGradient)).apply(this, arguments));
+  }
+
+  createClass(RepeatingLinearGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      return get(RepeatingLinearGradient.prototype.__proto__ || Object.getPrototypeOf(RepeatingLinearGradient.prototype), "getDefaultObject", this).call(this, {
+        type: "repeating-linear-gradient",
+        angle: 0
+      });
+    }
+  }], [{
+    key: "parse",
+    value: function parse(str) {
+      var linear = LinearGradient.parse(str);
+      return new RepeatingLinearGradient({
+        angle: linear.angle,
+        colorsteps: linear.colorsteps
+      });
+    }
+  }]);
+  return RepeatingLinearGradient;
+}(LinearGradient);
+
+var _DEFINED_POSITIONS;
+
+var DEFINED_POSITIONS = (_DEFINED_POSITIONS = {}, defineProperty(_DEFINED_POSITIONS, "center", true), defineProperty(_DEFINED_POSITIONS, "top", true), defineProperty(_DEFINED_POSITIONS, "left", true), defineProperty(_DEFINED_POSITIONS, "right", true), defineProperty(_DEFINED_POSITIONS, "bottom", true), _DEFINED_POSITIONS);
+
+var RadialGradient = function (_Gradient) {
+  inherits(RadialGradient, _Gradient);
+
+  function RadialGradient() {
+    classCallCheck(this, RadialGradient);
+    return possibleConstructorReturn(this, (RadialGradient.__proto__ || Object.getPrototypeOf(RadialGradient)).apply(this, arguments));
+  }
+
+  createClass(RadialGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return get(RadialGradient.prototype.__proto__ || Object.getPrototypeOf(RadialGradient.prototype), "getDefaultObject", this).call(this, _extends({
+        type: "radial-gradient",
+        radialType: "ellipse",
+        radialPosition: [Position.CENTER, Position.CENTER]
+      }, obj));
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+
+      var radialPosition = this.json.radialPosition || [Length.percent(50), Length.percent(50)];
+
+      return _extends({}, get(RadialGradient.prototype.__proto__ || Object.getPrototypeOf(RadialGradient.prototype), "toCloneObject", this).call(this), {
+        radialType: this.json.radialType || 'ellipse',
+        radialPosition: JSON.parse(JSON.stringify(radialPosition))
+      });
+    }
+  }, {
+    key: "isRadial",
+    value: function isRadial() {
+      return true;
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      var colorString = this.getColorString();
+      var json = this.json;
+      var opt = '';
+      var radialType = json.radialType;
+      var radialPosition = json.radialPosition || ["center", "center"];
+
+      radialPosition = DEFINED_POSITIONS[radialPosition] ? radialPosition : radialPosition.join(' ');
+
+      opt = radialPosition ? radialType + " at " + radialPosition : radialType;
+
+      return (json.type || "radial-gradient") + "(" + opt + ", " + colorString + ")";
+    }
+  }], [{
+    key: "parse",
+    value: function parse$$1(str) {
+      var results = convertMatches(str);
+      var radialType = "ellipse";
+      var radialPosition = [Position.CENTER, Position.CENTER];
+      var colorsteps = [];
+      results.str.split("(")[1].split(")")[0].split(",").map(function (it) {
+        return it.trim();
+      }).forEach(function (newValue, index) {
+        if (newValue.includes("@")) {
+          // color 복원
+          newValue = reverseMatches(newValue, results.matches);
+
+          // 나머지는 ColorStep 이 파싱하는걸로
+          // ColorStep 은 파싱이후 colorsteps 를 리턴해줌... 배열임, 명심 명심
+          colorsteps.push.apply(colorsteps, toConsumableArray(ColorStep.parse(newValue)));
+        } else {
+          // direction
+          if (newValue.includes("at")) {
+            var _newValue$split$map = newValue.split("at").map(function (it) {
+              return it.trim();
+            });
+            // at 이 있으면 radialPosition 이 있는 것임
+
+
+            var _newValue$split$map2 = slicedToArray(_newValue$split$map, 2);
+
+            radialType = _newValue$split$map2[0];
+            radialPosition = _newValue$split$map2[1];
+          } else {
+            // at 이 없으면 radialPosition 이 center, center 로 있음
+            radialType = newValue;
+          }
+
+          if (isString$1(radialPosition)) {
+            var arr = radialPosition.split(' ');
+            if (arr.length === 1) {
+              var len = Length.parse(arr[0]);
+
+              if (len.isString()) {
+                radialPosition = [len.value, len.value];
+              } else {
+                radialPosition = [len.clone(), len.clone()];
+              }
+            } else if (arr.length === 2) {
+              radialPosition = arr.map(function (it) {
+                var len = Length.parse(it);
+                return len.isString() ? len.value : len;
+              });
+            }
+          }
+        }
+      });
+
+      return new RadialGradient({ radialType: radialType, colorsteps: colorsteps });
+    }
+  }]);
+  return RadialGradient;
+}(Gradient);
+
+var RepeatingRadialGradient = function (_RadialGradient) {
+  inherits(RepeatingRadialGradient, _RadialGradient);
+
+  function RepeatingRadialGradient() {
+    classCallCheck(this, RepeatingRadialGradient);
+    return possibleConstructorReturn(this, (RepeatingRadialGradient.__proto__ || Object.getPrototypeOf(RepeatingRadialGradient)).apply(this, arguments));
+  }
+
+  createClass(RepeatingRadialGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      return get(RepeatingRadialGradient.prototype.__proto__ || Object.getPrototypeOf(RepeatingRadialGradient.prototype), "getDefaultObject", this).call(this, {
+        type: "repeating-radial-gradient"
+      });
+    }
+  }], [{
+    key: "parse",
+    value: function parse(str) {
+      var radial = RadialGradient.parse(str);
+
+      return new RepeatingRadialGradient({
+        radialType: radial.radialType,
+        radialPosition: radial.radialPosition,
+        colorsteps: radial.colorsteps
+      });
+    }
+  }]);
+  return RepeatingRadialGradient;
+}(RadialGradient);
+
+var _DEFINED_POSITIONS$1;
+
+var DEFINED_POSITIONS$1 = (_DEFINED_POSITIONS$1 = {}, defineProperty(_DEFINED_POSITIONS$1, "center", true), defineProperty(_DEFINED_POSITIONS$1, "top", true), defineProperty(_DEFINED_POSITIONS$1, "left", true), defineProperty(_DEFINED_POSITIONS$1, "right", true), defineProperty(_DEFINED_POSITIONS$1, "bottom", true), _DEFINED_POSITIONS$1);
+
+var DEFINED_ANGLES$2 = {
+  "to top": 0,
+  "to top right": 45,
+  "to right": 90,
+  "to bottom right": 135,
+  "to bottom": 180,
+  "to bottom left": 225,
+  "to left": 270,
+  "to top left": 315
+};
+
+var ConicGradient = function (_Gradient) {
+  inherits(ConicGradient, _Gradient);
+
+  function ConicGradient() {
+    classCallCheck(this, ConicGradient);
+    return possibleConstructorReturn(this, (ConicGradient.__proto__ || Object.getPrototypeOf(ConicGradient)).apply(this, arguments));
+  }
+
+  createClass(ConicGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      return get(ConicGradient.prototype.__proto__ || Object.getPrototypeOf(ConicGradient.prototype), "getDefaultObject", this).call(this, _extends({
+        type: "conic-gradient",
+        angle: 0,
+        radialPosition: [Position.CENTER, Position.CENTER]
+      }, obj));
+    }
+  }, {
+    key: "toCloneObject",
+    value: function toCloneObject() {
+      return _extends({}, get(ConicGradient.prototype.__proto__ || Object.getPrototypeOf(ConicGradient.prototype), "toCloneObject", this).call(this), {
+        angle: this.json.angle,
+        radialPosition: JSON.parse(JSON.stringify(this.json.radialPosition))
+      });
+    }
+  }, {
+    key: "isConic",
+    value: function isConic() {
+      return true;
+    }
+  }, {
+    key: "hasAngle",
+    value: function hasAngle() {
+      return true;
+    }
+  }, {
+    key: "getColorString",
+    value: function getColorString() {
+      var colorsteps = this.colorsteps;
+      if (!colorsteps) return '';
+
+      colorsteps.sort(function (a, b) {
+        if (a.percent == b.percent) return 0;
+        return a.percent > b.percent ? 1 : -1;
+      });
+
+      var newColors = colorsteps.map(function (c, index) {
+        c.prevColorStep = c.cut && index > 0 ? colorsteps[index - 1] : null;
+        return c;
+      });
+
+      return newColors.map(function (f) {
+        var deg = Math.floor(f.percent * 3.6);
+        var prev = '';
+
+        if (f.cut && f.prevColorStep) {
+          var prevDeg = Math.floor(f.prevColorStep.percent * 3.6);
+          prev = prevDeg + "deg";
+        }
+        return f.color + " " + prev + " " + deg + "deg";
+      }).join(",");
+    }
+  }, {
+    key: "toString",
+    value: function toString() {
+      var colorString = this.getColorString();
+
+      var opt = [];
+      var json = this.json;
+
+      var conicAngle = json.angle;
+      var conicPosition = json.radialPosition || Position.CENTER;
+
+      conicPosition = DEFINED_POSITIONS$1[conicPosition] ? conicPosition : conicPosition.join(' ');
+
+      if (isNotUndefined(conicAngle)) {
+        conicAngle = +(DEFINED_ANGLES$2[conicAngle] || conicAngle);
+        opt.push("from " + conicAngle + "deg");
+      }
+
+      if (conicPosition) {
+        opt.push("at " + conicPosition);
+      }
+
+      var optString = opt.length ? opt.join(' ') + "," : '';
+
+      return json.type + "(" + optString + " " + colorString + ")";
+    }
+  }], [{
+    key: "parse",
+    value: function parse$$1(str) {
+      var results = convertMatches(str);
+      var angle = "0deg"; //
+      var radialPosition = [Position.CENTER, Position.CENTER];
+      var colorsteps = [];
+      results.str.split("(")[1].split(")")[0].split(",").map(function (it) {
+        return it.trim();
+      }).forEach(function (newValue, index) {
+        if (newValue.includes("@")) {
+          // conic 은 최종 값이 deg 라  gradient 의 공통 영역을 위해서
+          // deg 르 % 로 미리 바꾸는 작업이 필요하다.
+          newValue = newValue.split(' ').map(function (it) {
+            return it.trim();
+          }).map(function (it) {
+            if (it.includes("deg")) {
+              return Length.parse(it).toPercent();
+            } else {
+              return it;
+            }
+          }).join(' ');
+
+          // color 복원
+          newValue = reverseMatches(newValue, results.matches);
+
+          // 나머지는 ColorStep 이 파싱하는걸로
+          // ColorStep 은 파싱이후 colorsteps 를 리턴해줌... 배열임, 명심 명심
+          colorsteps.push.apply(colorsteps, toConsumableArray(ColorStep.parse(newValue)));
+        } else {
+          // direction
+          if (newValue.includes("at")) {
+            var _newValue$split$map = newValue.split("at").map(function (it) {
+              return it.trim();
+            });
+            // at 이 있으면 radialPosition 이 있는 것임
+
+
+            var _newValue$split$map2 = slicedToArray(_newValue$split$map, 2);
+
+            angle = _newValue$split$map2[0];
+            radialPosition = _newValue$split$map2[1];
+          } else {
+            // at 이 없으면 radialPosition 이 center, center 로 있음
+            angle = newValue;
+          }
+
+          if (isString(radialPosition)) {
+            var arr = radialPosition.split(' ');
+            if (arr.length === 1) {
+              var len = Length.parse(arr[0]);
+
+              if (len.isString()) {
+                radialPosition = [len.value, len.value];
+              } else {
+                radialPosition = [len.clone(), len.clone()];
+              }
+            } else if (arr.length === 2) {
+              radialPosition = arr.map(function (it) {
+                var len = Length.parse(it);
+                return len.isString() ? len.value : len;
+              });
+            }
+          }
+
+          if (isString(angle)) {
+            if (angle.includes("from")) {
+              angle = angle.split("from")[1];
+
+              angle = isUndefined(DEFINED_ANGLES$2[angle]) ? Length.parse(angle) : Length.deg(+DEFINED_ANGLES$2[angle]);
+            }
+          }
+        }
+      });
+
+      return new ConicGradient({ angle: angle, radialPosition: radialPosition, colorsteps: colorsteps });
+    }
+  }]);
+  return ConicGradient;
+}(Gradient);
+
+var RepeatingConicGradient = function (_ConicGradient) {
+  inherits(RepeatingConicGradient, _ConicGradient);
+
+  function RepeatingConicGradient() {
+    classCallCheck(this, RepeatingConicGradient);
+    return possibleConstructorReturn(this, (RepeatingConicGradient.__proto__ || Object.getPrototypeOf(RepeatingConicGradient)).apply(this, arguments));
+  }
+
+  createClass(RepeatingConicGradient, [{
+    key: "getDefaultObject",
+    value: function getDefaultObject() {
+      return get(RepeatingConicGradient.prototype.__proto__ || Object.getPrototypeOf(RepeatingConicGradient.prototype), "getDefaultObject", this).call(this, {
+        type: "repeating-conic-gradient",
+        angle: 0,
+        radialPosition: [Position.CENTER, Position.CENTER]
+      });
+    }
+  }], [{
+    key: "parse",
+    value: function parse(str) {
+      var conic = ConicGradient.parse(str);
+
+      return new RepeatingConicGradient({
+        angle: conic.angle,
+        radialPosition: conic.radialPosition,
+        colorsteps: conic.colorsteps
+      });
+    }
+  }]);
+  return RepeatingConicGradient;
+}(ConicGradient);
+
+var tabs = [{ type: "linear-gradient", title: "Linear Gradient" }, { type: "repeating-linear-gradient", title: "Repeating Linear Gradient" }, { type: "radial-gradient", title: "Radial Gradient" }, { type: "repeating-radial-gradient", title: "Repeating Radial Gradient" }, { type: "conic-gradient", title: "Conic Gradient" }, { type: "repeating-conic-gradient", title: "Repeating Conic Gradient" }];
+var reg = /((linear\-gradient|repeating\-linear\-gradient|radial\-gradient|repeating\-radial\-gradient|conic\-gradient|repeating\-conic\-gradient|url)\(([^\)]*)\))/gi;
+
+var GradientPicker$1 = function (_BaseColorPicker) {
+  inherits(GradientPicker, _BaseColorPicker);
+
+  function GradientPicker() {
+    classCallCheck(this, GradientPicker);
+    return possibleConstructorReturn(this, (GradientPicker.__proto__ || Object.getPrototypeOf(GradientPicker)).apply(this, arguments));
+  }
+
+  createClass(GradientPicker, [{
+    key: "components",
+    value: function components() {
+      return {
+        EmbedColorPicker: EmbedColorPicker,
+        gradientEditor: GradientEditor
+      };
+    }
+  }, {
+    key: "parseImage",
+    value: function parseImage(str) {
+      var results = convertMatches(str);
+      var image = null;
+
+      results.str.match(reg).forEach(function (value, index) {
+
+        value = reverseMatches(value, results.matches);
+        if (value.includes("repeating-linear-gradient")) {
+          // 반복을 먼저 파싱하고
+          image = RepeatingLinearGradient.parse(value);
+        } else if (value.includes("linear-gradient")) {
+          // 그 다음에 파싱 하자.
+          image = LinearGradient.parse(value);
+        } else if (value.includes("repeating-radial-gradient")) {
+          image = RepeatingRadialGradient.parse(value);
+        } else if (value.includes("radial")) {
+          image = RadialGradient.parse(value);
+        } else if (value.includes("repeating-conic-gradient")) {
+          image = RepeatingConicGradient.parse(value);
+        } else if (value.includes("conic")) {
+          image = ConicGradient.parse(value);
+        }
+      });
+
+      return image;
+    }
+  }, {
+    key: "callbackColorValue",
+    value: function callbackColorValue(color) {
+      var gradientString = this.image.toString();
+      if (typeof this.opt.onChange == 'function') {
+        this.opt.onChange.call(this, gradientString, this.image);
+      }
+
+      if (typeof this.colorpickerShowCallback == 'function') {
+        this.colorpickerShowCallback(gradientString, this.image);
+      }
+    }
+  }, {
+    key: "callbackHideColorValue",
+    value: function callbackHideColorValue(color) {
+      var gradientString = this.image.toString();
+      if (typeof this.opt.onHide == 'function') {
+        this.opt.onHide.call(this, gradientString, this.image);
+      }
+
+      if (typeof this.colorpickerHideCallback == 'function') {
+        this.colorpickerHideCallback(gradientString, this.image);
+      }
+    }
+  }, {
+    key: "initialize",
+    value: function initialize() {
+      get(GradientPicker.prototype.__proto__ || Object.getPrototypeOf(GradientPicker.prototype), "initialize", this).call(this);
+
+      this.$root.addClass('gradient-picker');
+      this.selectedTab = "linear-gradient";
+
+      this.setValue(this.opt.gradient || 'linear-gradient(to right, red 0%, yellow 100%)');
+    }
+  }, {
+    key: "setValue",
+    value: function setValue(gradientString) {
+      this.gradient = gradientString;
+      this.image = this.parseImage(this.gradient);
+      this.selectTabContent(this.image.type);
+    }
+  }, {
+    key: "getValue",
+    value: function getValue() {
+      return this.image.toString();
+    }
+  }, {
+    key: "template",
+    value: function template() {
+      return "\n      <div class=\"gradient-body\">\n\n        <div class='box'>\n          <div class='gradient-preview'>\n            <div class='gradient-view' ref='$gradientView'></div>\n          </div>\n          <div class=\"picker-tab\">\n            <div class=\"picker-tab-list\" ref=\"$tab\" data-value=\"static-gradient\" data-is-image-hidden=\"false\">\n              " + tabs.map(function (it) {
+        return "\n                  <span \n                    class='picker-tab-item " + (it.selected ? "selected" : '') + "' \n                    data-selected-value='" + it.type + "'\n                    title='" + it.title + "'\n                  > \n                  <div class='icon'></div>\n                  </span>";
+      }).join('') + "\n            </div>\n          </div>\n          <div target='gradientEditor'></div>\n\n        </div>\n        <div class='box'>\n          <div target=\"EmbedColorPicker\"></div>\n        </div>\n      </div>\n     \n    ";
+    }
+  }, {
+    key: "getColorString",
+    value: function getColorString() {
+
+      if (!this.image) return '';
+
+      var value = this.image.getColorString();
+
+      return value;
+    }
+  }, {
+    key: "getCurrentStepColor",
+    value: function getCurrentStepColor() {
+      var colorstep = this.image.colorsteps[this.selectColorStepIndex || 0] || { color: 'rgba(0, 0, 0, 1)' };
+      return colorstep.color;
+    }
+  }, {
+    key: '@changeGradientEditor',
+    value: function changeGradientEditor(data) {
+
+      var colorsteps = data.colorsteps.map(function (it, index) {
+        return new ColorStep({
+          color: it.color,
+          percent: it.offset.value,
+          cut: it.cut,
+          index: (index + 1) * 100
+        });
+      });
+
+      data = _extends({}, data, {
+        type: this.selectedTab,
+        colorsteps: colorsteps
+      });
+
+      this.image.reset(data);
+
+      this.updateGradientPreview();
+      this.updateData();
+    }
+  }, {
+    key: "click $tab .picker-tab-item",
+    value: function click$tabPickerTabItem(e) {
+      var type = e.$delegateTarget.attr("data-selected-value");
+
+      //TODO: picker 타입이 바뀌면 내부 속성도 같이 바뀌어야 한다.
+      this.selectTabContent(type);
+    }
+  }, {
+    key: "selectTabContent",
+    value: function selectTabContent(type) {
+      this.selectedTab = type;
+      this.refs.$tab.attr("data-value", type);
+
+      // 설정된 이미지를 재생성한다. type 에 맞게 
+      // 데이타 전송은 다 문자열로 하는게 나을까? 객체로 하는게 나을 까 ? 
+      // json 형태로만 주고 받는게 좋을 듯 하다. 
+      // 자체 객체가 있으니 다루기가 너무 힘들어지고 있다. 
+      // 파싱 용도로만 쓰자. 
+
+      this.image = this.createGradient({ type: type }, this.image);
+
+      this.$store.emit('setGradientEditor', this.getColorString(), this.selectColorStepIndex, this.image.type, this.image.angle, this.image.radialPosition, this.image.radialType);
+
+      var color = this.getCurrentStepColor();
+
+      this['@selectColorStep'](color);
+
+      this.updateGradientPreview();
+    }
+  }, {
+    key: "createGradient",
+    value: function createGradient(data, gradient) {
+      var colorsteps = data.colorsteps || gradient.colorsteps;
+
+      // linear, conic 은 angle 도 같이 설정한다.
+      var angle = data.angle || gradient.angle;
+
+      // radial 은  radialType 도 같이 설정한다.
+      var radialType = data.radialType || gradient.radialType || 'ellipse';
+      var radialPosition = data.radialPosition || gradient.radialPosition || [Length.percent(50), Length.percent(50)];
+
+      var json = gradient.clone().toJSON();
+      delete json.itemType;
+      delete json.type;
+
+      switch (data.type) {
+        case "linear-gradient":
+          return new LinearGradient({ colorsteps: colorsteps, angle: angle });
+        case "repeating-linear-gradient":
+          return new RepeatingLinearGradient({ colorsteps: colorsteps, angle: angle });
+        case "radial-gradient":
+          return new RadialGradient({
+            colorsteps: colorsteps,
+            radialType: radialType,
+            radialPosition: radialPosition
+          });
+        case "repeating-radial-gradient":
+          return new RepeatingRadialGradient({
+            colorsteps: colorsteps,
+            radialType: radialType,
+            radialPosition: radialPosition
+          });
+        case "conic-gradient":
+          return new ConicGradient({
+            colorsteps: colorsteps,
+            angle: angle,
+            radialPosition: radialPosition
+          });
+        case "repeating-conic-gradient":
+          return new RepeatingConicGradient({
+            colorsteps: colorsteps,
+            angle: angle,
+            radialPosition: radialPosition
+          });
+      }
+
+      return new Gradient();
+    }
+  }, {
+    key: '@changeEmbedColorPicker',
+    value: function changeEmbedColorPicker(color) {
+      this.$store.emit('setColorStepColor', color);
+    }
+  }, {
+    key: "@selectColorStep",
+    value: function selectColorStep(color) {
+      this.EmbedColorPicker.setValue(color);
+    }
+  }, {
+    key: '@changeColorStep',
+    value: function changeColorStep() {
+      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+
+      this.image.reset(_extends({}, data));
+
+      this.updateGradientPreview();
+      // this.updateData();
+    }
+  }, {
+    key: "updateGradientPreview",
+    value: function updateGradientPreview() {
+      if (this.image) {
+        this.refs.$gradientView.css('background-image', this.image.toString());
+        this.updateData();
+      }
+    }
+  }, {
+    key: "updateData",
+    value: function updateData() {
+      this.callbackChange();
+    }
+  }]);
+  return GradientPicker;
+}(BaseColorPicker);
+
+var GradientPicker = {
+    createGradientPicker: function createGradientPicker(opts) {
+        return new GradientPicker$1(opts);
+    }
+};
+
+var index = _extends({}, Util, ColorPickerUI, GradientPicker);
 
 return index;
 
