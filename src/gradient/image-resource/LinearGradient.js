@@ -50,6 +50,7 @@ export class LinearGradient extends Gradient {
   }
 
   toString() {
+    if(this.colorsteps.length === 0) return '';        
     var colorString = this.getColorString();
 
     var opt = '';

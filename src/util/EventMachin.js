@@ -279,10 +279,10 @@ export default class EventMachin {
   }
 
   checkEventType (e, eventObject ) {
-    var onlyControl = e.ctrlKey ? eventObject.isControl : true;
-    var onlyShift = e.shiftKey ? eventObject.isShift : true; 
-    var onlyAlt = e.altKey ? eventObject.isAlt : true; 
-    var onlyMeta = e.metaKey ? eventObject.isMeta : true; 
+    var onlyControl = eventObject.isControl ? e.ctrlKey : true;
+    var onlyShift = eventObject.isShift ? e.shiftKey  : true; 
+    var onlyAlt = eventObject.isAlt ? e.altKey : true; 
+    var onlyMeta = eventObject.isMeta ? e.metaKey : true; 
 
     var hasKeyCode = true; 
     if (eventObject.codes.length) {

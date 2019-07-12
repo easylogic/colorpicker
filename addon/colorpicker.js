@@ -5277,10 +5277,10 @@ var EventMachin = function () {
     value: function checkEventType(e, eventObject) {
       var _this8 = this;
 
-      var onlyControl = e.ctrlKey ? eventObject.isControl : true;
-      var onlyShift = e.shiftKey ? eventObject.isShift : true;
-      var onlyAlt = e.altKey ? eventObject.isAlt : true;
-      var onlyMeta = e.metaKey ? eventObject.isMeta : true;
+      var onlyControl = eventObject.isControl ? e.ctrlKey : true;
+      var onlyShift = eventObject.isShift ? e.shiftKey : true;
+      var onlyAlt = eventObject.isAlt ? e.altKey : true;
+      var onlyMeta = eventObject.isMeta ? e.metaKey : true;
 
       var hasKeyCode = true;
       if (eventObject.codes.length) {
@@ -9719,6 +9719,12 @@ var GradientEditor = function (_UIElement) {
           offset: Length.percent(percent),
           color: 'rgba(0, 0, 0, 1)'
         });
+      } else {
+        this.colorsteps.push({
+          cut: false,
+          offset: Length.percent(0),
+          color: 'rgba(0, 0, 0, 1)'
+        });
       }
 
       this.refresh();
@@ -9742,6 +9748,24 @@ var GradientEditor = function (_UIElement) {
       }
     }
   }, {
+    key: "removeStep",
+    value: function removeStep(index) {
+      if (this.colorsteps.length === 2) return;
+      this.colorsteps.splice(index, 1);
+      var currentStep = this.colorsteps[index];
+      var currentIndex = index;
+      if (!currentStep) {
+        currentStep = this.colorsteps[index - 1];
+        currentIndex = index - 1;
+      }
+
+      if (currentStep) {
+        this.selectStep(currentIndex);
+      }
+      this.refresh();
+      this.updateData();
+    }
+  }, {
     key: "selectStep",
     value: function selectStep(index) {
       this.index = index;
@@ -9761,14 +9785,20 @@ var GradientEditor = function (_UIElement) {
     value: function mousedown$stepListStep(e) {
       var index = +e.$delegateTarget.attr('data-index');
 
-      this.selectStep(index);
+      if (e.altKey) {
+        this.removeStep(index);
+        // return false; 
+      } else {
 
-      this.startXY = e.xy;
-      this.$store.emit('selectColorStep', this.currentStep.color);
-      this.refs.$cut.checked(this.currentStep.cut);
-      this.refs.$offset.val(this.currentStep.offset.value);
-      this.refs.$stepList.attr('data-selected-index', index);
-      this.cachedStepListRect = this.refs.$stepList.rect();
+        this.selectStep(index);
+
+        this.startXY = e.xy;
+        this.$store.emit('selectColorStep', this.currentStep.color);
+        this.refs.$cut.checked(this.currentStep.cut);
+        this.refs.$offset.val(this.currentStep.offset.value);
+        this.refs.$stepList.attr('data-selected-index', index);
+        this.cachedStepListRect = this.refs.$stepList.rect();
+      }
     }
   }, {
     key: "getStepListRect",
@@ -9785,7 +9815,6 @@ var GradientEditor = function (_UIElement) {
   }, {
     key: 'mousemove document',
     value: function mousemoveDocument(e) {
-
       if (!this.startXY) return;
 
       var dx = e.xy.x - this.startXY.x;
@@ -9831,6 +9860,15 @@ var GradientEditor = function (_UIElement) {
     key: "getLinearGradient",
     value: function getLinearGradient() {
       var _this3 = this;
+
+      if (this.colorsteps.length === 0) {
+        return '';
+      }
+
+      if (this.colorsteps.length === 1) {
+        var colorstep = this.colorsteps[0];
+        return "linear-gradient(to right, " + colorstep.color + " " + colorstep.offset + ", " + colorstep.color + " 100%)";
+      }
 
       return "linear-gradient(to right, " + this.colorsteps.map(function (it, index) {
 
@@ -9975,6 +10013,7 @@ var LinearGradient = function (_Gradient) {
   }, {
     key: "toString",
     value: function toString() {
+      if (this.colorsteps.length === 0) return '';
       var colorString = this.getColorString();
 
       var opt = '';
@@ -10109,6 +10148,7 @@ var RadialGradient = function (_Gradient) {
   }, {
     key: "toString",
     value: function toString() {
+      if (this.colorsteps.length === 0) return '';
       var colorString = this.getColorString();
       var json = this.json;
       var opt = '';
@@ -10267,6 +10307,7 @@ var ConicGradient = function (_Gradient) {
   }, {
     key: "getColorString",
     value: function getColorString() {
+      if (this.colorsteps.length === 0) return '';
       var colorsteps = this.colorsteps;
       if (!colorsteps) return '';
 

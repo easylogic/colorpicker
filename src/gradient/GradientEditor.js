@@ -274,7 +274,13 @@ export default class GradientEditor extends UIElement  {
         offset: Length.percent(percent),
         color: 'rgba(0, 0, 0, 1)'
       })      
-    }
+    } else {
+      this.colorsteps.push({
+        cut: false, 
+        offset: Length.percent(0),
+        color: 'rgba(0, 0, 0, 1)'
+      })            
+    } 
 
     this.refresh();
     this.updateData();
@@ -298,6 +304,25 @@ export default class GradientEditor extends UIElement  {
     } 
   }
 
+
+  removeStep(index) {
+    if (this.colorsteps.length === 2) return; 
+    this.colorsteps.splice(index, 1);
+    var currentStep = this.colorsteps[index]
+    var currentIndex = index; 
+    if (!currentStep) {
+      currentStep = this.colorsteps[index-1]
+      currentIndex = index - 1; 
+    }
+
+    if (currentStep) {
+      this.selectStep(currentIndex);
+    }
+    this.refresh();
+    this.updateData();          
+  }
+
+
   selectStep(index) {
     this.index = index; 
     this.currentStep = this.colorsteps[index];
@@ -318,14 +343,20 @@ export default class GradientEditor extends UIElement  {
   'mousedown $stepList .step' (e) {
     var index = +e.$delegateTarget.attr('data-index')
 
-    this.selectStep(index);
+    if (e.altKey) {
+      this.removeStep(index);
+      // return false; 
+    } else {
 
-    this.startXY = e.xy;
-    this.$store.emit('selectColorStep', this.currentStep.color)
-    this.refs.$cut.checked(this.currentStep.cut);
-    this.refs.$offset.val(this.currentStep.offset.value);
-    this.refs.$stepList.attr('data-selected-index', index);
-    this.cachedStepListRect = this.refs.$stepList.rect();
+      this.selectStep(index);
+
+      this.startXY = e.xy;
+      this.$store.emit('selectColorStep', this.currentStep.color)
+      this.refs.$cut.checked(this.currentStep.cut);
+      this.refs.$offset.val(this.currentStep.offset.value);
+      this.refs.$stepList.attr('data-selected-index', index);
+      this.cachedStepListRect = this.refs.$stepList.rect();
+    }
   }
 
 
@@ -341,7 +372,6 @@ export default class GradientEditor extends UIElement  {
   }
 
   'mousemove document' (e) { 
-
     if (!this.startXY) return; 
 
     var dx = e.xy.x - this.startXY.x;
@@ -388,6 +418,16 @@ export default class GradientEditor extends UIElement  {
   }
 
   getLinearGradient () {
+    if (this.colorsteps.length === 0) {
+      return '';
+    }
+
+    if (this.colorsteps.length === 1) {
+      var colorstep = this.colorsteps[0];
+      return `linear-gradient(to right, ${colorstep.color} ${colorstep.offset}, ${colorstep.color} 100%)`
+    }
+
+
     return `linear-gradient(to right, ${this.colorsteps.map((it, index) => {
 
       if (it.cut) {
