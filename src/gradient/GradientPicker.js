@@ -88,7 +88,6 @@ export default class GradientPicker extends BaseColorPicker {
     this.$root.addClass('gradient-picker');
     this.selectedTab = "linear-gradient";
 
-
     this.setValue(this.opt.gradient || 'linear-gradient(to right, red 0%, yellow 100%)')
 
   }

@@ -8142,14 +8142,18 @@ var EmbedColorPicker = function (_UIElement) {
     value: function afterRender() {
       var _this2 = this;
 
-      this.colorPicker = ColorPickerUI.create({
-        type: "sketch",
+      var parent = this.opt;
+
+      var options = parent.opt.colorpickerOptions || {
+        type: "sketch"
+      };
+      this.colorPicker = ColorPickerUI.create(_extends({
         position: "inline",
         container: this.refs.$el.el,
         onChange: function onChange(c) {
           _this2.changeColor(c);
         }
-      });
+      }, options));
     }
   }, {
     key: "template",
@@ -9822,6 +9826,7 @@ var GradientEditor = function (_UIElement) {
     value: function selectStep(index) {
       this.index = index;
       this.currentStep = this.colorsteps[index];
+      this.refs.$stepList.attr('data-selected-index', index);
       this.$currentStep = this.refs.$stepList.$("[data-index=\"" + index.toString() + "\"]");
       if (this.$currentStep) {
         this.$colorView = this.$currentStep.$('.color-view');

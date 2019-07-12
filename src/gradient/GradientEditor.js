@@ -301,6 +301,7 @@ export default class GradientEditor extends UIElement  {
   selectStep(index) {
     this.index = index; 
     this.currentStep = this.colorsteps[index];
+    this.refs.$stepList.attr('data-selected-index', index);    
     this.$currentStep = this.refs.$stepList.$(`[data-index="${index.toString()}"]`)
     if (this.$currentStep) {
       this.$colorView = this.$currentStep.$('.color-view');

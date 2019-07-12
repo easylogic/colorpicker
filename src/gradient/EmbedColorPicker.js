@@ -3,13 +3,18 @@ import ColorPickerUI from "../colorpicker/index";
 
 export default class EmbedColorPicker extends UIElement {
   afterRender() {
+    var parent = this.opt;
+
+    var options = parent.opt.colorpickerOptions || {
+      type: "sketch"
+    };
     this.colorPicker = ColorPickerUI.create({
-      type: "sketch",
       position: "inline",
       container: this.refs.$el.el,
       onChange: c => {
         this.changeColor(c);
-      }
+      },
+      ...options
     });
   }
 
