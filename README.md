@@ -7,7 +7,7 @@ This project was created to implement a color picker. It implemented basic funct
 
 [![](https://data.jsdelivr.com/v1/package/npm/easylogic-colorpicker/badge)](https://www.jsdelivr.com/package/npm/easylogic-colorpicker)
 
-[![NPM](https://nodei.co/npm/easylogic-colorpicker.png)](https://npmjs.org/package/@easylogic/colorpicker)
+[![NPM](https://nodei.co/npm/@easylogic/colorpicker.png)](https://npmjs.org/package/@easylogic/colorpicker)
 
 
 
