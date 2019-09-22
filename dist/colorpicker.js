@@ -167,402 +167,19 @@ var math = {
     caculateAngle: caculateAngle
 };
 
-/**
- * @method RGBtoHSV
- *
- * convert rgb to hsv
- *
- * 		color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
- *
- * @param {Number} R  red color value
- * @param {Number} G  green color value
- * @param {Number} B  blue color value
- * @return {Object}  hsv color code
- */
-function RGBtoHSV(r, g, b) {
+var color_names = { aliceblue: "rgb(240, 248, 255)", antiquewhite: "rgb(250, 235, 215)", aqua: "rgb(0, 255, 255)", aquamarine: "rgb(127, 255, 212)", azure: "rgb(240, 255, 255)", beige: "rgb(245, 245, 220)", bisque: "rgb(255, 228, 196)", black: "rgb(0, 0, 0)", blanchedalmond: "rgb(255, 235, 205)", blue: "rgb(0, 0, 255)", blueviolet: "rgb(138, 43, 226)", brown: "rgb(165, 42, 42)", burlywood: "rgb(222, 184, 135)", cadetblue: "rgb(95, 158, 160)", chartreuse: "rgb(127, 255, 0)", chocolate: "rgb(210, 105, 30)", coral: "rgb(255, 127, 80)", cornflowerblue: "rgb(100, 149, 237)", cornsilk: "rgb(255, 248, 220)", crimson: "rgb(237, 20, 61)", cyan: "rgb(0, 255, 255)", darkblue: "rgb(0, 0, 139)", darkcyan: "rgb(0, 139, 139)", darkgoldenrod: "rgb(184, 134, 11)", darkgray: "rgb(169, 169, 169)", darkgrey: "rgb(169, 169, 169)", darkgreen: "rgb(0, 100, 0)", darkkhaki: "rgb(189, 183, 107)", darkmagenta: "rgb(139, 0, 139)", darkolivegreen: "rgb(85, 107, 47)", darkorange: "rgb(255, 140, 0)", darkorchid: "rgb(153, 50, 204)", darkred: "rgb(139, 0, 0)", darksalmon: "rgb(233, 150, 122)", darkseagreen: "rgb(143, 188, 143)", darkslateblue: "rgb(72, 61, 139)", darkslategray: "rgb(47, 79, 79)", darkslategrey: "rgb(47, 79, 79)", darkturquoise: "rgb(0, 206, 209)", darkviolet: "rgb(148, 0, 211)", deeppink: "rgb(255, 20, 147)", deepskyblue: "rgb(0, 191, 255)", dimgray: "rgb(105, 105, 105)", dimgrey: "rgb(105, 105, 105)", dodgerblue: "rgb(30, 144, 255)", firebrick: "rgb(178, 34, 34)", floralwhite: "rgb(255, 250, 240)", forestgreen: "rgb(34, 139, 34)", fuchsia: "rgb(255, 0, 255)", gainsboro: "rgb(220, 220, 220)", ghostwhite: "rgb(248, 248, 255)", gold: "rgb(255, 215, 0)", goldenrod: "rgb(218, 165, 32)", gray: "rgb(128, 128, 128)", grey: "rgb(128, 128, 128)", green: "rgb(0, 128, 0)", greenyellow: "rgb(173, 255, 47)", honeydew: "rgb(240, 255, 240)", hotpink: "rgb(255, 105, 180)", indianred: "rgb(205, 92, 92)", indigo: "rgb(75, 0, 130)", ivory: "rgb(255, 255, 240)", khaki: "rgb(240, 230, 140)", lavender: "rgb(230, 230, 250)", lavenderblush: "rgb(255, 240, 245)", lawngreen: "rgb(124, 252, 0)", lemonchiffon: "rgb(255, 250, 205)", lightblue: "rgb(173, 216, 230)", lightcoral: "rgb(240, 128, 128)", lightcyan: "rgb(224, 255, 255)", lightgoldenrodyellow: "rgb(250, 250, 210)", lightgreen: "rgb(144, 238, 144)", lightgray: "rgb(211, 211, 211)", lightgrey: "rgb(211, 211, 211)", lightpink: "rgb(255, 182, 193)", lightsalmon: "rgb(255, 160, 122)", lightseagreen: "rgb(32, 178, 170)", lightskyblue: "rgb(135, 206, 250)", lightslategray: "rgb(119, 136, 153)", lightslategrey: "rgb(119, 136, 153)", lightsteelblue: "rgb(176, 196, 222)", lightyellow: "rgb(255, 255, 224)", lime: "rgb(0, 255, 0)", limegreen: "rgb(50, 205, 50)", linen: "rgb(250, 240, 230)", magenta: "rgb(255, 0, 255)", maroon: "rgb(128, 0, 0)", mediumaquamarine: "rgb(102, 205, 170)", mediumblue: "rgb(0, 0, 205)", mediumorchid: "rgb(186, 85, 211)", mediumpurple: "rgb(147, 112, 219)", mediumseagreen: "rgb(60, 179, 113)", mediumslateblue: "rgb(123, 104, 238)", mediumspringgreen: "rgb(0, 250, 154)", mediumturquoise: "rgb(72, 209, 204)", mediumvioletred: "rgb(199, 21, 133)", midnightblue: "rgb(25, 25, 112)", mintcream: "rgb(245, 255, 250)", mistyrose: "rgb(255, 228, 225)", moccasin: "rgb(255, 228, 181)", navajowhite: "rgb(255, 222, 173)", navy: "rgb(0, 0, 128)", oldlace: "rgb(253, 245, 230)", olive: "rgb(128, 128, 0)", olivedrab: "rgb(107, 142, 35)", orange: "rgb(255, 165, 0)", orangered: "rgb(255, 69, 0)", orchid: "rgb(218, 112, 214)", palegoldenrod: "rgb(238, 232, 170)", palegreen: "rgb(152, 251, 152)", paleturquoise: "rgb(175, 238, 238)", palevioletred: "rgb(219, 112, 147)", papayawhip: "rgb(255, 239, 213)", peachpuff: "rgb(255, 218, 185)", peru: "rgb(205, 133, 63)", pink: "rgb(255, 192, 203)", plum: "rgb(221, 160, 221)", powderblue: "rgb(176, 224, 230)", purple: "rgb(128, 0, 128)", rebeccapurple: "rgb(102, 51, 153)", red: "rgb(255, 0, 0)", rosybrown: "rgb(188, 143, 143)", royalblue: "rgb(65, 105, 225)", saddlebrown: "rgb(139, 69, 19)", salmon: "rgb(250, 128, 114)", sandybrown: "rgb(244, 164, 96)", seagreen: "rgb(46, 139, 87)", seashell: "rgb(255, 245, 238)", sienna: "rgb(160, 82, 45)", silver: "rgb(192, 192, 192)", skyblue: "rgb(135, 206, 235)", slateblue: "rgb(106, 90, 205)", slategray: "rgb(112, 128, 144)", slategrey: "rgb(112, 128, 144)", snow: "rgb(255, 250, 250)", springgreen: "rgb(0, 255, 127)", steelblue: "rgb(70, 130, 180)", tan: "rgb(210, 180, 140)", teal: "rgb(0, 128, 128)", thistle: "rgb(216, 191, 216)", tomato: "rgb(255, 99, 71)", turquoise: "rgb(64, 224, 208)", violet: "rgb(238, 130, 238)", wheat: "rgb(245, 222, 179)", white: "rgb(255, 255, 255)", whitesmoke: "rgb(245, 245, 245)", yellow: "rgb(255, 255, 0)", yellowgreen: "rgb(154, 205, 50)", transparent: "rgba(0, 0, 0, 0)" };
 
-    if (arguments.length == 1) {
-        var _arguments$ = arguments[0],
-            r = _arguments$.r,
-            g = _arguments$.g,
-            b = _arguments$.b;
-    }
-
-    var R1 = r / 255;
-    var G1 = g / 255;
-    var B1 = b / 255;
-
-    var MaxC = Math.max(R1, G1, B1);
-    var MinC = Math.min(R1, G1, B1);
-
-    var DeltaC = MaxC - MinC;
-
-    var H = 0;
-
-    if (DeltaC == 0) {
-        H = 0;
-    } else if (MaxC == R1) {
-        H = 60 * ((G1 - B1) / DeltaC % 6);
-    } else if (MaxC == G1) {
-        H = 60 * ((B1 - R1) / DeltaC + 2);
-    } else if (MaxC == B1) {
-        H = 60 * ((R1 - G1) / DeltaC + 4);
-    }
-
-    if (H < 0) {
-        H = 360 + H;
-    }
-
-    var S = 0;
-
-    if (MaxC == 0) S = 0;else S = DeltaC / MaxC;
-
-    var V = MaxC;
-
-    return { h: H, s: S, v: V };
+function isColorName(name) {
+    return !!color_names[name];
 }
 
-function RGBtoCMYK(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$2 = arguments[0],
-            r = _arguments$2.r,
-            g = _arguments$2.g,
-            b = _arguments$2.b;
-    }
-
-    var R1 = r / 255;
-    var G1 = g / 255;
-    var B1 = b / 255;
-
-    var K = 1 - Math.max(R1, G1, B1);
-    var C = (1 - R1 - K) / (1 - K);
-    var M = (1 - G1 - K) / (1 - K);
-    var Y = (1 - B1 - K) / (1 - K);
-
-    return { c: C, m: M, y: Y, k: K };
+function getColorByName(name) {
+    return color_names[name];
 }
 
-function RGBtoHSL(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$3 = arguments[0],
-            r = _arguments$3.r,
-            g = _arguments$3.g,
-            b = _arguments$3.b;
-    }
-
-    r /= 255, g /= 255, b /= 255;
-    var max = Math.max(r, g, b),
-        min = Math.min(r, g, b);
-    var h,
-        s,
-        l = (max + min) / 2;
-
-    if (max == min) {
-        h = s = 0; // achromatic
-    } else {
-        var d = max - min;
-        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch (max) {
-            case r:
-                h = (g - b) / d + (g < b ? 6 : 0);break;
-            case g:
-                h = (b - r) / d + 2;break;
-            case b:
-                h = (r - g) / d + 4;break;
-        }
-        h /= 6;
-    }
-
-    return { h: round(h * 360), s: round(s * 100), l: round(l * 100) };
-}
-
-function c(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$4 = arguments[0],
-            r = _arguments$4.r,
-            g = _arguments$4.g,
-            b = _arguments$4.b;
-    }
-    return gray((r + g + b) / 3 > 90 ? 0 : 255);
-}
-
-function gray(gray) {
-    return { r: gray, g: gray, b: gray };
-}
-
-function RGBtoSimpleGray(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$5 = arguments[0],
-            r = _arguments$5.r,
-            g = _arguments$5.g,
-            b = _arguments$5.b;
-    }
-    return gray(Math.ceil((r + g + b) / 3));
-}
-
-function RGBtoGray(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$6 = arguments[0],
-            r = _arguments$6.r,
-            g = _arguments$6.g,
-            b = _arguments$6.b;
-    }
-    return gray(RGBtoYCrCb(r, g, b).y);
-}
-
-function brightness(r, g, b) {
-    return Math.ceil(r * 0.2126 + g * 0.7152 + b * 0.0722);
-}
-
-function RGBtoYCrCb(r, g, b) {
-
-    if (arguments.length == 1) {
-        var _arguments$7 = arguments[0],
-            r = _arguments$7.r,
-            g = _arguments$7.g,
-            b = _arguments$7.b;
-    }
-    var Y = brightness(r, g, b);
-    var Cb = 0.564 * (b - Y);
-    var Cr = 0.713 * (r - Y);
-
-    return { y: Y, cr: Cr, cb: Cb };
-}
-
-function PivotRGB(n) {
-    return (n > 0.04045 ? Math.pow((n + 0.055) / 1.055, 2.4) : n / 12.92) * 100;
-}
-
-function RGBtoXYZ(r, g, b) {
-    //sR, sG and sB (Standard RGB) input range = 0 ÷ 255
-    //X, Y and Z output refer to a D65/2° standard illuminant.
-    if (arguments.length == 1) {
-        var _arguments$8 = arguments[0],
-            r = _arguments$8.r,
-            g = _arguments$8.g,
-            b = _arguments$8.b;
-    }
-
-    var R = r / 255;
-    var G = g / 255;
-    var B = b / 255;
-
-    R = PivotRGB(R);
-    G = PivotRGB(G);
-    B = PivotRGB(B);
-
-    var x = R * 0.4124 + G * 0.3576 + B * 0.1805;
-    var y = R * 0.2126 + G * 0.7152 + B * 0.0722;
-    var z = R * 0.0193 + G * 0.1192 + B * 0.9505;
-
-    return { x: x, y: y, z: z };
-}
-
-function RGBtoLAB(r, g, b) {
-    if (arguments.length == 1) {
-        var _arguments$9 = arguments[0],
-            r = _arguments$9.r,
-            g = _arguments$9.g,
-            b = _arguments$9.b;
-    }
-    return XYZtoLAB(RGBtoXYZ(r, g, b));
-}
-
-var fromRGB = {
-    RGBtoCMYK: RGBtoCMYK,
-    RGBtoGray: RGBtoGray,
-    RGBtoHSL: RGBtoHSL,
-    RGBtoHSV: RGBtoHSV,
-    RGBtoLAB: RGBtoLAB,
-    RGBtoSimpleGray: RGBtoSimpleGray,
-    RGBtoXYZ: RGBtoXYZ,
-    RGBtoYCrCb: RGBtoYCrCb,
-    c: c,
-    brightness: brightness,
-    gray: gray
-};
-
-function CMYKtoRGB(c, m, y, k) {
-
-    if (arguments.length == 1) {
-        var _arguments$ = arguments[0],
-            c = _arguments$.c,
-            m = _arguments$.m,
-            y = _arguments$.y,
-            k = _arguments$.k;
-    }
-
-    var R = 255 * (1 - c) * (1 - k);
-    var G = 255 * (1 - m) * (1 - k);
-    var B = 255 * (1 - y) * (1 - k);
-
-    return { r: R, g: G, b: B };
-}
-
-var fromCMYK = {
-    CMYKtoRGB: CMYKtoRGB
-};
-
-function ReverseXyz(n) {
-    return Math.pow(n, 3) > 0.008856 ? Math.pow(n, 3) : (n - 16 / 116) / 7.787;
-}
-
-function ReverseRGB(n) {
-    return n > 0.0031308 ? 1.055 * Math.pow(n, 1 / 2.4) - 0.055 : 12.92 * n;
-}
-
-function XYZtoRGB(x, y, z) {
-    if (arguments.length == 1) {
-        var _arguments$ = arguments[0],
-            x = _arguments$.x,
-            y = _arguments$.y,
-            z = _arguments$.z;
-    }
-    //X, Y and Z input refer to a D65/2° standard illuminant.
-    //sR, sG and sB (standard RGB) output range = 0 ÷ 255
-
-    var X = x / 100.0;
-    var Y = y / 100.0;
-    var Z = z / 100.0;
-
-    var R = X * 3.2406 + Y * -1.5372 + Z * -0.4986;
-    var G = X * -0.9689 + Y * 1.8758 + Z * 0.0415;
-    var B = X * 0.0557 + Y * -0.2040 + Z * 1.0570;
-
-    R = ReverseRGB(R);
-    G = ReverseRGB(G);
-    B = ReverseRGB(B);
-
-    var r = round(R * 255);
-    var g = round(G * 255);
-    var b = round(B * 255);
-
-    return { r: r, g: g, b: b };
-}
-
-function LABtoXYZ(l, a, b) {
-    if (arguments.length == 1) {
-        var _arguments$2 = arguments[0],
-            l = _arguments$2.l,
-            a = _arguments$2.a,
-            b = _arguments$2.b;
-    }
-    //Reference-X, Y and Z refer to specific illuminants and observers.
-    //Common reference values are available below in this same page.
-
-    var Y = (l + 16) / 116;
-    var X = a / 500 + Y;
-    var Z = Y - b / 200;
-
-    Y = ReverseXyz(Y);
-    X = ReverseXyz(X);
-    Z = ReverseXyz(Z);
-
-    var x = X * 95.047;
-    var y = Y * 100.000;
-    var z = Z * 108.883;
-
-    return { x: x, y: y, z: z };
-}
-
-
-
-
-
-function LABtoRGB(l, a, b) {
-    if (arguments.length == 1) {
-        var _arguments$4 = arguments[0],
-            l = _arguments$4.l,
-            a = _arguments$4.a,
-            b = _arguments$4.b;
-    }
-    return XYZtoRGB(LABtoXYZ(l, a, b));
-}
-
-var fromLAB = {
-    XYZtoRGB: XYZtoRGB,
-    LABtoRGB: LABtoRGB,
-    LABtoXYZ: LABtoXYZ
-};
-
-/**
- * @method HSVtoRGB
- *
- * convert hsv to rgb
- *
- * 		color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
- *
- * @param {Number} H  hue color number  (min : 0, max : 360)
- * @param {Number} S  Saturation number  (min : 0, max : 1)
- * @param {Number} V  Value number 		(min : 0, max : 1 )
- * @returns {Object}
- */
-function HSVtoRGB(h, s, v) {
-
-    if (arguments.length == 1) {
-        var _arguments$ = arguments[0],
-            h = _arguments$.h,
-            s = _arguments$.s,
-            v = _arguments$.v;
-    }
-
-    var H = h;
-    var S = s;
-    var V = v;
-
-    if (H >= 360) {
-        H = 0;
-    }
-
-    var C = S * V;
-    var X = C * (1 - Math.abs(H / 60 % 2 - 1));
-    var m = V - C;
-
-    var temp = [];
-
-    if (0 <= H && H < 60) {
-        temp = [C, X, 0];
-    } else if (60 <= H && H < 120) {
-        temp = [X, C, 0];
-    } else if (120 <= H && H < 180) {
-        temp = [0, C, X];
-    } else if (180 <= H && H < 240) {
-        temp = [0, X, C];
-    } else if (240 <= H && H < 300) {
-        temp = [X, 0, C];
-    } else if (300 <= H && H < 360) {
-        temp = [C, 0, X];
-    }
-
-    return {
-        r: round((temp[0] + m) * 255),
-        g: round((temp[1] + m) * 255),
-        b: round((temp[2] + m) * 255)
-    };
-}
-
-function HSVtoHSL(h, s, v) {
-
-    if (arguments.length == 1) {
-        var _arguments$2 = arguments[0],
-            h = _arguments$2.h,
-            s = _arguments$2.s,
-            v = _arguments$2.v;
-    }
-
-    var rgb = HSVtoRGB(h, s, v);
-
-    return RGBtoHSL(rgb.r, rgb.g, rgb.b);
-}
-
-var fromHSV = {
-    HSVtoHSL: HSVtoHSL,
-    HSVtoRGB: HSVtoRGB
+var ColorNames = {
+    isColorName: isColorName,
+    getColorByName: getColorByName
 };
 
 function HUEtoRGB(p, q, t) {
@@ -619,43 +236,6 @@ var fromHSL = {
     HUEtoRGB: HUEtoRGB,
     HSLtoHSV: HSLtoHSV,
     HSLtoRGB: HSLtoRGB
-};
-
-function YCrCbtoRGB(y, cr, cb, bit) {
-
-    if (arguments.length == 1) {
-        var _arguments$ = arguments[0],
-            y = _arguments$.y,
-            cr = _arguments$.cr,
-            cb = _arguments$.cb,
-            bit = _arguments$.bit;
-
-        bit = bit || 0;
-    }
-    var R = y + 1.402 * (cr - bit);
-    var G = y - 0.344 * (cb - bit) - 0.714 * (cr - bit);
-    var B = y + 1.772 * (cb - bit);
-
-    return { r: Math.ceil(R), g: Math.ceil(G), b: Math.ceil(B) };
-}
-
-var fromYCrCb = {
-    YCrCbtoRGB: YCrCbtoRGB
-};
-
-var color_names = { aliceblue: "rgb(240, 248, 255)", antiquewhite: "rgb(250, 235, 215)", aqua: "rgb(0, 255, 255)", aquamarine: "rgb(127, 255, 212)", azure: "rgb(240, 255, 255)", beige: "rgb(245, 245, 220)", bisque: "rgb(255, 228, 196)", black: "rgb(0, 0, 0)", blanchedalmond: "rgb(255, 235, 205)", blue: "rgb(0, 0, 255)", blueviolet: "rgb(138, 43, 226)", brown: "rgb(165, 42, 42)", burlywood: "rgb(222, 184, 135)", cadetblue: "rgb(95, 158, 160)", chartreuse: "rgb(127, 255, 0)", chocolate: "rgb(210, 105, 30)", coral: "rgb(255, 127, 80)", cornflowerblue: "rgb(100, 149, 237)", cornsilk: "rgb(255, 248, 220)", crimson: "rgb(237, 20, 61)", cyan: "rgb(0, 255, 255)", darkblue: "rgb(0, 0, 139)", darkcyan: "rgb(0, 139, 139)", darkgoldenrod: "rgb(184, 134, 11)", darkgray: "rgb(169, 169, 169)", darkgrey: "rgb(169, 169, 169)", darkgreen: "rgb(0, 100, 0)", darkkhaki: "rgb(189, 183, 107)", darkmagenta: "rgb(139, 0, 139)", darkolivegreen: "rgb(85, 107, 47)", darkorange: "rgb(255, 140, 0)", darkorchid: "rgb(153, 50, 204)", darkred: "rgb(139, 0, 0)", darksalmon: "rgb(233, 150, 122)", darkseagreen: "rgb(143, 188, 143)", darkslateblue: "rgb(72, 61, 139)", darkslategray: "rgb(47, 79, 79)", darkslategrey: "rgb(47, 79, 79)", darkturquoise: "rgb(0, 206, 209)", darkviolet: "rgb(148, 0, 211)", deeppink: "rgb(255, 20, 147)", deepskyblue: "rgb(0, 191, 255)", dimgray: "rgb(105, 105, 105)", dimgrey: "rgb(105, 105, 105)", dodgerblue: "rgb(30, 144, 255)", firebrick: "rgb(178, 34, 34)", floralwhite: "rgb(255, 250, 240)", forestgreen: "rgb(34, 139, 34)", fuchsia: "rgb(255, 0, 255)", gainsboro: "rgb(220, 220, 220)", ghostwhite: "rgb(248, 248, 255)", gold: "rgb(255, 215, 0)", goldenrod: "rgb(218, 165, 32)", gray: "rgb(128, 128, 128)", grey: "rgb(128, 128, 128)", green: "rgb(0, 128, 0)", greenyellow: "rgb(173, 255, 47)", honeydew: "rgb(240, 255, 240)", hotpink: "rgb(255, 105, 180)", indianred: "rgb(205, 92, 92)", indigo: "rgb(75, 0, 130)", ivory: "rgb(255, 255, 240)", khaki: "rgb(240, 230, 140)", lavender: "rgb(230, 230, 250)", lavenderblush: "rgb(255, 240, 245)", lawngreen: "rgb(124, 252, 0)", lemonchiffon: "rgb(255, 250, 205)", lightblue: "rgb(173, 216, 230)", lightcoral: "rgb(240, 128, 128)", lightcyan: "rgb(224, 255, 255)", lightgoldenrodyellow: "rgb(250, 250, 210)", lightgreen: "rgb(144, 238, 144)", lightgray: "rgb(211, 211, 211)", lightgrey: "rgb(211, 211, 211)", lightpink: "rgb(255, 182, 193)", lightsalmon: "rgb(255, 160, 122)", lightseagreen: "rgb(32, 178, 170)", lightskyblue: "rgb(135, 206, 250)", lightslategray: "rgb(119, 136, 153)", lightslategrey: "rgb(119, 136, 153)", lightsteelblue: "rgb(176, 196, 222)", lightyellow: "rgb(255, 255, 224)", lime: "rgb(0, 255, 0)", limegreen: "rgb(50, 205, 50)", linen: "rgb(250, 240, 230)", magenta: "rgb(255, 0, 255)", maroon: "rgb(128, 0, 0)", mediumaquamarine: "rgb(102, 205, 170)", mediumblue: "rgb(0, 0, 205)", mediumorchid: "rgb(186, 85, 211)", mediumpurple: "rgb(147, 112, 219)", mediumseagreen: "rgb(60, 179, 113)", mediumslateblue: "rgb(123, 104, 238)", mediumspringgreen: "rgb(0, 250, 154)", mediumturquoise: "rgb(72, 209, 204)", mediumvioletred: "rgb(199, 21, 133)", midnightblue: "rgb(25, 25, 112)", mintcream: "rgb(245, 255, 250)", mistyrose: "rgb(255, 228, 225)", moccasin: "rgb(255, 228, 181)", navajowhite: "rgb(255, 222, 173)", navy: "rgb(0, 0, 128)", oldlace: "rgb(253, 245, 230)", olive: "rgb(128, 128, 0)", olivedrab: "rgb(107, 142, 35)", orange: "rgb(255, 165, 0)", orangered: "rgb(255, 69, 0)", orchid: "rgb(218, 112, 214)", palegoldenrod: "rgb(238, 232, 170)", palegreen: "rgb(152, 251, 152)", paleturquoise: "rgb(175, 238, 238)", palevioletred: "rgb(219, 112, 147)", papayawhip: "rgb(255, 239, 213)", peachpuff: "rgb(255, 218, 185)", peru: "rgb(205, 133, 63)", pink: "rgb(255, 192, 203)", plum: "rgb(221, 160, 221)", powderblue: "rgb(176, 224, 230)", purple: "rgb(128, 0, 128)", rebeccapurple: "rgb(102, 51, 153)", red: "rgb(255, 0, 0)", rosybrown: "rgb(188, 143, 143)", royalblue: "rgb(65, 105, 225)", saddlebrown: "rgb(139, 69, 19)", salmon: "rgb(250, 128, 114)", sandybrown: "rgb(244, 164, 96)", seagreen: "rgb(46, 139, 87)", seashell: "rgb(255, 245, 238)", sienna: "rgb(160, 82, 45)", silver: "rgb(192, 192, 192)", skyblue: "rgb(135, 206, 235)", slateblue: "rgb(106, 90, 205)", slategray: "rgb(112, 128, 144)", slategrey: "rgb(112, 128, 144)", snow: "rgb(255, 250, 250)", springgreen: "rgb(0, 255, 127)", steelblue: "rgb(70, 130, 180)", tan: "rgb(210, 180, 140)", teal: "rgb(0, 128, 128)", thistle: "rgb(216, 191, 216)", tomato: "rgb(255, 99, 71)", turquoise: "rgb(64, 224, 208)", violet: "rgb(238, 130, 238)", wheat: "rgb(245, 222, 179)", white: "rgb(255, 255, 255)", whitesmoke: "rgb(245, 245, 245)", yellow: "rgb(255, 255, 0)", yellowgreen: "rgb(154, 205, 50)", transparent: "rgba(0, 0, 0, 0)" };
-
-function isColorName(name) {
-    return !!color_names[name];
-}
-
-function getColorByName(name) {
-    return color_names[name];
-}
-
-var ColorNames = {
-    isColorName: isColorName,
-    getColorByName: getColorByName
 };
 
 var classCallCheck = function (instance, Constructor) {
@@ -1124,6 +704,434 @@ var parser = {
     trim: trim,
     color_regexp: color_regexp,
     color_split: color_split
+};
+
+/**
+ * @method RGBtoHSV
+ *
+ * convert rgb to hsv
+ *
+ * 		color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
+ *
+ * @param {Number} R  red color value
+ * @param {Number} G  green color value
+ * @param {Number} B  blue color value
+ * @return {Object}  hsv color code
+ */
+function RGBtoHSV(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$ = arguments[0],
+            r = _arguments$.r,
+            g = _arguments$.g,
+            b = _arguments$.b;
+    }
+
+    var R1 = r / 255;
+    var G1 = g / 255;
+    var B1 = b / 255;
+
+    var MaxC = Math.max(R1, G1, B1);
+    var MinC = Math.min(R1, G1, B1);
+
+    var DeltaC = MaxC - MinC;
+
+    var H = 0;
+
+    if (DeltaC == 0) {
+        H = 0;
+    } else if (MaxC == R1) {
+        H = 60 * ((G1 - B1) / DeltaC % 6);
+    } else if (MaxC == G1) {
+        H = 60 * ((B1 - R1) / DeltaC + 2);
+    } else if (MaxC == B1) {
+        H = 60 * ((R1 - G1) / DeltaC + 4);
+    }
+
+    if (H < 0) {
+        H = 360 + H;
+    }
+
+    var S = 0;
+
+    if (MaxC == 0) S = 0;else S = DeltaC / MaxC;
+
+    var V = MaxC;
+
+    return { h: H, s: S, v: V };
+}
+
+function RGBtoCMYK(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$2 = arguments[0],
+            r = _arguments$2.r,
+            g = _arguments$2.g,
+            b = _arguments$2.b;
+    }
+
+    var R1 = r / 255;
+    var G1 = g / 255;
+    var B1 = b / 255;
+
+    var K = 1 - Math.max(R1, G1, B1);
+    var C = (1 - R1 - K) / (1 - K);
+    var M = (1 - G1 - K) / (1 - K);
+    var Y = (1 - B1 - K) / (1 - K);
+
+    return { c: C, m: M, y: Y, k: K };
+}
+
+function RGBtoHSL(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$3 = arguments[0],
+            r = _arguments$3.r,
+            g = _arguments$3.g,
+            b = _arguments$3.b;
+    }
+
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b),
+        min = Math.min(r, g, b);
+    var h,
+        s,
+        l = (max + min) / 2;
+
+    if (max == min) {
+        h = s = 0; // achromatic
+    } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+            case r:
+                h = (g - b) / d + (g < b ? 6 : 0);break;
+            case g:
+                h = (b - r) / d + 2;break;
+            case b:
+                h = (r - g) / d + 4;break;
+        }
+        h /= 6;
+    }
+
+    return { h: round(h * 360), s: round(s * 100), l: round(l * 100) };
+}
+
+function c(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$4 = arguments[0],
+            r = _arguments$4.r,
+            g = _arguments$4.g,
+            b = _arguments$4.b;
+    }
+    return gray((r + g + b) / 3 > 90 ? 0 : 255);
+}
+
+function gray(gray) {
+    return { r: gray, g: gray, b: gray };
+}
+
+function RGBtoSimpleGray(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$5 = arguments[0],
+            r = _arguments$5.r,
+            g = _arguments$5.g,
+            b = _arguments$5.b;
+    }
+    return gray(Math.ceil((r + g + b) / 3));
+}
+
+function RGBtoGray(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$6 = arguments[0],
+            r = _arguments$6.r,
+            g = _arguments$6.g,
+            b = _arguments$6.b;
+    }
+    return gray(RGBtoYCrCb(r, g, b).y);
+}
+
+function brightness(r, g, b) {
+    return Math.ceil(r * 0.2126 + g * 0.7152 + b * 0.0722);
+}
+
+
+
+
+
+
+
+function RGBtoYCrCb(r, g, b) {
+
+    if (arguments.length == 1) {
+        var _arguments$7 = arguments[0],
+            r = _arguments$7.r,
+            g = _arguments$7.g,
+            b = _arguments$7.b;
+    }
+    var Y = brightness(r, g, b);
+    var Cb = 0.564 * (b - Y);
+    var Cr = 0.713 * (r - Y);
+
+    return { y: Y, cr: Cr, cb: Cb };
+}
+
+function PivotRGB(n) {
+    var point = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.04045;
+
+    return (n > point ? Math.pow((n + 0.055) / 1.055, 2.4) : n / 12.92) * 100;
+}
+
+function RGBtoXYZ(r, g, b) {
+    //sR, sG and sB (Standard RGB) input range = 0 ÷ 255
+    //X, Y and Z output refer to a D65/2° standard illuminant.
+    if (arguments.length == 1) {
+        var _arguments$8 = arguments[0],
+            r = _arguments$8.r,
+            g = _arguments$8.g,
+            b = _arguments$8.b;
+    }
+
+    var R = r / 255;
+    var G = g / 255;
+    var B = b / 255;
+
+    R = PivotRGB(R);
+    G = PivotRGB(G);
+    B = PivotRGB(B);
+
+    var x = R * 0.4124 + G * 0.3576 + B * 0.1805;
+    var y = R * 0.2126 + G * 0.7152 + B * 0.0722;
+    var z = R * 0.0193 + G * 0.1192 + B * 0.9505;
+
+    return { x: x, y: y, z: z };
+}
+
+function RGBtoLAB(r, g, b) {
+    if (arguments.length == 1) {
+        var _arguments$9 = arguments[0],
+            r = _arguments$9.r,
+            g = _arguments$9.g,
+            b = _arguments$9.b;
+    }
+    return XYZtoLAB(RGBtoXYZ(r, g, b));
+}
+
+var fromRGB = {
+    RGBtoCMYK: RGBtoCMYK,
+    RGBtoGray: RGBtoGray,
+    RGBtoHSL: RGBtoHSL,
+    RGBtoHSV: RGBtoHSV,
+    RGBtoLAB: RGBtoLAB,
+    RGBtoSimpleGray: RGBtoSimpleGray,
+    RGBtoXYZ: RGBtoXYZ,
+    RGBtoYCrCb: RGBtoYCrCb,
+    c: c,
+    brightness: brightness,
+    gray: gray
+};
+
+function CMYKtoRGB(c, m, y, k) {
+
+    if (arguments.length == 1) {
+        var _arguments$ = arguments[0],
+            c = _arguments$.c,
+            m = _arguments$.m,
+            y = _arguments$.y,
+            k = _arguments$.k;
+    }
+
+    var R = 255 * (1 - c) * (1 - k);
+    var G = 255 * (1 - m) * (1 - k);
+    var B = 255 * (1 - y) * (1 - k);
+
+    return { r: R, g: G, b: B };
+}
+
+var fromCMYK = {
+    CMYKtoRGB: CMYKtoRGB
+};
+
+function ReverseXyz(n) {
+    return Math.pow(n, 3) > 0.008856 ? Math.pow(n, 3) : (n - 16 / 116) / 7.787;
+}
+
+function ReverseRGB(n) {
+    return n > 0.0031308 ? 1.055 * Math.pow(n, 1 / 2.4) - 0.055 : 12.92 * n;
+}
+
+function XYZtoRGB(x, y, z) {
+    if (arguments.length == 1) {
+        var _arguments$ = arguments[0],
+            x = _arguments$.x,
+            y = _arguments$.y,
+            z = _arguments$.z;
+    }
+    //X, Y and Z input refer to a D65/2° standard illuminant.
+    //sR, sG and sB (standard RGB) output range = 0 ÷ 255
+
+    var X = x / 100.0;
+    var Y = y / 100.0;
+    var Z = z / 100.0;
+
+    var R = X * 3.2406 + Y * -1.5372 + Z * -0.4986;
+    var G = X * -0.9689 + Y * 1.8758 + Z * 0.0415;
+    var B = X * 0.0557 + Y * -0.2040 + Z * 1.0570;
+
+    R = ReverseRGB(R);
+    G = ReverseRGB(G);
+    B = ReverseRGB(B);
+
+    var r = round(R * 255);
+    var g = round(G * 255);
+    var b = round(B * 255);
+
+    return { r: r, g: g, b: b };
+}
+
+function LABtoXYZ(l, a, b) {
+    if (arguments.length == 1) {
+        var _arguments$2 = arguments[0],
+            l = _arguments$2.l,
+            a = _arguments$2.a,
+            b = _arguments$2.b;
+    }
+    //Reference-X, Y and Z refer to specific illuminants and observers.
+    //Common reference values are available below in this same page.
+
+    var Y = (l + 16) / 116;
+    var X = a / 500 + Y;
+    var Z = Y - b / 200;
+
+    Y = ReverseXyz(Y);
+    X = ReverseXyz(X);
+    Z = ReverseXyz(Z);
+
+    var x = X * 95.047;
+    var y = Y * 100.000;
+    var z = Z * 108.883;
+
+    return { x: x, y: y, z: z };
+}
+
+
+
+
+
+function LABtoRGB(l, a, b) {
+    if (arguments.length == 1) {
+        var _arguments$4 = arguments[0],
+            l = _arguments$4.l,
+            a = _arguments$4.a,
+            b = _arguments$4.b;
+    }
+    return XYZtoRGB(LABtoXYZ(l, a, b));
+}
+
+var fromLAB = {
+    XYZtoRGB: XYZtoRGB,
+    LABtoRGB: LABtoRGB,
+    LABtoXYZ: LABtoXYZ
+};
+
+/**
+ * @method HSVtoRGB
+ *
+ * convert hsv to rgb
+ *
+ * 		color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
+ *
+ * @param {Number} H  hue color number  (min : 0, max : 360)
+ * @param {Number} S  Saturation number  (min : 0, max : 1)
+ * @param {Number} V  Value number 		(min : 0, max : 1 )
+ * @returns {Object}
+ */
+function HSVtoRGB(h, s, v) {
+
+    if (arguments.length == 1) {
+        var _arguments$ = arguments[0],
+            h = _arguments$.h,
+            s = _arguments$.s,
+            v = _arguments$.v;
+    }
+
+    var H = h;
+    var S = s;
+    var V = v;
+
+    if (H >= 360) {
+        H = 0;
+    }
+
+    var C = S * V;
+    var X = C * (1 - Math.abs(H / 60 % 2 - 1));
+    var m = V - C;
+
+    var temp = [];
+
+    if (0 <= H && H < 60) {
+        temp = [C, X, 0];
+    } else if (60 <= H && H < 120) {
+        temp = [X, C, 0];
+    } else if (120 <= H && H < 180) {
+        temp = [0, C, X];
+    } else if (180 <= H && H < 240) {
+        temp = [0, X, C];
+    } else if (240 <= H && H < 300) {
+        temp = [X, 0, C];
+    } else if (300 <= H && H < 360) {
+        temp = [C, 0, X];
+    }
+
+    return {
+        r: round((temp[0] + m) * 255),
+        g: round((temp[1] + m) * 255),
+        b: round((temp[2] + m) * 255)
+    };
+}
+
+function HSVtoHSL(h, s, v) {
+
+    if (arguments.length == 1) {
+        var _arguments$2 = arguments[0],
+            h = _arguments$2.h,
+            s = _arguments$2.s,
+            v = _arguments$2.v;
+    }
+
+    var rgb = HSVtoRGB(h, s, v);
+
+    return RGBtoHSL(rgb.r, rgb.g, rgb.b);
+}
+
+var fromHSV = {
+    HSVtoHSL: HSVtoHSL,
+    HSVtoRGB: HSVtoRGB
+};
+
+function YCrCbtoRGB(y, cr, cb, bit) {
+
+    if (arguments.length == 1) {
+        var _arguments$ = arguments[0],
+            y = _arguments$.y,
+            cr = _arguments$.cr,
+            cb = _arguments$.cb,
+            bit = _arguments$.bit;
+
+        bit = bit || 0;
+    }
+    var R = y + 1.402 * (cr - bit);
+    var G = y - 0.344 * (cb - bit) - 0.714 * (cr - bit);
+    var B = y + 1.772 * (cb - bit);
+
+    return { r: Math.ceil(R), g: Math.ceil(G), b: Math.ceil(B) };
+}
+
+var fromYCrCb = {
+    YCrCbtoRGB: YCrCbtoRGB
 };
 
 /**
@@ -6839,11 +6847,16 @@ var ColorInformation = function (_UIElement) {
     }, {
         key: 'initFormat',
         value: function initFormat() {
+            var _this2 = this;
+
             var current_format = this.format || 'hex';
 
-            this.$el.removeClass('hex');
-            this.$el.removeClass('rgb');
-            this.$el.removeClass('hsl');
+            ['hex', 'rgb', 'hsl'].filter(function (it) {
+                return it !== current_format;
+            }).forEach(function (formatString) {
+                _this2.$el.removeClass(formatString);
+            });
+
             this.$el.addClass(current_format);
         }
     }, {
@@ -6860,9 +6873,18 @@ var ColorInformation = function (_UIElement) {
                 next_format = 'hex';
             }
 
-            this.$el.removeClass(current_format);
-            this.$el.addClass(next_format);
             this.format = next_format;
+            this.initFormat();
+
+            this.$store.dispatch('/changeFormat', this.format);
+        }
+    }, {
+        key: 'goToFormat',
+        value: function goToFormat(to_format) {
+            this.format = to_format;
+            if (to_format === 'rgb' || to_format === 'hsl') {
+                this.initFormat();
+            }
 
             this.$store.dispatch('/changeFormat', this.format);
         }
@@ -6977,6 +6999,21 @@ var ColorInformation = function (_UIElement) {
         key: 'click $formatChangeButton',
         value: function click$formatChangeButton(e) {
             this.nextFormat();
+        }
+    }, {
+        key: 'click $el .information-item.hex .input-field .title',
+        value: function click$elInformationItemHexInputFieldTitle(e) {
+            this.goToFormat('hex');
+        }
+    }, {
+        key: 'click $el .information-item.rgb .input-field .title',
+        value: function click$elInformationItemRgbInputFieldTitle(e) {
+            this.goToFormat('hsl');
+        }
+    }, {
+        key: 'click $el .information-item.hsl .input-field .title',
+        value: function click$elInformationItemHslInputFieldTitle(e) {
+            this.goToFormat('rgb');
         }
     }, {
         key: 'setRGBInput',

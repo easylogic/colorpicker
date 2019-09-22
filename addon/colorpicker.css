@@ -270,7 +270,7 @@
         .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field .postfix {
           display: inline-block;
           position: absolute;
-          right: 4px;
+          right: 3px;
           top: 2px;
           height: 21px;
           line-height: 2;
@@ -1059,26 +1059,42 @@
       display: none; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .information.rgb .information-item.rgb {
       display: inherit; }
+    .easylogic-colorpicker.sketch > .colorpicker-body > .information.rgb .information-item.hsl {
+      display: none !important; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .information.hex .information-item.hex {
+      display: inherit; }
+    .easylogic-colorpicker.sketch > .colorpicker-body > .information.hex .information-item.hsl {
+      display: none !important; }
+    .easylogic-colorpicker.sketch > .colorpicker-body > .information.hsl .information-item.rgb {
+      display: none !important; }
+    .easylogic-colorpicker.sketch > .colorpicker-body > .information.hsl .information-item.hsl {
       display: inherit; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item {
       display: -webkit-inline-box !important;
       display: -ms-inline-flexbox !important;
       display: inline-flex !important;
       margin-right: 0px; }
-      .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item > .input-field > .title {
-        color: black;
-        font-size: 11px; }
+      .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item > .input-field {
+        padding-left: 0px; }
+        .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item > .input-field:last-child {
+          padding-right: 0px; }
+        .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item > .input-field > .title {
+          color: black;
+          font-size: 11px;
+          cursor: pointer; }
       .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item > .input-field:last-child:not(:first-child) {
         padding-right: 0px; }
-    .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item.hsl {
-      display: none !important; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item.hex {
-      width: 70px;
+      width: 74px;
       padding-right: 0px;
       padding-left: 5px; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item.rgb {
-      width: 144px;
+      width: 140px;
+      padding-left: 0px;
+      padding-right: 0px; }
+    .easylogic-colorpicker.sketch > .colorpicker-body > .information .information-item.hsl {
+      display: none;
+      width: 140px;
       padding-left: 0px;
       padding-right: 0px; }
     .easylogic-colorpicker.sketch > .colorpicker-body > .colorsets > .color-list {

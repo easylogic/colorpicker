@@ -1,6 +1,6 @@
 {
   "name": "@easylogic/colorpicker",
-  "version": "1.9.62",
+  "version": "1.9.63",
   "description": "simple colorpicker used anywhere",
   "main": "./dist/colorpicker.js",
   "scripts": {
@@ -15,7 +15,6 @@
     "url": "git+https://github.com/easylogic/colorpicker.git"
   },
   "keywords": [
-    "codemirror",
     "colorview",
     "colorpicker",
     "imagefilter",
