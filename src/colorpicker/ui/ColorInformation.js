@@ -106,14 +106,6 @@ export default class ColorInformation extends UIElement {
         return this.format || 'hex';   
     }
 
-    checkNumberKey(e) {
-        return Event.checkNumberKey(e);
-    }    
-
-    checkNotNumberKey(e) {
-        return !Event.checkNumberKey(e);
-    }        
-
     changeRgbColor () {
         this.$store.dispatch('/changeColor', {
             type: 'rgb',
@@ -153,17 +145,11 @@ export default class ColorInformation extends UIElement {
     'input $hsl_s' (e) {  this.changeHslColor(); }
     'input $hsl_l' (e) {  this.changeHslColor(); }
     'input $hsl_a' (e) {  this.changeHslColor(); }      
-
-    'keydown $hexCode' (e) {
-        if(e.which < 65 || e.which > 70) {
-            return this.checkNumberKey(e);
-        }
-    }
     
     'keyup $hexCode' (e) {
         var code = this.refs.$hexCode.val();
     
-        if(code.charAt(0) == '#' && code.length == 7) {
+        if(code.charAt(0) == '#' && (code.length == 7 || code.length === 9)) {
             this.$store.dispatch('/changeColor', code, source)
         }
     }

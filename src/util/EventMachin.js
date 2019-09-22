@@ -327,7 +327,13 @@ export default class EventMachin {
   addEvent(eventObject, callback) {
     eventObject.callback = this.makeCallback(eventObject, callback)
     this.addBinding(eventObject);
-    Event.addEvent(eventObject.dom, eventObject.eventName, eventObject.callback)
+
+    var options = true; 
+    if (eventObject.eventName === 'touchstart') {
+      options = { passive : true }
+    }
+      
+    Event.addEvent(eventObject.dom, eventObject.eventName, eventObject.callback, options)
   }
 
   removeEventAll () {

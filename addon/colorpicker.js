@@ -4859,9 +4859,9 @@ var ColorSetsList = function (_BaseModule) {
 }(BaseModule);
 
 var Event = {
-    addEvent: function addEvent(dom, eventName, callback) {
+    addEvent: function addEvent(dom, eventName, callback, options) {
         if (dom) {
-            dom.addEventListener(eventName, callback);
+            dom.addEventListener(eventName, callback, options);
         }
     },
     removeEvent: function removeEvent(dom, eventName, callback) {
@@ -5338,7 +5338,13 @@ var EventMachin = function () {
     value: function addEvent(eventObject, callback) {
       eventObject.callback = this.makeCallback(eventObject, callback);
       this.addBinding(eventObject);
-      Event.addEvent(eventObject.dom, eventObject.eventName, eventObject.callback);
+
+      var options = true;
+      if (eventObject.eventName === 'touchstart') {
+        options = { passive: true };
+      }
+
+      Event.addEvent(eventObject.dom, eventObject.eventName, eventObject.callback, options);
     }
   }, {
     key: 'removeEventAll',
@@ -6815,16 +6821,6 @@ var ColorInformation = function (_UIElement) {
             return this.format || 'hex';
         }
     }, {
-        key: 'checkNumberKey',
-        value: function checkNumberKey(e) {
-            return Event.checkNumberKey(e);
-        }
-    }, {
-        key: 'checkNotNumberKey',
-        value: function checkNotNumberKey(e) {
-            return !Event.checkNumberKey(e);
-        }
-    }, {
         key: 'changeRgbColor',
         value: function changeRgbColor() {
             this.$store.dispatch('/changeColor', {
@@ -6901,18 +6897,11 @@ var ColorInformation = function (_UIElement) {
             this.changeHslColor();
         }
     }, {
-        key: 'keydown $hexCode',
-        value: function keydown$hexCode(e) {
-            if (e.which < 65 || e.which > 70) {
-                return this.checkNumberKey(e);
-            }
-        }
-    }, {
         key: 'keyup $hexCode',
         value: function keyup$hexCode(e) {
             var code = this.refs.$hexCode.val();
 
-            if (code.charAt(0) == '#' && code.length == 7) {
+            if (code.charAt(0) == '#' && (code.length == 7 || code.length === 9)) {
                 this.$store.dispatch('/changeColor', code, source$2);
             }
         }
