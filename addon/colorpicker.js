@@ -704,6 +704,18 @@ var parser = {
     color_split: color_split
 };
 
+/**
+ * @method RGBtoHSV
+ *
+ * convert rgb to hsv
+ *
+ * 		color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
+ *
+ * @param {Number} R  red color value
+ * @param {Number} G  green color value
+ * @param {Number} B  blue color value
+ * @return {Object}  hsv color code
+ */
 function RGBtoHSV(r, g, b) {
 
     if (arguments.length == 1) {
@@ -1023,6 +1035,18 @@ var fromLAB = {
     LABtoXYZ: LABtoXYZ
 };
 
+/**
+ * @method HSVtoRGB
+ *
+ * convert hsv to rgb
+ *
+ * 		color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
+ *
+ * @param {Number} H  hue color number  (min : 0, max : 360)
+ * @param {Number} S  Saturation number  (min : 0, max : 1)
+ * @param {Number} V  Value number 		(min : 0, max : 1 )
+ * @returns {Object}
+ */
 function HSVtoRGB(h, s, v) {
 
     if (arguments.length == 1) {
@@ -1108,6 +1132,15 @@ var fromYCrCb = {
     YCrCbtoRGB: YCrCbtoRGB
 };
 
+/**
+ * @deprecated 
+ * 
+ * instead of this,  use blend function 
+ *  
+ * @param {*} startColor 
+ * @param {*} endColor 
+ * @param {*} t 
+ */
 function interpolateRGB(startColor, endColor) {
     var t = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.5;
     var exportFormat = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'hex';
@@ -1805,6 +1838,7 @@ var ImageLoader = function () {
     return ImageLoader;
 }();
 
+// import GL from '../GL' 
 function palette(colors) {
     var k = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
     var exportFormat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'hex';
@@ -2119,6 +2153,7 @@ function crop() {
     };
 }
 
+// Image manupulate 
 function resize(dstWidth, dstHeight) {
     return function (bitmap, done) {
         var c = Canvas.drawPixels(bitmap);
@@ -2344,6 +2379,9 @@ function bitonal(darkColor, lightColor) {
     });
 }
 
+/*
+ * @param {Number} amount  -100..100  ,  value < 0  is darken, value > 0 is brighten 
+ */
 function brightness$1() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2371,6 +2409,10 @@ function brownie() {
     });
 }
 
+/**
+ * 
+ * @param {Number} amount from 0 to 100 
+ */
 function clip() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
@@ -2385,6 +2427,10 @@ function clip() {
     }, { $C: $C });
 }
 
+/**
+ * 
+ * @param {*} amount   min = -128, max = 128 
+ */
 function contrast$1() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
@@ -2409,6 +2455,10 @@ function gamma() {
     }, { $C: $C });
 }
 
+/**
+ * F.gradient('red', 'blue', 'yellow', 'white', 10)
+ * F.gradient('red, blue, yellow, white, 10')
+ */
 function gradient$1() {
     // 전체 매개변수 기준으로 파싱 
     // 색이 아닌 것 기준으로 scale 변수로 인식 
@@ -2480,6 +2530,9 @@ function grayscale(amount) {
     });
 }
 
+/*
+ * @param {Number} amount   0..360  
+ */
 function hue() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 360;
 
@@ -2563,6 +2616,10 @@ function matrix() {
     });
 }
 
+/**
+ * 
+ * @param {Number} amount 1..100
+ */
 function noise() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2606,6 +2663,9 @@ function polaroid() {
     });
 }
 
+/*
+ * @param {Number} amount  -100..100 
+ */
 function saturation() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
 
@@ -2625,6 +2685,9 @@ function saturation() {
     });
 }
 
+/*
+ * @param {Number} amount  0..1 
+ */
 function sepia() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2677,6 +2740,12 @@ function shift() {
     });
 }
 
+/**
+ * change the relative darkness of (a part of an image) by overexposure to light.
+ * @param {*} r 
+ * @param {*} g 
+ * @param {*} b 
+ */
 function solarize(redValue, greenValue, blueValue) {
     var $redValue = parseParamNumber(redValue);
     var $greenValue = parseParamNumber(greenValue);
@@ -2736,6 +2805,9 @@ function thresholdColor() {
     });
 }
 
+/*
+ * @param {Number} amount  0..100 
+ */
 function threshold() {
   var scale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 200;
   var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
@@ -2797,6 +2869,11 @@ function blur () {
     return convolution(createBlurMatrix(amount));
 }
 
+/*
+ * carve, mold, or stamp a design on (a surface) so that it stands out in relief.
+ * 
+ * @param {Number} amount   0.0 .. 4.0 
+ */
 function emboss() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 4;
 
@@ -5672,8 +5749,13 @@ var BaseColorPicker = function (_UIElement) {
                 _this2.callbackColorValue();
             };
 
+            this.callbackLastUpdate = function () {
+                _this2.callbackLastUpdateColorValue();
+            };
+
             this.colorpickerShowCallback = function () {};
             this.colorpickerHideCallback = function () {};
+            this.colorpickerLastUpdateCallback = function () {};
 
             this.$body = new Dom(this.getContainer());
             this.$root = new Dom('div', 'easylogic-colorpicker', {
@@ -5736,7 +5818,7 @@ var BaseColorPicker = function (_UIElement) {
 
     }, {
         key: 'show',
-        value: function show(opt, color, showCallback, hideCallback) {
+        value: function show(opt, color, showCallback, hideCallback, lastUpdateCallback) {
 
             // 매번 이벤트를 지우고 다시 생성할 필요가 없어서 초기화 코드는 지움. 
             // this.destroy();
@@ -5744,6 +5826,7 @@ var BaseColorPicker = function (_UIElement) {
             // define colorpicker callback
             this.colorpickerShowCallback = showCallback;
             this.colorpickerHideCallback = hideCallback;
+            this.colorpickerLastUpdateCallback = lastUpdateCallback;
             this.$root.css(this.getInitalizePosition()).show();
 
             this.isColorPickerShow = true;
@@ -6006,6 +6089,19 @@ var BaseColorPicker = function (_UIElement) {
             }
         }
     }, {
+        key: 'callbackLastUpdateColorValue',
+        value: function callbackLastUpdateColorValue(color) {
+            color = color || this.getCurrentColor();
+
+            if (typeof this.opt.onLastUpdate == 'function') {
+                this.opt.onLastUpdate.call(this, color);
+            }
+
+            if (typeof this.colorpickerLastUpdateCallback == 'function') {
+                this.colorpickerLastUpdateCallback(color);
+            }
+        }
+    }, {
         key: 'callbackHideColorValue',
         value: function callbackHideColorValue(color) {
             color = color || this.getCurrentColor();
@@ -6045,6 +6141,7 @@ var BaseColorPicker = function (_UIElement) {
             get(BaseColorPicker.prototype.__proto__ || Object.getPrototypeOf(BaseColorPicker.prototype), 'initializeStoreEvent', this).call(this);
 
             this.$store.on('changeColor', this.callbackChange);
+            this.$store.on('lastUpdateColor', this.callbackLastUpdate);
             this.$store.on('changeFormat', this.callbackChange);
         }
     }, {
@@ -6053,9 +6150,11 @@ var BaseColorPicker = function (_UIElement) {
             get(BaseColorPicker.prototype.__proto__ || Object.getPrototypeOf(BaseColorPicker.prototype), 'destroy', this).call(this);
 
             this.$store.off('changeColor', this.callbackChange);
+            this.$store.off('lastUpdateColor', this.callbackLastUpdate);
             this.$store.off('changeFormat', this.callbackChange);
 
             this.callbackChange = undefined;
+            this.callbackLastUpdate = undefined;
 
             // remove color picker callback
             this.colorpickerShowCallback = undefined;
@@ -6158,7 +6257,10 @@ var BaseBox = function (_UIElement) {
     }, {
         key: 'onDragEnd',
         value: function onDragEnd(e) {
-            this.isDown = false;
+            if (this.isDown) {
+                this.$store.emit('lastUpdateColor');
+                this.isDown = false;
+            }
         }
     }, {
         key: '@changeColor',
@@ -6699,7 +6801,10 @@ var ColorWheel = function (_UIElement) {
     }, {
         key: 'mouseup document',
         value: function mouseupDocument(e) {
-            this.isDown = false;
+            if (this.isDown) {
+                this.isDown = false;
+                this.$store.emit('lastUpdateColor');
+            }
         }
     }, {
         key: 'mousemove document',
@@ -6723,7 +6828,10 @@ var ColorWheel = function (_UIElement) {
     }, {
         key: 'touchend document',
         value: function touchendDocument(e) {
-            this.isDown = false;
+            if (this.isDown) {
+                this.isDown = false;
+                this.$store.emit('lastUpdateColor');
+            }
         }
     }, {
         key: 'touchmove document',
@@ -6804,6 +6912,7 @@ var ColorInformation = function (_UIElement) {
             this.initFormat();
 
             this.$store.dispatch('/changeFormat', this.format);
+            this.$store.emit('lastUpdateColor');
         }
     }, {
         key: 'goToFormat',
@@ -6821,6 +6930,23 @@ var ColorInformation = function (_UIElement) {
             return this.format || 'hex';
         }
     }, {
+        key: 'checkNumberKey',
+        value: function checkNumberKey(e) {
+            var code = e.which,
+                isExcept = false;
+
+            if (code == 37 || code == 39 || code == 8 || code == 46 || code == 9) isExcept = true;
+
+            if (!isExcept && (code < 48 || code > 57)) return false;
+
+            return true;
+        }
+    }, {
+        key: 'checkNotNumberKey',
+        value: function checkNotNumberKey(e) {
+            return !this.checkNumberKey(e);
+        }
+    }, {
         key: 'changeRgbColor',
         value: function changeRgbColor() {
             this.$store.dispatch('/changeColor', {
@@ -6831,6 +6957,7 @@ var ColorInformation = function (_UIElement) {
                 a: this.refs.$rgb_a.float(),
                 source: source$2
             });
+            this.$store.emit('lastUpdateColor');
         }
     }, {
         key: 'changeHslColor',
@@ -6843,6 +6970,7 @@ var ColorInformation = function (_UIElement) {
                 a: this.refs.$hsl_a.float(),
                 source: source$2
             });
+            this.$store.emit('lastUpdateColor');
         }
     }, {
         key: '@changeColor',
@@ -6903,6 +7031,7 @@ var ColorInformation = function (_UIElement) {
 
             if (code.charAt(0) == '#' && (code.length == 7 || code.length === 9)) {
                 this.$store.dispatch('/changeColor', code, source$2);
+                this.$store.emit('lastUpdateColor');
             }
         }
     }, {
@@ -7125,6 +7254,7 @@ var CurrentColorSets = function (_UIElement) {
         key: 'click $colorSetsColorList .color-item',
         value: function click$colorSetsColorListColorItem(e) {
             this.$store.dispatch('/changeColor', e.$delegateTarget.attr('data-color'));
+            this.$store.emit('lastUpdateColor');
         }
     }]);
     return CurrentColorSets;
@@ -7418,7 +7548,10 @@ var ColorPalette = function (_UIElement) {
     }, {
         key: 'mouseup document',
         value: function mouseupDocument(e) {
-            this.isDown = false;
+            if (this.isDown) {
+                this.isDown = false;
+                this.$store.emit('lastUpdateColor');
+            }
         }
     }, {
         key: 'mousemove document',
@@ -7434,14 +7567,12 @@ var ColorPalette = function (_UIElement) {
             this.setMainColor(e);
         }
     }, {
-        key: 'mouseup',
-        value: function mouseup(e) {
-            this.isDown = false;
-        }
-    }, {
         key: 'touchend document',
         value: function touchendDocument(e) {
-            this.isDown = false;
+            if (this.isDown) {
+                this.isDown = false;
+                this.$store.emit('lastUpdateColor');
+            }
         }
     }, {
         key: 'touchmove document',
@@ -7456,11 +7587,6 @@ var ColorPalette = function (_UIElement) {
             e.preventDefault();
             this.isDown = true;
             this.setMainColor(e);
-        }
-    }, {
-        key: 'touchend',
-        value: function touchend(e) {
-            this.isDown = false;
         }
     }]);
     return ColorPalette;
@@ -7945,6 +8071,7 @@ var ColorRing = function (_ColorWheel) {
     return ColorRing;
 }(ColorWheel);
 
+// import ColorWheel from '../ui/ColorWheel'
 var RingColorPicker = function (_BaseColorPicker) {
     inherits(RingColorPicker, _BaseColorPicker);
 

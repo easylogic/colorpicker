@@ -752,6 +752,9 @@ var scaleColors = Color.scale.copper(count);   // ['#000000', '#3d2618', '#9d623
             },
             onChange : function (c) {
                 console.log('change', c);
+            },
+            onLastUpdate: function (c) {
+                console.log('last update', c);
             }
         });
     }
