@@ -6,7 +6,7 @@ const source = 'chromedevtool-information';
 export default class ColorInformation extends UIElement {
 
     template () {
-        return `
+        return /*html*/`
         <div class="information hex">
             <div ref="$informationChange" class="information-change">
                 <button ref="$formatChangeButton" type="button" class="format-change-button arrow-button"></button>

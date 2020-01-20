@@ -6872,7 +6872,8 @@ var ColorInformation = function (_UIElement) {
     createClass(ColorInformation, [{
         key: 'template',
         value: function template() {
-            return '\n        <div class="information hex">\n            <div ref="$informationChange" class="information-change">\n                <button ref="$formatChangeButton" type="button" class="format-change-button arrow-button"></button>\n            </div>\n            <div class="information-item hex">\n                <div class="input-field hex">\n                    <input ref="$hexCode" class="input" type="text" />\n                    <div class="title">HEX</div>\n                </div>\n            </div>\n            <div class="information-item rgb">\n                <div class="input-field rgb-r">\n                    <input ref="$rgb_r" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">R</div>\n                </div>\n                <div class="input-field rgb-g">\n                    <input ref="$rgb_g" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">G</div>\n                </div>\n                <div class="input-field rgb-b">\n                    <input ref="$rgb_b" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">B</div>\n                </div>          \n                <div class="input-field rgb-a">\n                    <input ref="$rgb_a" class="input" type="number" step="0.01" min="0" max="1" />\n                    <div class="title">A</div>\n                </div>                                                            \n            </div>\n            <div class="information-item hsl">\n                <div class="input-field hsl-h">\n                    <input ref="$hsl_h" class="input" type="number" step="1" min="0" max="360" />\n                    <div class="title">H</div>\n                </div>\n                <div class="input-field hsl-s">\n                    <input ref="$hsl_s" class="input" type="number" step="1" min="0" max="100" />\n                    <div class="postfix">%</div>\n                    <div class="title">S</div>\n                </div>\n                <div class="input-field hsl-l">\n                    <input ref="$hsl_l" class="input" type="number" step="1" min="0" max="100" />\n                    <div class="postfix">%</div>                        \n                    <div class="title">L</div>\n                </div>\n                <div class="input-field hsl-a">\n                    <input ref="$hsl_a" class="input" type="number" step="0.01" min="0" max="1" />\n                    <div class="title">A</div>\n                </div>\n            </div>\n        </div>\n        ';
+            return (/*html*/'\n        <div class="information hex">\n            <div ref="$informationChange" class="information-change">\n                <button ref="$formatChangeButton" type="button" class="format-change-button arrow-button"></button>\n            </div>\n            <div class="information-item hex">\n                <div class="input-field hex">\n                    <input ref="$hexCode" class="input" type="text" />\n                    <div class="title">HEX</div>\n                </div>\n            </div>\n            <div class="information-item rgb">\n                <div class="input-field rgb-r">\n                    <input ref="$rgb_r" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">R</div>\n                </div>\n                <div class="input-field rgb-g">\n                    <input ref="$rgb_g" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">G</div>\n                </div>\n                <div class="input-field rgb-b">\n                    <input ref="$rgb_b" class="input" type="number" step="1" min="0" max="255" />\n                    <div class="title">B</div>\n                </div>          \n                <div class="input-field rgb-a">\n                    <input ref="$rgb_a" class="input" type="number" step="0.01" min="0" max="1" />\n                    <div class="title">A</div>\n                </div>                                                            \n            </div>\n            <div class="information-item hsl">\n                <div class="input-field hsl-h">\n                    <input ref="$hsl_h" class="input" type="number" step="1" min="0" max="360" />\n                    <div class="title">H</div>\n                </div>\n                <div class="input-field hsl-s">\n                    <input ref="$hsl_s" class="input" type="number" step="1" min="0" max="100" />\n                    <div class="postfix">%</div>\n                    <div class="title">S</div>\n                </div>\n                <div class="input-field hsl-l">\n                    <input ref="$hsl_l" class="input" type="number" step="1" min="0" max="100" />\n                    <div class="postfix">%</div>                        \n                    <div class="title">L</div>\n                </div>\n                <div class="input-field hsl-a">\n                    <input ref="$hsl_a" class="input" type="number" step="0.01" min="0" max="1" />\n                    <div class="title">A</div>\n                </div>\n            </div>\n        </div>\n        '
+            );
         }
     }, {
         key: 'setCurrentFormat',
@@ -8176,6 +8177,137 @@ var XDColorPicker = function (_BaseColorPicker) {
     return XDColorPicker;
 }(BaseColorPicker);
 
+var source$8 = 'mini-control';
+
+var ColorControl$12 = function (_UIElement) {
+    inherits(ColorControl, _UIElement);
+
+    function ColorControl() {
+        classCallCheck(this, ColorControl);
+        return possibleConstructorReturn(this, (ColorControl.__proto__ || Object.getPrototypeOf(ColorControl)).apply(this, arguments));
+    }
+
+    createClass(ColorControl, [{
+        key: 'components',
+        value: function components() {
+            return { Hue: VerticalHue, Opacity: Opacity$2 };
+        }
+    }, {
+        key: 'template',
+        value: function template() {
+            return (/*html*/'\n            <div class="control">\n                <div target="Opacity" ></div>            \n                <div target="Hue" ></div>\n            </div>\n        '
+            );
+        }
+    }, {
+        key: 'refresh',
+        value: function refresh() {
+            this.setColorUI();
+        }
+    }, {
+        key: 'setColorUI',
+        value: function setColorUI() {
+            this.Hue.setColorUI();
+            this.Opacity.setColorUI();
+        }
+    }, {
+        key: '@changeColor',
+        value: function changeColor(sourceType) {
+            if (source$8 != sourceType) {
+                this.refresh();
+            }
+        }
+    }, {
+        key: '@initColor',
+        value: function initColor() {
+            this.refresh();
+        }
+    }]);
+    return ColorControl;
+}(UIElement);
+
+var VSCodePicker = function (_BaseColorPicker) {
+    inherits(VSCodePicker, _BaseColorPicker);
+
+    function VSCodePicker() {
+        classCallCheck(this, VSCodePicker);
+        return possibleConstructorReturn(this, (VSCodePicker.__proto__ || Object.getPrototypeOf(VSCodePicker)).apply(this, arguments));
+    }
+
+    createClass(VSCodePicker, [{
+        key: 'template',
+        value: function template() {
+            return (/*html*/'\n            <div class=\'colorpicker-body\'>\n                <div class=\'color-view\'>\n                    <div class=\'color-view-container\'  ref="$colorview"></div>\n                </div>\n                <div class=\'color-tool\'>\n                    <div target="palette"></div>\n                    <div target="control"></div>\n                </div>\n            </div>\n        '
+            );
+        }
+    }, {
+        key: 'components',
+        value: function components() {
+            return {
+                palette: ColorPalette,
+                control: ColorControl$12
+            };
+        }
+    }, {
+        key: 'initColorWithoutChangeEvent',
+        value: function initColorWithoutChangeEvent(color) {
+            this.$store.dispatch('/initColor', color);
+            this.refresh();
+        }
+    }, {
+        key: 'setBackgroundColor',
+        value: function setBackgroundColor() {
+            var color = this.$store.dispatch('/toColor');
+            var rgb = this.$store.rgb;
+            var bValue = Color$1.brightness(rgb.r, rgb.g, rgb.b);
+
+            this.refs.$colorview.css({
+                "background-color": color,
+                'color': bValue > 127 ? 'black' : 'white'
+            });
+            this.refs.$colorview.html(color);
+        }
+    }, {
+        key: 'click $colorview',
+        value: function click$colorview(e) {
+            this.nextFormat();
+        }
+    }, {
+        key: 'nextFormat',
+        value: function nextFormat() {
+            var current_format = this.$store.format || 'hex';
+
+            var next_format = 'hex';
+            if (current_format == 'hex') {
+                next_format = 'rgb';
+            } else if (current_format == 'rgb') {
+                next_format = 'hsl';
+            } else if (current_format == 'hsl') {
+                next_format = 'hex';
+            }
+
+            this.$store.dispatch('/changeFormat', next_format);
+            this.$store.emit('lastUpdateColor');
+            this.refresh();
+        }
+    }, {
+        key: 'refresh',
+        value: function refresh() {
+            this.setBackgroundColor();
+        }
+    }, {
+        key: '@changeColor',
+        value: function changeColor() {
+            this.refresh();
+        }
+    }, {
+        key: '@initColor',
+        value: function initColor() {
+            this.refresh();
+        }
+    }]);
+    return VSCodePicker;
+}(BaseColorPicker);
+
 var ColorPickerUI = {
     create: function create(opts) {
         switch (opts.type) {
@@ -8187,6 +8319,8 @@ var ColorPickerUI = {
                 return new RingColorPicker(opts);
             case 'mini':
                 return new MiniColorPicker(opts);
+            case 'vscode':
+                return new VSCodePicker(opts);
             case 'mini-vertical':
                 return new MiniColorPicker$2(opts);
             case 'sketch':
@@ -8201,6 +8335,7 @@ var ColorPickerUI = {
     MacOSColorPicker: MacOSColorPicker,
     RingColorPicker: RingColorPicker,
     MiniColorPicker: MiniColorPicker,
+    VSCodePicker: VSCodePicker,
     MiniVerticalColorPicker: MiniColorPicker$2
 };
 

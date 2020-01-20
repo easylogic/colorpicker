@@ -71,46 +71,46 @@
       margin: 2px;
       -webkit-box-sizing: border-box;
               box-sizing: border-box; }
-  .easylogic-colorpicker .colorpicker-body > .color {
+  .easylogic-colorpicker .colorpicker-body .color {
     position: relative;
     height: 120px;
     overflow: hidden;
     cursor: pointer; }
-    .easylogic-colorpicker .colorpicker-body > .color > .saturation {
+    .easylogic-colorpicker .colorpicker-body .color > .saturation {
       position: relative;
       width: 100%;
       height: 100%; }
-      .easylogic-colorpicker .colorpicker-body > .color > .saturation > .value {
+      .easylogic-colorpicker .colorpicker-body .color > .saturation > .value {
         position: relative;
         width: 100%;
         height: 100%; }
-        .easylogic-colorpicker .colorpicker-body > .color > .saturation > .value > .drag-pointer {
+        .easylogic-colorpicker .colorpicker-body .color > .saturation > .value > .drag-pointer {
           position: absolute;
           width: 10px;
           height: 10px;
           border-radius: 50%;
           -webkit-transform: translateX(-50%) translateY(-50%);
                   transform: translateX(-50%) translateY(-50%); }
-    .easylogic-colorpicker .colorpicker-body > .color > .saturation {
+    .easylogic-colorpicker .colorpicker-body .color > .saturation {
       background-color: rgba(204, 154, 129, 0);
       background-image: -webkit-gradient(linear, left top, right top, from(#FFF), to(rgba(204, 154, 129, 0)));
       background-image: linear-gradient(to right, #FFF, rgba(204, 154, 129, 0));
       background-repeat: repeat-x; }
-      .easylogic-colorpicker .colorpicker-body > .color > .saturation > .value {
+      .easylogic-colorpicker .colorpicker-body .color > .saturation > .value {
         background-image: -webkit-gradient(linear, left bottom, left top, from(#000000), to(rgba(204, 154, 129, 0)));
         background-image: linear-gradient(to top, #000000, rgba(204, 154, 129, 0)); }
-        .easylogic-colorpicker .colorpicker-body > .color > .saturation > .value > .drag-pointer {
+        .easylogic-colorpicker .colorpicker-body .color > .saturation > .value > .drag-pointer {
           border: 1px solid #fff;
           -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05);
                   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05); }
-  .easylogic-colorpicker .colorpicker-body > .control {
+  .easylogic-colorpicker .colorpicker-body .control {
     position: relative;
     padding: 10px 0px 10px 0px;
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none; }
-    .easylogic-colorpicker .colorpicker-body > .control > .color, .easylogic-colorpicker .colorpicker-body > .control > .empty {
+    .easylogic-colorpicker .colorpicker-body .control > .color, .easylogic-colorpicker .colorpicker-body .control > .empty {
       position: absolute;
       left: 12px;
       top: 14px;
@@ -119,33 +119,33 @@
       border-radius: 50%;
       -webkit-box-sizing: border-box;
               box-sizing: border-box; }
-    .easylogic-colorpicker .colorpicker-body > .control > .color {
+    .easylogic-colorpicker .colorpicker-body .control > .color {
       border: 1px solid rgba(0, 0, 0, 0.1); }
-    .easylogic-colorpicker .colorpicker-body > .control > .hue {
+    .easylogic-colorpicker .colorpicker-body .control > .hue {
       position: relative;
       padding: 6px 16px;
       margin: 0px 0px 0px 42px;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       cursor: pointer; }
-      .easylogic-colorpicker .colorpicker-body > .control > .hue > .hue-container {
+      .easylogic-colorpicker .colorpicker-body .control > .hue > .hue-container {
         position: relative;
         width: 100%;
         height: 10px;
         border-radius: 3px; }
-    .easylogic-colorpicker .colorpicker-body > .control > .opacity {
+    .easylogic-colorpicker .colorpicker-body .control > .opacity {
       position: relative;
       padding: 3px 16px;
       margin: 0px 0px 0px 42px;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       cursor: pointer; }
-      .easylogic-colorpicker .colorpicker-body > .control > .opacity > .opacity-container {
+      .easylogic-colorpicker .colorpicker-body .control > .opacity > .opacity-container {
         position: relative;
         width: 100%;
         height: 10px;
         border-radius: 3px; }
-    .easylogic-colorpicker .colorpicker-body > .control .drag-bar, .easylogic-colorpicker .colorpicker-body > .control .drag-bar2 {
+    .easylogic-colorpicker .colorpicker-body .control .drag-bar, .easylogic-colorpicker .colorpicker-body .control .drag-bar2 {
       position: absolute;
       cursor: pointer;
       top: 50%;
@@ -155,15 +155,15 @@
       width: 12px;
       height: 12px;
       border-radius: 50%; }
-    .easylogic-colorpicker .colorpicker-body > .control > .hue > .hue-container {
+    .easylogic-colorpicker .colorpicker-body .control > .hue > .hue-container {
       background: -webkit-gradient(linear, left top, right top, from(#ff0000), color-stop(17%, #ffff00), color-stop(33%, #00ff00), color-stop(50%, #00ffff), color-stop(67%, #0000ff), color-stop(83%, #ff00ff), to(#ff0000));
       background: linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%); }
-    .easylogic-colorpicker .colorpicker-body > .control > .opacity > .opacity-container {
+    .easylogic-colorpicker .colorpicker-body .control > .opacity > .opacity-container {
       background-color: transparent;
       background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
       background-size: 10px 10px;
       background-position: 0 0, 0 5px, 5px -5px, -5px 0px; }
-      .easylogic-colorpicker .colorpicker-body > .control > .opacity > .opacity-container > .color-bar {
+      .easylogic-colorpicker .colorpicker-body .control > .opacity > .opacity-container > .color-bar {
         position: absolute;
         display: block;
         content: "";
@@ -171,23 +171,23 @@
         right: 0px;
         bottom: 0px;
         top: 0px; }
-    .easylogic-colorpicker .colorpicker-body > .control > .empty {
+    .easylogic-colorpicker .colorpicker-body .control > .empty {
       background-color: transparent;
       background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
       background-size: 10px 10px;
       background-position: 0 0, 0 5px, 5px -5px, -5px 0px; }
-    .easylogic-colorpicker .colorpicker-body > .control .drag-bar,
-    .easylogic-colorpicker .colorpicker-body > .control .drag-bar2 {
+    .easylogic-colorpicker .colorpicker-body .control .drag-bar,
+    .easylogic-colorpicker .colorpicker-body .control .drag-bar2 {
       border: 1px solid rgba(0, 0, 0, 0.05);
       -webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
               box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.2);
       background-color: #fefefe; }
-  .easylogic-colorpicker .colorpicker-body > .information {
+  .easylogic-colorpicker .colorpicker-body .information {
     /*border-top: 1px solid #e8e8e8;*/
     position: relative;
     -webkit-box-sizing: padding-box;
             box-sizing: padding-box; }
-    .easylogic-colorpicker .colorpicker-body > .information > input {
+    .easylogic-colorpicker .colorpicker-body .information > input {
       position: absolute;
       font-size: 10px;
       height: 20px;
@@ -199,27 +199,27 @@
          -moz-user-select: text;
           -ms-user-select: text;
               user-select: text; }
-      .easylogic-colorpicker .colorpicker-body > .information > input[type=number] {
+      .easylogic-colorpicker .colorpicker-body .information > input[type=number] {
         -webkit-appearance: none;
            -moz-appearance: none;
                 appearance: none; }
-      .easylogic-colorpicker .colorpicker-body > .information > input[type=number]::-webkit-inner-spin-button, .easylogic-colorpicker .colorpicker-body > .information > input[type=number]::-webkit-outer-spin-button {
+      .easylogic-colorpicker .colorpicker-body .information > input[type=number]::-webkit-inner-spin-button, .easylogic-colorpicker .colorpicker-body .information > input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
                 appearance: none;
         margin: 0; }
-    .easylogic-colorpicker .colorpicker-body > .information.hex > .information-item.hex {
+    .easylogic-colorpicker .colorpicker-body .information.hex > .information-item.hex {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; }
-    .easylogic-colorpicker .colorpicker-body > .information.rgb > .information-item.rgb {
+    .easylogic-colorpicker .colorpicker-body .information.rgb > .information-item.rgb {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; }
-    .easylogic-colorpicker .colorpicker-body > .information.hsl > .information-item.hsl {
+    .easylogic-colorpicker .colorpicker-body .information.hsl > .information-item.hsl {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex; }
-    .easylogic-colorpicker .colorpicker-body > .information > .information-item {
+    .easylogic-colorpicker .colorpicker-body .information > .information-item {
       display: none;
       position: relative;
       padding: 0px 5px;
@@ -227,7 +227,7 @@
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       margin-right: 40px; }
-      .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field {
+      .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field {
         display: block;
         -webkit-box-flex: 1;
             -ms-flex: 1;
@@ -236,12 +236,12 @@
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
         position: relative; }
-        .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field > .title {
+        .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field > .title {
           text-align: center;
           font-size: 12px;
           color: #a9a9a9;
           padding-top: 2px; }
-        .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field input {
+        .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field input {
           text-align: center;
           width: 100%;
           padding: 3px;
@@ -256,18 +256,18 @@
                   user-select: text;
           border: 1px solid #cbcbcb;
           border-radius: 2px; }
-          .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field input[type=number] {
+          .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field input[type=number] {
             -webkit-appearance: none;
                -moz-appearance: none;
                     appearance: none; }
-          .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field input[type=number]::-webkit-inner-spin-button, .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field input[type=number]::-webkit-outer-spin-button {
+          .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field input[type=number]::-webkit-inner-spin-button, .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field input[type=number]::-webkit-outer-spin-button {
             -webkit-appearance: none;
                     appearance: none;
             margin: 0; }
-        .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field.hsl-l input[type=number], .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field.hsl-s input[type=number] {
+        .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field.hsl-l input[type=number], .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field.hsl-s input[type=number] {
           padding-left: 1px;
           padding-right: 10px; }
-        .easylogic-colorpicker .colorpicker-body > .information > .information-item > .input-field .postfix {
+        .easylogic-colorpicker .colorpicker-body .information > .information-item > .input-field .postfix {
           display: inline-block;
           position: absolute;
           right: 3px;
@@ -279,7 +279,7 @@
                   box-sizing: border-box;
           text-align: center;
           font-size: 11px; }
-    .easylogic-colorpicker .colorpicker-body > .information > .information-change {
+    .easylogic-colorpicker .colorpicker-body .information > .information-change {
       position: absolute;
       display: block;
       width: 40px;
@@ -290,38 +290,38 @@
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       padding-top: 5px; }
-      .easylogic-colorpicker .colorpicker-body > .information > .information-change > .format-change-button {
+      .easylogic-colorpicker .colorpicker-body .information > .information-change > .format-change-button {
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
         background: transparent;
         border: 0px;
         cursor: pointer;
         outline: none; }
-    .easylogic-colorpicker .colorpicker-body > .information > .title {
+    .easylogic-colorpicker .colorpicker-body .information > .title {
       color: #a3a3a3; }
-    .easylogic-colorpicker .colorpicker-body > .information > .input {
+    .easylogic-colorpicker .colorpicker-body .information > .input {
       color: #333; }
-  .easylogic-colorpicker .colorpicker-body > .colorsets {
+  .easylogic-colorpicker .colorpicker-body .colorsets {
     border-top: 1px solid #e2e2e2; }
-    .easylogic-colorpicker .colorpicker-body > .colorsets > .menu {
+    .easylogic-colorpicker .colorpicker-body .colorsets > .menu {
       float: right;
       padding: 10px 5px;
       padding-right: 15px; }
-      .easylogic-colorpicker .colorpicker-body > .colorsets > .menu button {
+      .easylogic-colorpicker .colorpicker-body .colorsets > .menu button {
         border: 0px;
         font-size: 14px;
         font-weight: 300;
         font-family: serif, sans-serif;
         outline: none;
         cursor: pointer; }
-    .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list {
+    .easylogic-colorpicker .colorpicker-body .colorsets > .color-list {
       margin-right: 30px;
       display: block;
       padding: 12px 0px 0px 12px;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       line-height: 0; }
-      .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list .color-item {
+      .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .color-item {
         width: 13px;
         height: 13px;
         border-radius: 2px;
@@ -335,10 +335,10 @@
                 box-sizing: border-box;
         cursor: pointer;
         vertical-align: middle; }
-        .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list .color-item:hover {
+        .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .color-item:hover {
           -webkit-transform: scale(1.2);
                   transform: scale(1.2); }
-        .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list .color-item .empty {
+        .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .color-item .empty {
           position: absolute;
           left: 0px;
           top: 0px;
@@ -351,7 +351,7 @@
           padding: 0px;
           margin: 0px;
           pointer-events: none; }
-        .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list .color-item .color-view {
+        .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .color-item .color-view {
           position: absolute;
           left: 0px;
           top: 0px;
@@ -363,7 +363,7 @@
           border: 1px solid rgba(0, 0, 0, 0.1);
           -webkit-box-sizing: border-box;
                   box-sizing: border-box; }
-      .easylogic-colorpicker .colorpicker-body > .colorsets > .color-list .add-color-item {
+      .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .add-color-item {
         width: 13px;
         height: 13px;
         display: inline-block;
@@ -377,7 +377,7 @@
         font-family: serif,sans-serif;
         color: #8e8e8e;
         vertical-align: middle; }
-  .easylogic-colorpicker .colorpicker-body > .color-chooser {
+  .easylogic-colorpicker .colorpicker-body .color-chooser {
     position: absolute;
     left: 0px;
     right: 0px;
@@ -388,17 +388,17 @@
     -webkit-transition: opacity 0.05s ease-out;
     transition: opacity 0.05s ease-out;
     pointer-events: none; }
-    .easylogic-colorpicker .colorpicker-body > .color-chooser.open {
+    .easylogic-colorpicker .colorpicker-body .color-chooser.open {
       opacity: 1;
       pointer-events: all; }
-    .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container {
+    .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container {
       position: absolute;
       top: 120px;
       left: 0px;
       right: 0px;
       bottom: 0px;
       background-color: white; }
-      .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-item-header {
+      .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-item-header {
         position: absolute;
         top: 0px;
         left: 0px;
@@ -411,7 +411,7 @@
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
         border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
-        .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-item-header .title {
+        .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-item-header .title {
           -webkit-box-flex: 2;
               -ms-flex: 2;
                   flex: 2;
@@ -429,7 +429,7 @@
           white-space: nowrap;
           color: #000;
           text-align: left; }
-        .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-item-header .items {
+        .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-item-header .items {
           -webkit-box-flex: 1;
               -ms-flex: 1;
                   flex: 1;
@@ -439,23 +439,23 @@
           height: 100%;
           line-height: 2;
           cursor: pointer; }
-      .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list {
+      .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list {
         position: absolute;
         top: 34px;
         left: 0px;
         right: 0px;
         bottom: 0px;
         overflow: auto; }
-        .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item {
+        .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item {
           cursor: pointer;
           display: -webkit-box;
           display: -ms-flexbox;
           display: flex;
           padding: 3px 0px;
           border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-          .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item:hover {
+          .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item:hover {
             background-color: rgba(0, 0, 0, 0.05); }
-          .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item .title {
+          .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item .title {
             -webkit-box-flex: 2;
                 -ms-flex: 2;
                     flex: 2;
@@ -475,7 +475,7 @@
             white-space: nowrap;
             color: #000;
             text-align: left; }
-          .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items {
+          .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items {
             -webkit-box-flex: 3;
                 -ms-flex: 3;
                     flex: 3;
@@ -484,7 +484,7 @@
             line-height: 1.6;
             cursor: pointer;
             pointer-events: none; }
-            .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items .color-item {
+            .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items .color-item {
               width: 13px;
               height: 13px;
               border-radius: 3px;
@@ -501,7 +501,7 @@
                       box-sizing: border-box;
               cursor: pointer;
               vertical-align: middle; }
-              .easylogic-colorpicker .colorpicker-body > .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items .color-item .color-view {
+              .easylogic-colorpicker .colorpicker-body .color-chooser .color-chooser-container .colorsets-list .colorsets-item .items .color-item .color-view {
                 width: 100%;
                 height: 100%;
                 padding: 0px;
@@ -1454,6 +1454,81 @@
                 transform: translateX(-50%) translateY(-50%); }
     .easylogic-colorpicker.xd .information {
       margin-top: 5px; }
+  .easylogic-colorpicker.vscode {
+    width: 336px;
+    display: inline-block;
+    background-color: #333;
+    border: 1px solid #ececec;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    border-radius: 0px; }
+    .easylogic-colorpicker.vscode .colorpicker-body {
+      border-radius: 0px;
+      display: inline-block; }
+      .easylogic-colorpicker.vscode .colorpicker-body .color-view {
+        height: 34px;
+        background-color: transparent;
+        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%), linear-gradient(-45deg, #ccc 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #ccc 75%), linear-gradient(-45deg, transparent 75%, #ccc 75%);
+        background-size: 10px 10px;
+        background-position: 0 0, 0 5px, 5px -5px, -5px 0px; }
+        .easylogic-colorpicker.vscode .colorpicker-body .color-view .color-view-container {
+          line-height: 34px;
+          font-size: 14px;
+          text-align: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          -webkit-user-select: none;
+             -moz-user-select: none;
+              -ms-user-select: none;
+                  user-select: none;
+          text-shadow: 0 0 3px #535353; }
+      .easylogic-colorpicker.vscode .colorpicker-body .color-tool {
+        padding: 8px; }
+    .easylogic-colorpicker.vscode .color {
+      display: inline-block;
+      width: 240px;
+      height: 160px;
+      vertical-align: middle; }
+    .easylogic-colorpicker.vscode .control {
+      height: 160px;
+      vertical-align: middle;
+      display: inline-block;
+      padding: 0px 0px 0px 4px; }
+      .easylogic-colorpicker.vscode .control .hue, .easylogic-colorpicker.vscode .control .opacity {
+        margin: 0px;
+        padding: 0px;
+        width: 30px;
+        display: inline-block;
+        vertical-align: middle;
+        height: 100%;
+        position: relative; }
+      .easylogic-colorpicker.vscode .control .hue {
+        padding-left: 5px;
+        width: 35px; }
+      .easylogic-colorpicker.vscode .control .hue > .hue-container {
+        border-radius: 0px;
+        height: 100%;
+        background: -webkit-gradient(linear, left bottom, left top, from(#ff0000), color-stop(17%, #ffff00), color-stop(33%, #00ff00), color-stop(50%, #00ffff), color-stop(67%, #0000ff), color-stop(83%, #ff00ff), to(#ff0000));
+        background: linear-gradient(to top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%); }
+      .easylogic-colorpicker.vscode .control .opacity > .opacity-container {
+        border-radius: 0px;
+        height: 100%;
+        width: 30px; }
+      .easylogic-colorpicker.vscode .control .drag-bar, .easylogic-colorpicker.vscode .control .drag-bar2 {
+        background-color: transparent;
+        height: 5px;
+        width: 33px;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        -webkit-box-shadow: none;
+                box-shadow: none;
+        -webkit-transform: translateY(-50%) translateX(-2px);
+                transform: translateY(-50%) translateX(-2px);
+        border: 1px solid rgba(255, 255, 255, 0);
+        border-radius: 0px;
+        -webkit-box-shadow: 0 0 2px 0 black, inset 0 0 0 0 black;
+                box-shadow: 0 0 2px 0 black, inset 0 0 0 0 black; }
 
 .colorsets-contextmenu {
   position: fixed;
