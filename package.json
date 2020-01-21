@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/easylogic/easylogic-colorpicker/issues"
   },
-  "homepage": "https://easylogic.github.io/easylogic-colorpicker/",
+  "homepage": "https://colorpicker.easylogic.studio/",
   "devDependencies": {
     "autoprefixer": "^7.2.5",
     "babel-cli": "^6.26.0",
