@@ -2,6 +2,7 @@
 import UIElement from "../colorpicker/UIElement";
 import { Length } from "./Length";
 import { reverseMatches, convertMatches } from "../util/functions/parser";
+import { round } from "../util/functions/math";
 
 var radialTypeList = [
   'circle',
@@ -82,7 +83,7 @@ export default class GradientEditor extends UIElement  {
   }
 
   template() {
-    return `
+    return /*html*/`
         <div class='gradient-editor' data-selected-editor='${this.type}'>
             <div class='gradient-steps' data-editor='gradient'>
                 <div class="hue-container" ref="$back"></div>            
@@ -402,7 +403,7 @@ export default class GradientEditor extends UIElement  {
 
 
 
-    this.currentStep.offset.set(percent);
+    this.currentStep.offset.set(round(percent, 100));
     this.$currentStep.css({
       left: Length.percent(percent)
     })

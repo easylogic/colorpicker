@@ -38,10 +38,8 @@ export default class GradientPicker extends BaseColorPicker {
 
       value = reverseMatches(value, results.matches);
       if (value.includes("repeating-linear-gradient")) {
-        // 반복을 먼저 파싱하고
         image = RepeatingLinearGradient.parse(value);
       } else if (value.includes("linear-gradient")) {
-        // 그 다음에 파싱 하자.
         image = LinearGradient.parse(value);
       } else if (value.includes("repeating-radial-gradient")) {
         image = RepeatingRadialGradient.parse(value);
