@@ -10,9 +10,9 @@ export default function bitonal(darkColor, lightColor, threshold = 100) {
     return pixel(() => {
         const thresholdColor = ( $r + $g + $b ) <= $threshold ? $darkColor : $lightColor
 
-        $r = thresholdColor.r
-        $g = thresholdColor.g 
-        $b = thresholdColor.b 
+        $r = thresholdColor.r;
+        $g = thresholdColor.g;
+        $b = thresholdColor.b; 
     }, {
         $threshold
     }, {

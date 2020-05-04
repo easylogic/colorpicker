@@ -13,15 +13,15 @@ export default function hue (amount = 360) {
 
         // 0 ~ 360 
         var h = hsv.h;
-        h += Math.abs($C)
-        h = h % 360
-        hsv.h = h
+        h += Math.abs($C);
+        h = h % 360;
+        hsv.h = h;
 
         var rgb = Color.HSVtoRGB(hsv);
 
-        $r = rgb.r
-        $g = rgb.g
-        $b = rgb.b
+        $r = rgb.r;
+        $g = rgb.g;
+        $b = rgb.b;
     }, {
         $C
     })

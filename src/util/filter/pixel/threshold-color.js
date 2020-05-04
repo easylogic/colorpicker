@@ -17,16 +17,16 @@ export default function thresholdColor (scale = 200, amount = 100, hasColor = tr
         if ($hasColor) {
 
             if (v == 0) {
-                $r = 0 
-                $g = 0 
-                $b = 0
+                $r = 0; 
+                $g = 0; 
+                $b = 0;
             }
             
         } else {
-            const value = Math.round(v)
-            $r = value 
-            $g = value 
-            $b = value 
+            const value = Math.round(v);
+            $r = value; 
+            $g = value;
+            $b = value; 
         }
         
     }, {

@@ -12,8 +12,8 @@ export default function brightness (amount = 1) {
     const $C = Math.floor(255 * (amount / 100));
 
     return pixel(() => {
-        $r += $C 
-        $g += $C 
-        $b += $C 
+        $r += $C;
+        $g += $C;
+        $b += $C;
     },{ $C })
 }

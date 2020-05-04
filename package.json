@@ -1,12 +1,12 @@
 {
   "name": "@easylogic/colorpicker",
-  "version": "1.9.67",
+  "version": "1.9.68",
   "description": "simple colorpicker used anywhere",
   "main": "./dist/colorpicker.js",
   "scripts": {
     "pub": "npm run build && npm publish",
     "build": "NODE_ENV=production rollup --config config/rollup.config.prod.js",
-    "dev": "NODE_ENV=development rollup -w --config config/rollup.config.dev.js",
+    "dev": "NODE_ENV=production rollup -w --config config/rollup.config.dev.js",
     "docs": "http-server ./docs",
     "test": "NODE_ENV=test jest --watch"
   },

@@ -9,6 +9,6 @@ export default function opacity (amount = 100) {
     const $C = amount / 100; 
 
     return pixel(() => {
-        $a *= $C 
+        $a *= $C; 
     }, { $C })
 }

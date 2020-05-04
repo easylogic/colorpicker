@@ -704,6 +704,18 @@ var parser = {
     color_split: color_split
 };
 
+/**
+ * @method RGBtoHSV
+ *
+ * convert rgb to hsv
+ *
+ * 		color.RGBtoHSV(0, 0, 255) === { h : 240, s : 1, v : 1 } === '#FFFF00'
+ *
+ * @param {Number} R  red color value
+ * @param {Number} G  green color value
+ * @param {Number} B  blue color value
+ * @return {Object}  hsv color code
+ */
 function RGBtoHSV(r, g, b) {
 
     if (arguments.length == 1) {
@@ -1023,6 +1035,18 @@ var fromLAB = {
     LABtoXYZ: LABtoXYZ
 };
 
+/**
+ * @method HSVtoRGB
+ *
+ * convert hsv to rgb
+ *
+ * 		color.HSVtoRGB(0,0,1) === #FFFFF === { r : 255, g : 0, b : 0 }
+ *
+ * @param {Number} H  hue color number  (min : 0, max : 360)
+ * @param {Number} S  Saturation number  (min : 0, max : 1)
+ * @param {Number} V  Value number 		(min : 0, max : 1 )
+ * @returns {Object}
+ */
 function HSVtoRGB(h, s, v) {
 
     if (arguments.length == 1) {
@@ -1108,6 +1132,15 @@ var fromYCrCb = {
     YCrCbtoRGB: YCrCbtoRGB
 };
 
+/**
+ * @deprecated 
+ * 
+ * instead of this,  use blend function 
+ *  
+ * @param {*} startColor 
+ * @param {*} endColor 
+ * @param {*} t 
+ */
 function interpolateRGB(startColor, endColor) {
     var t = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0.5;
     var exportFormat = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'hex';
@@ -1805,6 +1838,7 @@ var ImageLoader = function () {
     return ImageLoader;
 }();
 
+// import GL from '../GL' 
 function palette(colors) {
     var k = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 6;
     var exportFormat = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'hex';
@@ -2119,6 +2153,7 @@ function crop() {
     };
 }
 
+// Image manupulate 
 function resize(dstWidth, dstHeight) {
     return function (bitmap, done) {
         var c = Canvas.drawPixels(bitmap);
@@ -2344,6 +2379,9 @@ function bitonal(darkColor, lightColor) {
     });
 }
 
+/*
+ * @param {Number} amount  -100..100  ,  value < 0  is darken, value > 0 is brighten 
+ */
 function brightness$1() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2371,6 +2409,10 @@ function brownie() {
     });
 }
 
+/**
+ * 
+ * @param {Number} amount from 0 to 100 
+ */
 function clip() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
@@ -2385,6 +2427,10 @@ function clip() {
     }, { $C: $C });
 }
 
+/**
+ * 
+ * @param {*} amount   min = -128, max = 128 
+ */
 function contrast$1() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
@@ -2409,6 +2455,10 @@ function gamma() {
     }, { $C: $C });
 }
 
+/**
+ * F.gradient('red', 'blue', 'yellow', 'white', 10)
+ * F.gradient('red, blue, yellow, white, 10')
+ */
 function gradient$1() {
     // 전체 매개변수 기준으로 파싱 
     // 색이 아닌 것 기준으로 scale 변수로 인식 
@@ -2480,6 +2530,9 @@ function grayscale(amount) {
     });
 }
 
+/*
+ * @param {Number} amount   0..360  
+ */
 function hue() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 360;
 
@@ -2563,6 +2616,10 @@ function matrix() {
     });
 }
 
+/**
+ * 
+ * @param {Number} amount 1..100
+ */
 function noise() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2606,6 +2663,9 @@ function polaroid() {
     });
 }
 
+/*
+ * @param {Number} amount  -100..100 
+ */
 function saturation() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 100;
 
@@ -2625,6 +2685,9 @@ function saturation() {
     });
 }
 
+/*
+ * @param {Number} amount  0..1 
+ */
 function sepia() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
@@ -2677,6 +2740,12 @@ function shift() {
     });
 }
 
+/**
+ * change the relative darkness of (a part of an image) by overexposure to light.
+ * @param {*} r 
+ * @param {*} g 
+ * @param {*} b 
+ */
 function solarize(redValue, greenValue, blueValue) {
     var $redValue = parseParamNumber(redValue);
     var $greenValue = parseParamNumber(greenValue);
@@ -2736,6 +2805,9 @@ function thresholdColor() {
     });
 }
 
+/*
+ * @param {Number} amount  0..100 
+ */
 function threshold() {
   var scale = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 200;
   var amount = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 100;
@@ -2797,6 +2869,11 @@ function blur () {
     return convolution(createBlurMatrix(amount));
 }
 
+/*
+ * carve, mold, or stamp a design on (a surface) so that it stands out in relief.
+ * 
+ * @param {Number} amount   0.0 .. 4.0 
+ */
 function emboss() {
     var amount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 4;
 
@@ -7995,6 +8072,7 @@ var ColorRing = function (_ColorWheel) {
     return ColorRing;
 }(ColorWheel);
 
+// import ColorWheel from '../ui/ColorWheel'
 var RingColorPicker = function (_BaseColorPicker) {
     inherits(RingColorPicker, _BaseColorPicker);
 

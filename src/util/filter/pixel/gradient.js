@@ -40,13 +40,13 @@ export default function gradient () {
     })
 
     return pixel(() => {
-        const colorIndex = clamp(Math.ceil($r * 0.2126 + $g * 0.7152 + $b * 0.0722))
-        const newColorIndex = clamp(Math.floor(colorIndex * ($scale / 256)))
-        const color = $colors[newColorIndex]
+        const colorIndex = clamp(Math.ceil($r * 0.2126 + $g * 0.7152 + $b * 0.0722));
+        const newColorIndex = clamp(Math.floor(colorIndex * ($scale / 256)));
+        const color = $colors[newColorIndex];
 
-        $r = color.r 
-        $g = color.g 
-        $b = color.b 
-        $a = clamp(Math.floor(color.a * 256))
+        $r = color.r; 
+        $g = color.g; 
+        $b = color.b; 
+        $a = clamp(Math.floor(color.a * 256));
     }, { }, { $colors, $scale })
 }

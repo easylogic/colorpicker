@@ -13,9 +13,9 @@ export default function solarize (redValue, greenValue, blueValue) {
     const $greenValue = parseParamNumber(greenValue)    
     const $blueValue = parseParamNumber(blueValue)    
     return pixel(() => {
-        $r = ($r < $redValue) ? 255 - $r: $r
-        $g = ($g < $greenValue) ? 255 - $g: $g
-        $b = ($b < $blueValue) ? 255 - $b: $b
+        $r = ($r < $redValue) ? 255 - $r: $r;
+        $g = ($g < $greenValue) ? 255 - $g: $g;
+        $b = ($b < $blueValue) ? 255 - $b: $b;
     }, {
         $redValue, $greenValue, $blueValue
     })

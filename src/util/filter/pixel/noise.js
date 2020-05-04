@@ -10,14 +10,14 @@ import {
 export default function noise (amount = 1) {
     const $C = parseParamNumber(amount)    
     return pixel(() => {
-        const C = Math.abs($C) * 5
-        const min = -C
-        const max = C 
-        const noiseValue = Math.round(min + (Math.random() * (max - min)))
+        const C = Math.abs($C) * 5;
+        const min = -C;
+        const max = C;
+        const noiseValue = Math.round(min + (Math.random() * (max - min)));
 
-        $r += noiseValue
-        $g += noiseValue
-        $b += noiseValue
+        $r += noiseValue;
+        $g += noiseValue;
+        $b += noiseValue;
     }, {
         $C
     })

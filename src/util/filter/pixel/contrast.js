@@ -11,8 +11,8 @@ export default function contrast(amount = 0) {
     const $C = Math.max((128 + amount) / 128, 0);
 
     return pixel(() => {
-        $r *= $C
-        $g *= $C
-        $b *= $C
+        $r *= $C;
+        $g *= $C;
+        $b *= $C;
     }, { $C })
 }
