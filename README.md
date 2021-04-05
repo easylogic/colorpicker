@@ -23,19 +23,15 @@ npm install @easylogic/colorpicker
 # How to use (for  browser) 
 
 ```
-<script src="/@easylogic/colorpicker/dist/easylogic-colorpicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.9.69/dist/colorpicker.css" />
+<script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.9.69/dist/colorpicker.min.js"></script>
 ```
 
-# How to use (for require, nodejs) 
-
-after npm install 
-
-## script 
+# How to use 
  
 ```
-// es6
 import '@easylogic/colorpicker/dist/colorpicker.css'
-import '@easylogic/colorpicker' 
+import ColorPickerUI from '@easylogic/colorpicker' 
 ```
 
 
@@ -45,11 +41,10 @@ import '@easylogic/colorpicker'
 import '@easylogic/colorpicker/dist/colorpicker.css';
 import ColorPickerUI from '@easylogic/colorpicker'
 
-
  this.colorPicker = ColorPickerUI.create({
    type: "sketch",
    position: "inline",
-   container: this.refs.$color.el,
+   container: document.getElementById('app'),
    color: this.props.value || defaultColor,
    onChange: c => {
      this.changeColor(c);
