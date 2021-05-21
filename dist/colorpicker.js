@@ -7369,8 +7369,8 @@ var ColorPalette = function (_UIElement) {
     }, {
         key: 'setColorUI',
         value: function setColorUI() {
-            var x = this.state.get('$el.width') * this.$store.hsv.s,
-                y = this.state.get('$el.height') * (1 - this.$store.hsv.v);
+            var x = this.w * this.$store.hsv.s,
+                y = this.h * (1 - this.$store.hsv.v);
 
             this.refs.$drag_pointer.css({
                 left: x + "px",
