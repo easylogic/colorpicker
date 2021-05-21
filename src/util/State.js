@@ -13,7 +13,7 @@ export default class State {
 
   init (key, ...args) {
 
-    if (!this.has(key)) {
+    if (!this.has(key) || !this.settingObj[key]) {
 
       const arr = key.split(DELEGATE_SPLIT);
 

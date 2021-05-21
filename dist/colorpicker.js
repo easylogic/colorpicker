@@ -4855,7 +4855,7 @@ var State = function () {
     key: 'init',
     value: function init(key) {
 
-      if (!this.has(key)) {
+      if (!this.has(key) || !this.settingObj[key]) {
 
         var arr = key.split(DELEGATE_SPLIT);
 
@@ -7345,6 +7345,7 @@ var ColorPalette = function (_UIElement) {
     }, {
         key: 'refresh',
         value: function refresh() {
+            this.cacheSize();
             this.setColorUI();
         }
     }, {
@@ -7385,8 +7386,8 @@ var ColorPalette = function (_UIElement) {
         value: function setMainColor(e) {
             // e.preventDefault();
             var pos = this.$el.offset(); // position for screen
-            var w = this.state.get('$el.contentWidth');
-            var h = this.state.get('$el.contentHeight');
+            var w = this.w;
+            var h = this.w;
 
             var x = Event.pos(e).pageX - pos.left;
             var y = Event.pos(e).pageY - pos.top;
@@ -7428,6 +7429,7 @@ var ColorPalette = function (_UIElement) {
         key: 'mousemove document',
         value: function mousemoveDocument(e) {
             if (this.isDown) {
+                this.cacheSize();
                 this.setMainColor(e);
             }
         }
@@ -7435,6 +7437,7 @@ var ColorPalette = function (_UIElement) {
         key: 'mousedown',
         value: function mousedown(e) {
             this.isDown = true;
+            this.cacheSize();
             this.setMainColor(e);
         }
     }, {
@@ -7457,7 +7460,14 @@ var ColorPalette = function (_UIElement) {
         value: function touchstart(e) {
             e.preventDefault();
             this.isDown = true;
+            this.cacheSize();
             this.setMainColor(e);
+        }
+    }, {
+        key: 'cacheSize',
+        value: function cacheSize() {
+            this.w = this.state.get('$el.contentWidth');
+            this.h = this.state.get('$el.contentHeight');
         }
     }]);
     return ColorPalette;
