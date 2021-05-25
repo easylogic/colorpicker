@@ -57,12 +57,11 @@ export default class ColorPalette extends UIElement {
         this.setBackgroundColor(this.$store.dispatch('/getHueColor'))
     }
 
-
     setMainColor(e) {
         // e.preventDefault();
         var pos = this.$el.offset();         // position for screen
         var w = this.w;
-        var h = this.w;
+        var h = this.h;
 
         var x = Event.pos(e).pageX - pos.left;
         var y = Event.pos(e).pageY - pos.top;

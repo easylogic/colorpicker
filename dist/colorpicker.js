@@ -7387,7 +7387,7 @@ var ColorPalette = function (_UIElement) {
             // e.preventDefault();
             var pos = this.$el.offset(); // position for screen
             var w = this.w;
-            var h = this.w;
+            var h = this.h;
 
             var x = Event.pos(e).pageX - pos.left;
             var y = Event.pos(e).pageY - pos.top;
