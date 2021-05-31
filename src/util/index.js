@@ -10,6 +10,6 @@ export default {
     HueColor,
     ColorNames,
     ImageFilter,
-    Canvas,
+    Canvas, 
     ImageLoader
 }

@@ -198,6 +198,10 @@ export default class Dom {
     cssInt (key) {
         return parseInt(this.css(key));
     }
+
+    px (key, value) {
+        return this.css(key, value + 'px');
+    }
     
     offset () {
         var rect = this.el.getBoundingClientRect();

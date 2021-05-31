@@ -1,5 +1,4 @@
 import BaseSlider from '../../BaseSlider';
-
 export default class Hue extends BaseSlider {
 
     constructor (opt) {
@@ -11,8 +10,8 @@ export default class Hue extends BaseSlider {
     }
 
     template () {
-        return `
-            <div class="hue">
+        return /*html*/`
+            <div class="hue"> 
                 <div ref="$container" class="hue-container">
                     <div ref="$bar" class="drag-bar"></div>
                 </div>
@@ -28,12 +27,14 @@ export default class Hue extends BaseSlider {
 
         var dist = this.getCaculatedDist(e);
      
-        this.setColorUI(dist/100 * this.maxValue);
+        const isDifferent = this.setColorUI(dist/100 * this.maxValue);
 
-        this.changeColor({
-            h: (dist/100) * this.maxValue,
-            type: 'hsv'
-        })
+        if (isDifferent !== true) {
+            this.changeColor({
+                h: (dist/100) * this.maxValue,
+                type: 'hsv'
+            })            
+        }
     }     
 
 

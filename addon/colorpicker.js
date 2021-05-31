@@ -1122,7 +1122,7 @@ function interpolateRGB(startColor, endColor) {
     return format(obj, obj.a < 1 ? 'rgb' : exportFormat);
 }
 
-function scale(scale) {
+function scale$1(scale) {
     var count = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 5;
 
     if (!scale) return [];
@@ -1193,7 +1193,7 @@ function gradient(colors) {
         // if it is last color 
         var colorCount = i == colors.length - 1 ? allCount : Math.floor(rate * maxCount);
 
-        newColors = newColors.concat(scale([startColor, endColor], colorCount), [endColor]);
+        newColors = newColors.concat(scale$1([startColor, endColor], colorCount), [endColor]);
 
         allCount -= colorCount;
     }
@@ -1249,38 +1249,38 @@ function scaleV(color) {
 }
 
 /* predefined scale colors */
-scale.parula = function (count) {
-    return scale(['#352a87', '#0f5cdd', '#00b5a6', '#ffc337', '#fdff00'], count);
+scale$1.parula = function (count) {
+    return scale$1(['#352a87', '#0f5cdd', '#00b5a6', '#ffc337', '#fdff00'], count);
 };
 
-scale.jet = function (count) {
-    return scale(['#00008f', '#0020ff', '#00ffff', '#51ff77', '#fdff00', '#ff0000', '#800000'], count);
+scale$1.jet = function (count) {
+    return scale$1(['#00008f', '#0020ff', '#00ffff', '#51ff77', '#fdff00', '#ff0000', '#800000'], count);
 };
 
-scale.hsv = function (count) {
-    return scale(['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#ff0000'], count);
+scale$1.hsv = function (count) {
+    return scale$1(['#ff0000', '#ffff00', '#00ff00', '#00ffff', '#0000ff', '#ff00ff', '#ff0000'], count);
 };
 
-scale.hot = function (count) {
-    return scale(['#0b0000', '#ff0000', '#ffff00', '#ffffff'], count);
+scale$1.hot = function (count) {
+    return scale$1(['#0b0000', '#ff0000', '#ffff00', '#ffffff'], count);
 };
-scale.pink = function (count) {
-    return scale(['#1e0000', '#bd7b7b', '#e7e5b2', '#ffffff'], count);
-};
-
-scale.bone = function (count) {
-    return scale(['#000000', '#4a4a68', '#a6c6c6', '#ffffff'], count);
+scale$1.pink = function (count) {
+    return scale$1(['#1e0000', '#bd7b7b', '#e7e5b2', '#ffffff'], count);
 };
 
-scale.copper = function (count) {
-    return scale(['#000000', '#3d2618', '#9d623e', '#ffa167', '#ffc77f'], count);
+scale$1.bone = function (count) {
+    return scale$1(['#000000', '#4a4a68', '#a6c6c6', '#ffffff'], count);
+};
+
+scale$1.copper = function (count) {
+    return scale$1(['#000000', '#3d2618', '#9d623e', '#ffa167', '#ffc77f'], count);
 };
 
 var mixin = {
     interpolateRGB: interpolateRGB,
     blend: blend,
     mix: mix,
-    scale: scale,
+    scale: scale$1,
     contrast: contrast,
     contrastColor: contrastColor,
     gradient: gradient,
@@ -1957,6 +1957,34 @@ var image = {
 
 var Color$1 = _extends({}, formatter, math, mixin, parser, fromYCrCb, fromRGB, fromCMYK, fromHSV, fromHSL, fromLAB, image);
 
+function isUndefined$1(value) {
+    return typeof value == 'undefined' || value === null;
+}
+
+function isNotUndefined(value) {
+    return isUndefined$1(value) === false;
+}
+
+
+
+
+
+function isString$1(value) {
+    return typeof value == 'string';
+}
+
+
+
+
+
+function isFunction(value) {
+    return typeof value == 'function';
+}
+
+function isNumber(value) {
+    return typeof value == 'number';
+}
+
 var hue_color = [{ rgb: '#ff0000', start: .0 }, { rgb: '#ffff00', start: .17 }, { rgb: '#00ff00', start: .33 }, { rgb: '#00ffff', start: .50 }, { rgb: '#0000ff', start: .67 }, { rgb: '#ff00ff', start: .83 }, { rgb: '#ff0000', start: 1 }];
 
 function checkHueColor(p) {
@@ -1971,10 +1999,41 @@ function checkHueColor(p) {
     }
 
     if (startColor && endColor) {
-        return Color$1.interpolateRGB(startColor, endColor, (p - startColor.start) / (endColor.start - startColor.start));
+        return Color$1.mix(startColor.rgb, endColor.rgb, (p - startColor.start) / (endColor.start - startColor.start));
+    }
+    return hue_color[0].rgb;
+}
+
+function getHueScale(p) {
+    var minScale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.1;
+    var maxScale = arguments[2];
+
+
+    var start = isUndefined$1(maxScale) ? p - minScale : minScale;
+    var end = isUndefined$1(maxScale) ? p + scale : maxScale;
+
+    var list = [];
+
+    // console.log(start, checkHueColor(start));
+
+    for (var i = 0; i < hue_color.length; i++) {
+        var currentHue = hue_color[i];
+
+        if (start <= currentHue.start && currentHue.start < end) {
+            list.push({ rgb: currentHue.rgb, start: currentHue.start });
+            // list.push({ rgb: checkHueColor(start), start })
+        } else if (hue_color[i + 1] && currentHue.start < start && start < hue_color[i + 1].start) {
+            list.push({ rgb: checkHueColor(start), start: start });
+        } else if (hue_color[i - 1] && hue_color[i - 1].start < end && end < currentHue.start) {
+            list.push({ rgb: checkHueColor(end), start: end });
+        } else if (currentHue.start < start || currentHue.start > end) {
+            // noop 
+        } else {
+            list.push({ rgb: currentHue.rgb, start: currentHue.start });
+        }
     }
 
-    return hue_color[0].rgb;
+    return list;
 }
 
 function initHueColors() {
@@ -1993,7 +2052,8 @@ initHueColors();
 
 var HueColor = {
     colors: hue_color,
-    checkHueColor: checkHueColor
+    checkHueColor: checkHueColor,
+    getHueScale: getHueScale
 };
 
 var CONSTANT = {
@@ -3326,7 +3386,7 @@ var functions = (_functions = {
     multi: multi,
     merge: merge,
     weight: weight,
-    repeat: repeat,
+    repeat: repeat$1,
     colorMatrix: colorMatrix,
     each: each$1,
     eachXY: eachXY,
@@ -3358,7 +3418,7 @@ function weight(arr) {
     });
 }
 
-function repeat(value, num) {
+function repeat$1(value, num) {
     var arr = new Array(num);
     for (var i = 0; i < num; i++) {
         arr[i] = value;
@@ -3785,7 +3845,7 @@ function createBlurMatrix() {
 
     var count = Math.pow(amount, 2);
     var value = 1 / count;
-    return repeat(value, count);
+    return repeat$1(value, count);
 }
 
 function fillColor(pixels, i, r, g, b, a) {
@@ -4350,6 +4410,11 @@ var Dom = function () {
         key: 'cssInt',
         value: function cssInt(key) {
             return parseInt(this.css(key));
+        }
+    }, {
+        key: 'px',
+        value: function px(key, value) {
+            return this.css(key, value + 'px');
         }
     }, {
         key: 'offset',
@@ -5296,7 +5361,7 @@ var UIElement = function (_EventMachin) {
     return UIElement;
 }(EventMachin);
 
-function isUndefined$1(v) {
+function isUndefined$2(v) {
     return typeof v == 'undefined' || v == null;
 }
 
@@ -5346,7 +5411,7 @@ var ColorManager = function (_BaseModule) {
 
             colorObj.source = colorObj.source || source;
 
-            $store.alpha = isUndefined$1(colorObj.a) ? $store.alpha : colorObj.a;
+            $store.alpha = isUndefined$2(colorObj.a) ? $store.alpha : colorObj.a;
             $store.format = colorObj.type != 'hsv' ? colorObj.type || $store.format : $store.format;
 
             if (colorObj.type == 'hsl') {
@@ -6185,6 +6250,10 @@ var BaseSlider = function (_BaseBox) {
         value: function setColorUI(v) {
 
             v = v || this.getDefaultValue();
+
+            if (this.lastV === v) return true;
+
+            this.lastV = v;
 
             if (v <= this.minValue) {
                 this.refs.$bar.addClass('first').removeClass('last');
@@ -7166,7 +7235,8 @@ var Hue = function (_BaseSlider) {
     createClass(Hue, [{
         key: 'template',
         value: function template() {
-            return '\n            <div class="hue">\n                <div ref="$container" class="hue-container">\n                    <div ref="$bar" class="drag-bar"></div>\n                </div>\n            </div>\n        ';
+            return (/*html*/'\n            <div class="hue"> \n                <div ref="$container" class="hue-container">\n                    <div ref="$bar" class="drag-bar"></div>\n                </div>\n            </div>\n        '
+            );
         }
     }, {
         key: 'getDefaultValue',
@@ -7179,15 +7249,148 @@ var Hue = function (_BaseSlider) {
 
             var dist = this.getCaculatedDist(e);
 
-            this.setColorUI(dist / 100 * this.maxValue);
+            var isDifferent = this.setColorUI(dist / 100 * this.maxValue);
 
-            this.changeColor({
-                h: dist / 100 * this.maxValue,
-                type: 'hsv'
-            });
+            if (isDifferent !== true) {
+                this.changeColor({
+                    h: dist / 100 * this.maxValue,
+                    type: 'hsv'
+                });
+            }
         }
     }]);
     return Hue;
+}(BaseSlider);
+
+var HueScale = function (_BaseSlider) {
+    inherits(HueScale, _BaseSlider);
+
+    function HueScale() {
+        classCallCheck(this, HueScale);
+        return possibleConstructorReturn(this, (HueScale.__proto__ || Object.getPrototypeOf(HueScale)).apply(this, arguments));
+    }
+
+    createClass(HueScale, [{
+        key: "initialize",
+        value: function initialize() {
+            get(HueScale.prototype.__proto__ || Object.getPrototypeOf(HueScale.prototype), "initialize", this).call(this);
+            this.minValue = 0;
+            this.maxValue = 360;
+            this.hueScaleDist = 0.05;
+        }
+    }, {
+        key: "template",
+        value: function template() {
+            return (/*html*/"\n            <div class=\"hue-scale\">\n                <div ref=\"$container\" class=\"hue-scale-container\">\n                    <div ref=\"$bar\" class=\"drag-bar\"></div>\n                </div>\n            </div>\n        "
+            );
+        }
+    }, {
+        key: "getDefaultValue",
+        value: function getDefaultValue() {
+            return this.$store.hsv.h;
+        }
+
+        /** get calculated dist for domain value   */
+
+    }, {
+        key: "getCalculatedDist",
+        value: function getCalculatedDist(e) {
+            var current = e ? this.getMousePosition(e) : this.getCurrent(this.getDefaultValue() / this.maxValue);
+            var dist = this.getDist(current);
+
+            return dist;
+        }
+    }, {
+        key: "refreshColorUI",
+        value: function refreshColorUI(e) {
+
+            var dist = this.getCalculatedDist(e);
+
+            var isDifferent = this.setColorUI(dist / 100);
+
+            // hue 가 변경되지 않은 상태면 changeColor 를 하지 않는다. 
+            if (isDifferent !== true) {
+                this.changeColor({
+                    h: (this.minValue + this.fullDist * (dist / 100)) * 360,
+                    type: 'hsv'
+                });
+            }
+        }
+    }, {
+        key: "setColorUI",
+        value: function setColorUI(v) {
+            var p = void 0;
+
+            if (v) {
+                p = this.minValue + v * this.fullDist;
+
+                if (this.lastP === p) return true;
+
+                this.lastP = p;
+            } else {
+
+                p = this.getDefaultValue() / 360;
+
+                if (this.lastP === p) return true;
+
+                this.lastP = p;
+
+                var maxP = p + 0.05;
+                var minP = p - 0.05;
+
+                if (maxP > 1) {
+                    maxP = 1;
+                    minP = 1 - this.hueScaleDist * 2;
+                } else if (minP < 0) {
+                    var _dist = Math.abs(minP);
+                    minP = 0;
+                    maxP = maxP + _dist;
+                }
+
+                var list = HueColor.getHueScale(p, minP, maxP);
+
+                // console.log(list, p, minP, maxP);
+
+                this.list = list;
+
+                var minValue = list[0].start;
+                var maxValue = list[list.length - 1].start;
+
+                this.minValue = minValue;
+                this.maxValue = maxValue;
+
+                var fullDist = this.maxValue - this.minValue;
+                this.fullDist = fullDist;
+
+                var colorsteps = list.map(function (it) {
+                    return {
+                        color: it.rgb,
+                        percent: (it.start - minValue) / fullDist * 100,
+                        unit: '%'
+                    };
+                });
+
+                // console.log(colorsteps);
+
+                this.refs.$container.css('background-image', "linear-gradient(to right, " + colorsteps.map(function (it) {
+                    return it.color + " " + it.percent + it.unit;
+                }).join(',') + ")");
+            }
+
+            if (p <= this.minValue) {
+                p = this.minValue;
+                this.refs.$bar.addClass('first').removeClass('last');
+            } else if (p >= this.maxValue) {
+                p = this.maxValue;
+                this.refs.$bar.addClass('last').removeClass('first');
+            } else {
+                this.refs.$bar.removeClass('last').removeClass('first');
+            }
+
+            this.setMousePosition(this.getMaxDist() * ((p - this.minValue) / this.fullDist));
+        }
+    }]);
+    return HueScale;
 }(BaseSlider);
 
 var source$3 = 'chromedevtool-control';
@@ -7203,17 +7406,22 @@ var ColorControl$2 = function (_UIElement) {
     createClass(ColorControl, [{
         key: 'components',
         value: function components() {
-            return { Hue: Hue, Opacity: Opacity };
+            return { Hue: Hue, Opacity: Opacity, HueScale: HueScale };
         }
     }, {
         key: 'template',
         value: function template() {
-            return '\n        <div class="control">\n            <div target="Hue" ></div>\n            <div target="Opacity" ></div>\n            <div ref="$controlPattern" class="empty"></div>\n            <div ref="$controlColor" class="color"></div>\n        </div>\n        ';
+            return '\n        <div class="control">\n            <div target="Hue" ></div>\n            <div target="HueScale" ></div>\n            <div target="Opacity" ></div>\n            <div ref="$controlPattern" class="empty"></div>\n            <div ref="$controlColor" class="color"></div>\n            <div ref="$controlPattern2" class="empty2"></div>\n            <div ref="$controlColor2" class="color2"></div>            \n        </div>\n        ';
         }
     }, {
         key: 'setBackgroundColor',
         value: function setBackgroundColor() {
             this.refs.$controlColor.css("background-color", this.$store.dispatch('/toRGB'));
+        }
+    }, {
+        key: 'setLastUpdateColor',
+        value: function setLastUpdateColor() {
+            this.refs.$controlColor2.css("background-color", this.$store.dispatch('/toRGB'));
         }
     }, {
         key: 'refresh',
@@ -7232,6 +7440,13 @@ var ColorControl$2 = function (_UIElement) {
         value: function changeColor(sourceType) {
             if (source$3 != sourceType) {
                 this.refresh();
+            }
+        }
+    }, {
+        key: '@lastUpdateColor',
+        value: function lastUpdateColor(sourceType) {
+            if (source$3 != sourceType) {
+                this.setLastUpdateColor();
             }
         }
     }, {
@@ -7256,7 +7471,8 @@ var ColorPalette = function (_UIElement) {
     createClass(ColorPalette, [{
         key: 'template',
         value: function template() {
-            return '\n        <div class="color">\n            <div ref="$saturation" class="saturation">\n                <div ref="$value" class="value">\n                    <div ref="$drag_pointer" class="drag-pointer"></div>\n                </div>\n            </div>        \n        </div>        \n        ';
+            return (/*html*/'\n        <div class="color">\n            <div ref="$saturation" class="saturation">\n                <div ref="$value" class="value">\n                    <div ref="$drag_pointer" class="drag-pointer" data-axis-value="all">\n                        <div ref="$left_saturation" class="left-saturation" data-axis-value="saturation"></div>\n                        <div ref="$right_saturation" class="right-saturation" data-axis-value="saturation"></div>\n                        <div ref="$top_value" class="top-value" data-axis-value="value"></div>\n                        <div ref="$bottom_value" class="bottom-value" data-axis-value="value"></div>\n                    </div>\n                </div>\n            </div>        \n        </div>        \n        '
+            );
         }
     }, {
         key: 'setBackgroundColor',
@@ -7270,8 +7486,8 @@ var ColorPalette = function (_UIElement) {
             this.setColorUI();
         }
     }, {
-        key: 'caculateSV',
-        value: function caculateSV() {
+        key: 'calculateSV',
+        value: function calculateSV() {
             var pos = this.drag_pointer_pos || { x: 0, y: 0 };
 
             var width = this.state.get('$el.width');
@@ -7303,6 +7519,41 @@ var ColorPalette = function (_UIElement) {
             this.setBackgroundColor(this.$store.dispatch('/getHueColor'));
         }
     }, {
+        key: 'setSubColor',
+        value: function setSubColor(e) {
+            var localX = e.pageX;
+            var localY = e.pageY;
+
+            var distX = localX - this.x;
+            var distY = localY - this.y;
+
+            var w = this.$el.contentWidth();
+            var h = this.$el.contentHeight();
+
+            var x = this.refs.$drag_pointer.cssFloat("left");
+            var y = this.refs.$drag_pointer.cssFloat("top");
+
+            if (this.axis === 'saturation') {
+                x += distX;
+            } else if (this.axis === 'value') {
+                y += distY;
+            }
+
+            if (x < 0) x = 0;else if (x > w) x = w;
+
+            if (y < 0) y = 0;else if (y > h) y = h;
+
+            this.refs.$drag_pointer.px("left", x);
+            this.refs.$drag_pointer.px("top", y);
+
+            this.drag_pointer_pos = { x: x, y: y };
+
+            this.x = localX;
+            this.y = localY;
+
+            this.calculateSV();
+        }
+    }, {
         key: 'setMainColor',
         value: function setMainColor(e) {
             // e.preventDefault();
@@ -7324,7 +7575,7 @@ var ColorPalette = function (_UIElement) {
 
             this.drag_pointer_pos = { x: x, y: y };
 
-            this.caculateSV();
+            this.calculateSV();
         }
     }, {
         key: '@changeColor',
@@ -7351,7 +7602,11 @@ var ColorPalette = function (_UIElement) {
         value: function mousemoveDocument(e) {
             if (this.isDown) {
                 this.cacheSize();
-                this.setMainColor(e);
+                if (this.axis === 'saturation' || this.axis === 'value') {
+                    this.setSubColor(e);
+                } else {
+                    this.setMainColor(e);
+                }
             }
         }
     }, {
@@ -7359,7 +7614,15 @@ var ColorPalette = function (_UIElement) {
         value: function mousedown(e) {
             this.isDown = true;
             this.cacheSize();
-            this.setMainColor(e);
+            this.axis = new Dom(e.target).attr('data-axis-value');
+            this.x = e.pageX;
+            this.y = e.pageY;
+
+            if (this.axis === 'saturation' || this.axis === 'value') {
+                this.setSubColor(e);
+            } else {
+                this.setMainColor(e);
+            }
         }
     }, {
         key: 'touchend document',
@@ -8182,34 +8445,6 @@ var EmbedColorPicker = function (_UIElement) {
   return EmbedColorPicker;
 }(UIElement);
 
-function isUndefined$2(value) {
-    return typeof value == 'undefined' || value === null;
-}
-
-function isNotUndefined(value) {
-    return isUndefined$2(value) === false;
-}
-
-
-
-
-
-function isString$1(value) {
-    return typeof value == 'string';
-}
-
-
-
-
-
-function isFunction(value) {
-    return typeof value == 'function';
-}
-
-function isNumber(value) {
-    return typeof value == 'number';
-}
-
 function _traverse(obj) {
   var results = [];
 
@@ -8423,7 +8658,7 @@ var Item = function () {
   }, {
     key: "toggle",
     value: function toggle(field, toggleValue) {
-      if (isUndefined$2(toggleValue)) {
+      if (isUndefined$1(toggleValue)) {
         this.json[field] = !this.json[field];
       } else {
         this.json[field] = !!toggleValue;
@@ -9412,7 +9647,7 @@ var Gradient = function (_ImageResource) {
     key: "calculateAngle",
     value: function calculateAngle() {
       var angle = this.json.angle;
-      return isUndefined$2(DEFINED_ANGLES[angle]) ? angle : DEFINED_ANGLES[angle] || 0;
+      return isUndefined$1(DEFINED_ANGLES[angle]) ? angle : DEFINED_ANGLES[angle] || 0;
     }
 
     /**
@@ -10156,7 +10391,7 @@ var LinearGradient = function (_Gradient) {
           colorsteps.push.apply(colorsteps, toConsumableArray(ColorStep.parse(newValue)));
         } else {
           // direction
-          angle = isUndefined$2(DEFINED_ANGLES$1[newValue]) ? Length.parse(newValue) : Length.deg(+DEFINED_ANGLES$1[newValue]);
+          angle = isUndefined$1(DEFINED_ANGLES$1[newValue]) ? Length.parse(newValue) : Length.deg(+DEFINED_ANGLES$1[newValue]);
         }
       });
 

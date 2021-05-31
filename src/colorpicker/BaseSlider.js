@@ -83,6 +83,10 @@ export default class BaseSlider extends BaseBox {
     
         v = v || this.getDefaultValue(); 
 
+        if (this.lastV === v) return true;
+
+        this.lastV = v;        
+
         if (v <= this.minValue) {
             this.refs.$bar.addClass('first').removeClass('last')
         } else if (v >= this.maxValue) {

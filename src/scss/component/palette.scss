@@ -22,6 +22,49 @@
           height: 10px;
           border-radius: 50%;
           transform: translateX(-50%) translateY(-50%);
+
+
+            > div {
+              border: 1px solid #ececec;
+              box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05);
+              box-sizing: border-box;
+              position: absolute;
+              width: 10px;
+              height: 4px;
+              background-color: white;
+            }
+
+            .left-saturation {
+              left: 0%;
+              top: 50%;
+              transform: translateX(calc(-100% - 4px)) translateY(-50%);
+              cursor: col-resize;
+            }
+
+            .right-saturation {
+              left: 100%;
+              top: 50%;
+              transform: translateX(4px) translateY(-50%);
+              cursor: col-resize;            
+            }         
+
+            .top-value {
+              width: 4px;
+              height: 10px;            
+              left: 50%;
+              top: 0%;
+              transform: translateX(-50%) translateY(calc(-100% - 4px));
+              cursor: row-resize;            
+            }          
+
+            .bottom-value {
+              width: 4px;
+              height: 10px;                        
+              left: 50%;
+              top: 100%;
+              transform: translateX(-50%) translateY(4px);
+              cursor: row-resize;                        
+            }                    
         }
       } 
 
