@@ -24,8 +24,8 @@ npm install @easylogic/colorpicker
 # How to use (for  browser) 
 
 ```
-<link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.2/dist/colorpicker.css" />
-<script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.2/dist/colorpicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.3/dist/colorpicker.css" />
+<script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.3/dist/colorpicker.min.js"></script>
 ```
 
 # How to use 
