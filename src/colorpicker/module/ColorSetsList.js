@@ -13,7 +13,8 @@ export default class ColorSetsList extends BaseModule {
                     '#2196F3', '#03A9F4', '#00BCD4',  '#009688', '#4CAF50', 
                     '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', 
                     '#FF5722',  '#795548', '#9E9E9E', '#607D8B' 
-                ]
+                ],
+                edit: true
             },
             { name : "Custom", "edit" : true, "colors" : [] },
             { name: "Color Scale", "scale" : ['red', 'yellow', 'black' ], count : 5 }
@@ -78,6 +79,7 @@ export default class ColorSetsList extends BaseModule {
         if (Array.isArray($store.currentColorSets.colors)) {
             $store.currentColorSets.colors.push(color);
             $store.emit('changeCurrentColorSets');
+            $store.emit("addCurrentColor", color);
         } 
     }
 

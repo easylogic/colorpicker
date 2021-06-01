@@ -3,6 +3,7 @@ import ColorSetsList from './module/ColorSetsList'
 import UIElement from './UIElement'
 import ColorManager from './module/ColorManager';
 import BaseStore from './BaseStore';
+import { isFunction } from '../util/functions/func';
 
 export default class BaseColorPicker extends UIElement {
 
@@ -38,9 +39,14 @@ export default class BaseColorPicker extends UIElement {
             this.callbackLastUpdateColorValue()
         }             
 
+        this.callbackAddCurrentColor = (color) => {
+            this.callbackAddCurrentColorValue(color)
+        }                     
+
         this.colorpickerShowCallback = function () { };
         this.colorpickerHideCallback = function () { };           
-        this.colorpickerLastUpdateCallback = function () { };           
+        this.colorpickerLastUpdateCallback = function () { };    
+        this.colorpickerAddCurrentColorCallback = function () { };           
 
         this.$body = new Dom(this.getContainer());
         this.$root = new Dom('div', 'easylogic-colorpicker', {
@@ -68,7 +74,12 @@ export default class BaseColorPicker extends UIElement {
         
         this.$root.append(this.$arrow);
 
-        this.$store.dispatch('/setUserPalette', this.opt.colorSets);
+        if (this.opt.colorSets) {
+            this.$store.dispatch('/setUserPalette', this.opt.colorSet);
+        } else if (isFunction(this.opt.onRetrievePreset)) {
+            this.$store.dispatch('/setUserPalette', this.opt.onRetrievePreset());
+        }
+
 
         this.render()
 
@@ -98,8 +109,9 @@ export default class BaseColorPicker extends UIElement {
      * @param {String|Object} color  
      * @param {Function} showCallback  it is called when colorpicker is shown
      * @param {Function} hideCallback  it is called once when colorpicker is hidden
+     * @param {Function} addCurrentColorCallback  
      */
-    show(opt, color, showCallback, hideCallback, lastUpdateCallback) {
+    show(opt, color, showCallback, hideCallback, lastUpdateCallback, addCurrentColorCallback) {
 
         // 매번 이벤트를 지우고 다시 생성할 필요가 없어서 초기화 코드는 지움. 
         // this.destroy();
@@ -107,7 +119,8 @@ export default class BaseColorPicker extends UIElement {
         // define colorpicker callback
         this.colorpickerShowCallback = showCallback;
         this.colorpickerHideCallback = hideCallback;    
-        this.colorpickerLastUpdateCallback = lastUpdateCallback;                    
+        this.colorpickerLastUpdateCallback = lastUpdateCallback;    
+        this.colorpickerAddCurrentColorCallback = addCurrentColorCallback;                
         this.$root.css(this.getInitalizePosition()).show();
 
 
@@ -344,6 +357,16 @@ export default class BaseColorPicker extends UIElement {
         }                
     }
 
+    callbackAddCurrentColorValue(color) {
+        if (typeof this.opt.onLastUpdate == 'function') {
+            this.opt.onAddPreset.call(this, color);
+        }
+
+        if (typeof this.colorpickerAddCurrentColorCallback == 'function') {
+            this.colorpickerAddCurrentColorCallback(color);
+        }                
+    }    
+
 
     callbackHideColorValue(color) {
         color = color || this.getCurrentColor();
@@ -381,7 +404,8 @@ export default class BaseColorPicker extends UIElement {
 
         this.$store.on('changeColor', this.callbackChange)
         this.$store.on('lastUpdateColor', this.callbackLastUpdate)        
-        this.$store.on('changeFormat', this.callbackChange)        
+        this.$store.on('changeFormat', this.callbackChange)      
+        this.$store.on('addCurrentColor', this.callbackAddCurrentColor)        
     }
  
     destroy() {
@@ -390,13 +414,15 @@ export default class BaseColorPicker extends UIElement {
         this.$store.off('changeColor', this.callbackChange);
         this.$store.off('lastUpdateColor', this.callbackLastUpdate)        
         this.$store.off('changeFormat', this.callbackChange);
+        this.$store.off('addCurrentColor', this.callbackAddCurrentColor)   
 
         this.callbackChange = undefined; 
         this.callbackLastUpdate = undefined;        
+        this.callbackAddCurrentColor = undefined;   
 
         // remove color picker callback
         this.colorpickerShowCallback = undefined;
-        this.colorpickerHideCallback = undefined;   
+        this.colorpickerHideCallback = undefined;
     }
 
 
