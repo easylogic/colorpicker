@@ -65,6 +65,12 @@
   @import './themes/ring';   
   @import './themes/xd';   
   @import './themes/vscode.scss';
+
+  &.hide-colorsets {
+    .colorsets {
+      display: none !important;
+    }
+  }
 }    
 
 @import './component/colorsets-contextmenu'; 

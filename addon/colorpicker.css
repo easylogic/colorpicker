@@ -384,6 +384,9 @@
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       line-height: 0; }
+      .easylogic-colorpicker .colorpicker-body .colorsets > .color-list h6 {
+        margin-top: 0px;
+        margin-bottom: 8px; }
       .easylogic-colorpicker .colorpicker-body .colorsets > .color-list .color-item {
         width: 13px;
         height: 13px;
@@ -1182,6 +1185,9 @@
     .easylogic-colorpicker.sketch > .colorpicker-body > .colorsets > .color-list {
       margin-right: 0px;
       padding-right: 12px; }
+      .easylogic-colorpicker.sketch > .colorpicker-body > .colorsets > .color-list h6 {
+        margin-top: 0px;
+        margin-bottom: 8px; }
       .easylogic-colorpicker.sketch > .colorpicker-body > .colorsets > .color-list .color-item {
         width: 16px;
         height: 16px;
@@ -1202,6 +1208,9 @@
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       border-top: 0px; }
+      .easylogic-colorpicker.palette > .colorpicker-body > .colorsets > .color-list h6 {
+        margin-top: 0px;
+        margin-bottom: 8px; }
       .easylogic-colorpicker.palette > .colorpicker-body > .colorsets > .color-list .color-item {
         width: 15px;
         height: 15px;
@@ -1611,6 +1620,8 @@
         border-radius: 0px;
         -webkit-box-shadow: 0 0 2px 0 black, inset 0 0 0 0 black;
                 box-shadow: 0 0 2px 0 black, inset 0 0 0 0 black; }
+  .easylogic-colorpicker.hide-colorsets .colorsets {
+    display: none !important; }
 
 .colorsets-contextmenu {
   position: fixed;

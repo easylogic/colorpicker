@@ -5651,6 +5651,8 @@ var BaseColorPicker = function (_UIElement) {
                 this.$store.dispatch('/setUserPalette', this.opt.colorSet);
             } else if (isFunction(this.opt.onRetrievePreset)) {
                 this.$store.dispatch('/setUserPalette', this.opt.onRetrievePreset());
+            } else {
+                this.$store.dispatch('/setUserPalette', []);
             }
 
             this.render();
@@ -7087,9 +7089,9 @@ var CurrentColorSets = function (_UIElement) {
             var currentColorSets = this.$store.dispatch('/getCurrentColorSets');
             var colors = this.$store.dispatch('/getCurrentColors');
 
-            return '\n            <div class="current-color-sets">\n            ' + colors.map(function (color, i) {
-                return '<div class="color-item" title="' + color + '" data-index="' + i + '" data-color="' + color + '">\n                    <div class="empty"></div>\n                    <div class="color-view" style="background-color: ' + color + '"></div>\n                </div>';
-            }).join('') + '   \n            ' + (currentColorSets.edit ? '<div class="add-color-item">+</div>' : '') + '         \n            </div>\n        ';
+            return '\n            <div>\n                <h6>' + currentColorSets.name + '</h6>\n                <div class="current-color-sets">\n                ' + colors.map(function (color, i) {
+                return '<div class="color-item" title="' + color + '" data-index="' + i + '" data-color="' + color + '">\n                        <div class="empty"></div>\n                        <div class="color-view" style="background-color: ' + color + '"></div>\n                    </div>';
+            }).join('') + '   \n                ' + (currentColorSets.edit ? '<div class="add-color-item">+</div>' : '') + '         \n                </div>\n            </div>\n            \n        ';
         }
     }, {
         key: 'refresh',

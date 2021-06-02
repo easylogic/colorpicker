@@ -78,6 +78,8 @@ export default class BaseColorPicker extends UIElement {
             this.$store.dispatch('/setUserPalette', this.opt.colorSet);
         } else if (isFunction(this.opt.onRetrievePreset)) {
             this.$store.dispatch('/setUserPalette', this.opt.onRetrievePreset());
+        } else {
+            this.$store.dispatch('/setUserPalette', []);
         }
 
 
