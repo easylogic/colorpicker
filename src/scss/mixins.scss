@@ -1,7 +1,7 @@
+@use "sass:math";
+
 @mixin transparent-background ($pixel: 10px) {
-
-    $half: $pixel / 2;
-
+    $half: math.div($pixel, 2);
     background-color: transparent;
     background-image:
       linear-gradient(45deg, #ccc 25%, transparent 25%),
@@ -11,7 +11,6 @@
     background-size:$pixel $pixel;
     background-position: 0 0, 0 $half, $half (-1 * $half), (-1 * $half) 0px;
 }
-
 
 @mixin arrow_top ($pixel, $color) {
     width: 0;

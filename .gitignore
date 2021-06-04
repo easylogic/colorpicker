@@ -5,3 +5,5 @@ test-report/
 .DS_Store
 package-lock.json
 yarn.lock
+yarn-error.log
+
