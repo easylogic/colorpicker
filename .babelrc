@@ -11,7 +11,7 @@
             "presets" : [
                 [ "env", {"modules" : false } ]
             ],
-            "plugins": [    
+            "plugins": [
                 "external-helpers",
                 "transform-object-rest-spread"
             ]
@@ -20,7 +20,7 @@
             "presets" : [
                 [ "env", {"modules" : false } ]
             ],
-            "plugins": [    
+            "plugins": [
                 "external-helpers",
                 "transform-object-rest-spread"
             ]

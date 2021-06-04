@@ -7,8 +7,8 @@
   border: 1px solid rgba(0, 0, 0, 0.2);
   background-color: #fff;
   border-radius: 3px;
-  -webkit-box-shadow: 0 0px 10px 2px rgba(0, 0, 0, 0.12);
-          box-shadow: 0 0px 10px 2px rgba(0, 0, 0, 0.12);
+  -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.12);
   outline: none;
   /* theme */ }
   .easylogic-colorpicker > .arrow {

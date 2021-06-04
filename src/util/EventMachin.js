@@ -9,17 +9,17 @@ const META_KEYS = ['Control', 'Shift', 'Alt', 'Meta'];
 
 export default class EventMachin {
 
-  constructor() { 
+  constructor() {
     this.state = new State(this);
-    this.refs = {} 
+    this.refs = {}
 
     this.childComponents = this.components()
   }
 
   /**
-   * 자식으로 사용할 컴포넌트를 생성해준다. 
-   * 생성 시점에 $store 객체가 자동으로 공유된다. 
-   * 모든 데이타는 $store 기준으로 작성한다. 
+   * 자식으로 사용할 컴포넌트를 생성해준다.
+   * 생성 시점에 $store 객체가 자동으로 공유된다.
+   * 모든 데이타는 $store 기준으로 작성한다.
    */
   newChildComponents () {
     const childKeys = Object.keys(this.childComponents)
@@ -31,45 +31,45 @@ export default class EventMachin {
   }
 
   /**
-   * 부모가 정의한 template 과  그 안에서 동작하는 자식 컴포넌트들을 다 합쳐서 
-   * 최종 element 를 만들어준다. 
-   * 
-   * 그리고 자동으로 load 되어질게 있으면 로드 해준다. 
+   * 부모가 정의한 template 과  그 안에서 동작하는 자식 컴포넌트들을 다 합쳐서
+   * 최종 element 를 만들어준다.
+   *
+   * 그리고 자동으로 load 되어질게 있으면 로드 해준다.
    */
   render () {
-    // 1. 나의 template 을 만들어내고  
+    // 1. 나의 template 을 만들어내고
     this.$el = this.parseTemplate(this.template())
-    this.refs.$el = this.$el;         
+    this.refs.$el = this.$el;
 
-    // 개별 객체 셋팅하고 
+    // 개별 객체 셋팅하고
     this.parseTarget()
 
-    // 데이타 로드 하고 
-    this.load()    
+    // 데이타 로드 하고
+    this.load()
 
     this.afterRender()
 
   }
 
   afterRender() { }
- 
+
   /**
-   * 자식 컴포넌트로 사용될 객체 정의 
+   * 자식 컴포넌트로 사용될 객체 정의
    */
   components () {
-    return {} 
+    return {}
   }
 
   /**
-   * Class 기반으로 $el 을 생성하기 위해서 
-   * 선언형으로 html 템플릿을 정의한다. 
-   * 
-   * @param {*} html 
+   * Class 기반으로 $el 을 생성하기 위해서
+   * 선언형으로 html 템플릿을 정의한다.
+   *
+   * @param {*} html
    */
   parseTemplate (html) {
     const $el = new Dom("div").html(html).firstChild()
 
-    // ref element 정리 
+    // ref element 정리
     var refs = $el.findAll('[ref]');
 
     [...refs].forEach(node => {
@@ -77,14 +77,14 @@ export default class EventMachin {
       this.refs[name] = new Dom(node);
     })
 
-    return $el; 
+    return $el;
   }
 
   /**
    * target 으로 지정된 자식 컴포넌트를 대체해준다.
    */
   parseTarget () {
-    const $el = this.$el; 
+    const $el = this.$el;
     const targets = $el.findAll('[target]');
 
     [...targets].forEach(node => {
@@ -99,24 +99,24 @@ export default class EventMachin {
       if (instance) {
         instance.render()
         var $parent = new Dom(node.parentNode)
-        $parent.replace(node, instance.$el.el)                
+        $parent.replace(node, instance.$el.el)
       }
     })
   }
 
-  // load function이 정의된 객체는 load 를 실행해준다. 
+  // load function이 정의된 객체는 load 를 실행해준다.
   load () {
-    
+
     this.filterProps(CHECK_LOAD_PATTERN).forEach(callbackName => {
       const elName = callbackName.split('load ')[1]
 
-      if (this.refs[elName]) { 
+      if (this.refs[elName]) {
         this.refs[elName].html(this.parseTemplate(this[callbackName].call(this)))
       }
     })
   }
 
-  // 기본 템플릿 지정 
+  // 기본 템플릿 지정
   template () {
     return '<div></div>';
   }
@@ -126,13 +126,13 @@ export default class EventMachin {
   }
 
   /**
-   * 이벤트를 초기화한다. 
+   * 이벤트를 초기화한다.
    */
-  initializeEvent () { 
+  initializeEvent () {
     this.initializeEventMachin();
 
-    // 자식 이벤트도 같이 초기화 한다. 
-    // 그래서 이 메소드는 부모에서 한번만 불려도 된다. 
+    // 자식 이벤트도 같이 초기화 한다.
+    // 그래서 이 메소드는 부모에서 한번만 불려도 된다.
     Object.keys(this.childComponents).forEach(key => {
       if (this[key]) this[key].initializeEvent()
     })
@@ -140,12 +140,12 @@ export default class EventMachin {
   }
 
   /**
-   * 자원을 해제한다. 
-   * 이것도 역시 자식 컴포넌트까지 제어하기 때문에 가장 최상위 부모에서 한번만 호출되도 된다. 
+   * 자원을 해제한다.
+   * 이것도 역시 자식 컴포넌트까지 제어하기 때문에 가장 최상위 부모에서 한번만 호출되도 된다.
    */
   destroy() {
     this.destroyEventMachin();
-    // this.refs = {} 
+    // this.refs = {}
 
     Object.keys(this.childComponents).forEach(key => {
       if (this[key]) this[key].destroy()
@@ -162,14 +162,14 @@ export default class EventMachin {
   }
 
   /**
-   * property 수집하기 
-   * 상위 클래스의 모든 property 를 수집해서 리턴한다. 
+   * property 수집하기
+   * 상위 클래스의 모든 property 를 수집해서 리턴한다.
    */
   collectProps () {
 
     if (!this.collapsedProps) {
-      var p = this.__proto__ 
-      var results = [] 
+      var p = this.__proto__
+      var results = []
       do {
         results.push(...Object.getOwnPropertyNames(p))
         p  = p.__proto__;
@@ -178,7 +178,7 @@ export default class EventMachin {
       this.collapsedProps = results
     }
 
-    return this.collapsedProps; 
+    return this.collapsedProps;
   }
 
   filterProps (pattern) {
@@ -194,12 +194,12 @@ export default class EventMachin {
   }
 
   getDefaultDomElement (dom) {
-    let el; 
+    let el;
 
     if (dom) {
-      el = this.refs[dom] || this[dom] || window[dom]; 
+      el = this.refs[dom] || this[dom] || window[dom];
     } else {
-      el = this.el || this.$el || this.$root; 
+      el = this.el || this.$el || this.$root;
     }
 
     if (el instanceof Dom) {
@@ -221,15 +221,15 @@ export default class EventMachin {
     arr = arr.filter((code) => {
       return META_KEYS.includes(code) === false;
     });
-    
+
     const checkMethodList = arr.filter(code => {
       return !!this[code];
     });
-    
+
     arr = arr.filter(code => {
-      return checkMethodList.includes(code) === false; 
+      return checkMethodList.includes(code) === false;
     }).map(code => {
-      return code.toLowerCase() 
+      return code.toLowerCase()
     });
 
     return {
@@ -280,17 +280,17 @@ export default class EventMachin {
 
   checkEventType (e, eventObject ) {
     var onlyControl = eventObject.isControl ? e.ctrlKey : true;
-    var onlyShift = eventObject.isShift ? e.shiftKey  : true; 
-    var onlyAlt = eventObject.isAlt ? e.altKey : true; 
-    var onlyMeta = eventObject.isMeta ? e.metaKey : true; 
+    var onlyShift = eventObject.isShift ? e.shiftKey  : true;
+    var onlyAlt = eventObject.isAlt ? e.altKey : true;
+    var onlyMeta = eventObject.isMeta ? e.metaKey : true;
 
-    var hasKeyCode = true; 
+    var hasKeyCode = true;
     if (eventObject.codes.length) {
       hasKeyCode = eventObject.codes.includes(e.code.toLowerCase()) || eventObject.codes.includes(e.key.toLowerCase());
     }
 
-    var isAllCheck = true;  
-    if (eventObject.checkMethodList.length) {  // 체크 메소드들은 모든 메소드를 다 적용해야한다. 
+    var isAllCheck = true;
+    if (eventObject.checkMethodList.length) {  // 체크 메소드들은 모든 메소드를 다 적용해야한다.
       isAllCheck = eventObject.checkMethodList.every(method => {
         return this[method].call(this, e);
       });
@@ -305,19 +305,19 @@ export default class EventMachin {
         e.xy = Event.posXY(e);
         if (this.checkEventType(e, eventObject)) {
           const delegateTarget = this.matchPath(e.target || e.srcElement, eventObject.delegate);
-  
-          if (delegateTarget) { // delegate target 이 있는 경우만 callback 실행 
+
+          if (delegateTarget) { // delegate target 이 있는 경우만 callback 실행
             e.delegateTarget = delegateTarget;
             e.$delegateTarget = new Dom(delegateTarget);
             return callback(e);
-          } 
+          }
         }
 
       }
     }  else {
       return (e) => {
         e.xy = Event.posXY(e);
-        if (this.checkEventType(e, eventObject)) { 
+        if (this.checkEventType(e, eventObject)) {
           return callback(e);
         }
       }
@@ -328,11 +328,11 @@ export default class EventMachin {
     eventObject.callback = this.makeCallback(eventObject, callback)
     this.addBinding(eventObject);
 
-    var options = true; 
+    var options = true;
     if (eventObject.eventName === 'touchstart') {
       options = { passive : true }
     }
-      
+
     Event.addEvent(eventObject.dom, eventObject.eventName, eventObject.callback, options)
   }
 

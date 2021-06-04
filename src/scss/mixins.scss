@@ -1,6 +1,6 @@
 @mixin transparent-background ($pixel: 10px) {
 
-    $half: $pixel / 2; 
+    $half: $pixel / 2;
 
     background-color: transparent;
     background-image:
@@ -14,19 +14,19 @@
 
 
 @mixin arrow_top ($pixel, $color) {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: $pixel solid transparent;
-    border-right: $pixel solid transparent;    
+    border-right: $pixel solid transparent;
     border-bottom: $pixel solid $color;
     pointer-events: none;
 }
 
 @mixin arrow_bottom ($pixel, $color) {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: $pixel solid transparent;
-    border-right: $pixel solid transparent;    
+    border-right: $pixel solid transparent;
     border-top: $pixel solid $color;
     pointer-events: none;
 }

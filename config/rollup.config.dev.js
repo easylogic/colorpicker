@@ -4,28 +4,32 @@ import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import autoprefixer from 'autoprefixer'
 
-// rollup.config.js
 export default {
   input: 'src/index.js',
   output: {
-    file: 'addon/colorpicker.js',
+    file: 'public/core/colorpicker.js',
     format: 'iife'
   },
-  name: 'EasyLogicColorPicker',  
+  name: 'EasyLogicColorPicker',
   plugins : [
-    serve(),
-    livereload({watch: 'addon'}),
+    serve({
+      open: false,
+      contentBase: 'public',
+      host: '0.0.0.0',
+      port: 10001,
+    }),
+    livereload('public/core'),
     postcss({
-      extract: 'addon/colorpicker.css',
+      extract: 'public/core/colorpicker.css',
       plugins: [
         autoprefixer()
       ],
       extensions: ['.scss']
-    }), 
+    }),
     babel({
       exclude: ['node_modules/**', 'src/util/glsl/source/**'],
       presets: [
-        [ 'es2015', { modules : false } ] 
+        [ 'es2015', { modules : false } ]
       ]
     })
   ],
