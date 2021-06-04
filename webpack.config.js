@@ -34,6 +34,15 @@ const config = (env, options) => {
             'sass-loader',
           ],
         },
+        {
+          test: /\.(jpg|png|gif|svg)$/,
+          loader: 'file-loader',
+          options: {
+            publicPath: './',
+            name: '[name].[ext]',
+            limit: 10000,
+          },
+        },
       ],
     },
     plugins: [
@@ -60,7 +69,7 @@ const config = (env, options) => {
       port: options.port || 3000,
       stats: 'minimal',
       historyApiFallback: true,
-      noInfo: false,
+      noInfo: true,
     };
     out.module.rules.push({
       test: /\.html$/,

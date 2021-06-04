@@ -1,0 +1,114 @@
+@import "./normalize";
+
+:root {
+  --layout-side-padding: 30px;
+  --layout-font-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --layout-font-eng: Helvetica, Arial, sans-serif;
+  --layout-color-base: #111;
+  --layout-color-key: #ff2b00;
+}
+
+html {
+  touch-action: manipulation;
+}
+body {
+  margin: 0;
+  min-width: 375px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+body, button, input, textarea, select {
+  font-family: var(--layout-font-base);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: none;
+  color: var(--layout-color-base);
+}
+
+// header
+.layout-header {
+  position: sticky;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  box-shadow: inset 0 -1px 0 0 hsla(0,0%,0%,.1), 0 1px 10px 0 hsla(0,0%,0%,.15);
+  z-index: 1;
+  user-select: none;
+  background: #fff;
+  > h1 {
+    margin: 0;
+    padding: 0 0 0 var(--layout-side-padding);
+    flex: 1;
+    font-size: 18px;
+    letter-spacing: -.5px;
+    font-weight: 800;
+    line-height: 1.15;
+    font-family: var(--layout-font-eng);
+  }
+  > nav {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--layout-side-padding) 0 0;
+    button {
+      display: block;
+      width: auto;
+      margin: 0;
+      padding: 16px 12px;
+      cursor: pointer;
+      letter-spacing: -.25px;
+      font-size: 15px;
+      font-weight: 600;
+      box-sizing: border-box;
+      border: none;
+      background: none;
+      &:disabled {
+        color: var(--layout-color-key);
+        cursor: default;
+      }
+      &:active {
+        opacity: .5;
+      }
+    }
+  }
+}
+
+// container
+.container {
+  padding: 30px;
+  > section {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
+
+// section
+.layout-section {
+  &__title {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: -.5px;
+    font-weight: 800;
+    line-height: 1.25;
+  }
+  &__description {
+    margin: 8px 0 0;
+    font-size: 13px;
+  }
+  &__body {
+    margin: 16px 0 0;
+  }
+}
+
+.color-picker-solo {
+  > .easylogic-colorpicker {
+    display: block;
+    margin: 0 auto;
+    --cp-size-width: auto;
+    //--cp-outer-shadow: 0 0 0 1px red;
+    //--cp-size-radius: 5px;
+  }
+}

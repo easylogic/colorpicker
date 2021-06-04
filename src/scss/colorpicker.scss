@@ -1,16 +1,16 @@
-
-/* easylogic-colorpicker */
+// easylogic-colorpicker
 
 .easylogic-colorpicker {
   position: relative;
-  width: 224px;
-  z-index: 1000;
-  display:inline-block;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: #fff;
-  border-radius: 3px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.12);
+  display: inline-block;
+  width: var(--cp-size-width);
+  z-index: 1000; // TODO: 조율할 필요가 있다.
+  background-color: var(--cp-color-bg);
+  border-radius: var(--cp-size-radius);
+  box-shadow: var(--cp-outer-shadow);
   outline: none;
+  box-sizing: border-box;
+  padding: 1px; // TODO: 임시조취
 
   > .arrow {
     position: absolute;
@@ -45,16 +45,12 @@
     @import './component/information';
     @import './component/colorsets';
     @import './component/colorchooser';
-
   }
 
   @import './component/gradient-editor';
   @import './component/gradient-picker';
 
-
-  &.chromedevtool {
-
-  }
+  &.chromedevtool {}
 
   /* theme */
   @import './themes/sketch';

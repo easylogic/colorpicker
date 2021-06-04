@@ -1,201 +1,199 @@
 &.sketch {
-    border-radius: 5px;
-
-    > .colorpicker-body {
-
-        > .color {
-            margin: 10px 10px 2px 10px;
-            box-sizing: border-box;
-            height: 150px;
-        }
-    
-        > .control {
-            padding: 0px;
-    
-            > .color, > .empty {
-                position: absolute;
-                right: 10px;
-                left: auto;
-                top: 2px;
-                width: 40px;
-                height: 44px;
-                border-radius: 2px;
-                box-sizing: border-box;
-            }
-            > .color2, > .empty2 {
-                position: absolute;
-                right: 10px;
-                left: auto;
-                top: 50px;
-                width: 40px;
-                height: 20px;
-                border-radius: 2px;
-                box-sizing: border-box;
-            }            
-
-    
-            > .color {
-                box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
-            }
-    
-            > .hue {
-                position: relative;
-                padding: 2px 2px 2px 10px;
-                margin: 0px 50px 0px 0px;
-    
-                > .hue-container {
-                    border-radius: 0px;
-                    height: 20px;
-                }
-            }
-
-            > .hue-scale {
-                position: relative;
-                padding: 2px 2px 2px 10px;
-                margin: 0px 50px 0px 0px;
-        
-                > .hue-scale-container {
-                  border-radius: 0px;
-                  height: 20px;                  
-                }
-            }                  
-    
-            > .opacity {
-                position: relative;
-                padding: 2px 2px 2px 10px;
-                margin: 0px 50px 0px 0px;
-    
-                > .opacity-container {
-                    border-radius: 0px;
-                    height: 20px;                    
-                }
-            }
-    
-            .drag-bar, .drag-bar2 {
-                border-radius: 0px;
-                top: 50%;
-                left: 0px;
-                width: 5px;
-                height: 80%;
-                transform: translateX(-50%) translateY(-50%);
-                border-radius: 1px;
-                bottom: 1px !important;
-    
-                &.first {
-                    left: 0px;
-                    transform: translateX(50%) translateY(-50%) !important;
-                }
-    
-                &.last {
-                    transform: translateX(-110%) translateY(-50%) !important;
-                }            
-            }
-        }
-    
-        > .information {
-            .information-change {
-                display: none;
-            }
-    
-            &.rgb {
-                .information-item.rgb {
-                    display: inherit;
-                }
-
-                .information-item.hsl {
-                    display: none !important;
-                }                 
-            }
-    
-            &.hex {
-                .information-item.hex {
-                    display: inherit;
-                }
-                .information-item.hsl {
-                    display: none !important;
-                }                           
-            }
-
-            &.hsl {
-                .information-item.rgb {
-                  display: none !important;
-                }
-        
-                .information-item.hsl {
-                  display: inherit;
-                }        
-            }            
-    
-            .information-item {
-                display: inline-flex !important;
-                margin-right: 0px;
-
-    
-                > .input-field {
-                                    
-                    padding-left: 0px;
-
-                    &:last-child {
-                        padding-right: 0px;
-                    }                
-
-                    > .title {
-                        color: black;
-                        font-size: 11px;
-                        cursor: pointer;
-
-                    }
-                }
-    
-                > .input-field:last-child:not(:first-child) {
-                    padding-right: 0px;
-                }
-            }
-    
-    
-            .information-item.hex {
-                width: 74px;
-                padding-right: 0px;
-                padding-left: 5px;
-            }
-    
-            .information-item.rgb {
-                width: 140px;
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-
-            .information-item.hsl {
-                display: none;
-                width: 140px;
-                padding-left: 0px;
-                padding-right: 0px;
-            }   
-        }
-    
-        > .colorsets {
-            > .menu {
-                // display: none;
-            }
-    
-            > .color-list {
-                margin-right: 0px;
-                padding-right: 12px;
-
-                h6 {
-                    margin-top: 0px;
-                    margin-bottom: 8px;                 
-                }                
-    
-                .color-item {
-                    width: 16px;
-                    height: 16px;
-                    border-radius: 3px;
-                    margin-right: 9px;
-                    margin-bottom: 10px;
-                }
-            }
-        }
+  > .colorpicker-body {
+    padding: 0;
+    > .color {
+      margin: 10px 10px 2px 10px;
+      box-sizing: border-box;
+      min-height: 150px;
     }
+
+    > .control {
+      padding: 0;
+
+      > .color, > .empty {
+        position: absolute;
+        right: 10px;
+        left: auto;
+        top: 2px;
+        width: 40px;
+        height: 44px;
+        border-radius: 2px;
+        box-sizing: border-box;
+      }
+      > .color2, > .empty2 {
+        position: absolute;
+        right: 10px;
+        left: auto;
+        top: 50px;
+        width: 40px;
+        height: 20px;
+        border-radius: 2px;
+        box-sizing: border-box;
+      }
+
+
+      > .color {
+        box-shadow: inset 0px 0px 1px 0px rgba(0, 0, 0, 0.5);
+      }
+
+      > .hue {
+        position: relative;
+        padding: 2px 2px 2px 10px;
+        margin: 0px 50px 0px 0px;
+
+        > .hue-container {
+          border-radius: 0px;
+          height: 20px;
+        }
+      }
+
+      > .hue-scale {
+        position: relative;
+        padding: 2px 2px 2px 10px;
+        margin: 0px 50px 0px 0px;
+
+        > .hue-scale-container {
+          border-radius: 0px;
+          height: 20px;
+        }
+      }
+
+      > .opacity {
+        position: relative;
+        padding: 2px 2px 2px 10px;
+        margin: 0px 50px 0px 0px;
+
+        > .opacity-container {
+          border-radius: 0px;
+          height: 20px;
+        }
+      }
+
+      .drag-bar, .drag-bar2 {
+        border-radius: 0px;
+        top: 50%;
+        left: 0px;
+        width: 5px;
+        height: 80%;
+        transform: translateX(-50%) translateY(-50%);
+        border-radius: 1px;
+        bottom: 1px !important;
+
+        &.first {
+          left: 0px;
+          transform: translateX(50%) translateY(-50%) !important;
+        }
+
+        &.last {
+          transform: translateX(-110%) translateY(-50%) !important;
+        }
+      }
+    }
+
+    > .information {
+      .information-change {
+        display: none;
+      }
+
+      &.rgb {
+        .information-item.rgb {
+          display: inherit;
+        }
+
+        .information-item.hsl {
+          display: none !important;
+        }
+      }
+
+      &.hex {
+        .information-item.hex {
+          display: inherit;
+        }
+        .information-item.hsl {
+          display: none !important;
+        }
+      }
+
+      &.hsl {
+        .information-item.rgb {
+          display: none !important;
+        }
+
+        .information-item.hsl {
+          display: inherit;
+        }
+      }
+
+      .information-item {
+        display: inline-flex !important;
+        margin-right: 0px;
+
+
+        > .input-field {
+
+          padding-left: 0px;
+
+          &:last-child {
+            padding-right: 0px;
+          }
+
+          > .title {
+            color: black;
+            font-size: 11px;
+            cursor: pointer;
+
+          }
+        }
+
+        > .input-field:last-child:not(:first-child) {
+          padding-right: 0px;
+        }
+      }
+
+
+      .information-item.hex {
+        width: 74px;
+        padding-right: 0px;
+        padding-left: 5px;
+      }
+
+      .information-item.rgb {
+        width: 140px;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+
+      .information-item.hsl {
+        display: none;
+        width: 140px;
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+
+    > .colorsets {
+      > .menu {
+        // display: none;
+      }
+
+      > .color-list {
+        margin-right: 0px;
+        padding-right: 12px;
+
+        h6 {
+          margin-top: 0px;
+          margin-bottom: 8px;
+        }
+
+        .color-item {
+          width: 16px;
+          height: 16px;
+          border-radius: 3px;
+          margin-right: 9px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
 
 }

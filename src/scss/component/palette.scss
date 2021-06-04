@@ -1,8 +1,8 @@
- 
+
 
   .color {
     position: relative;
-    height: 120px;
+    height: var(--cp-size-color-height);
     overflow: hidden;
     cursor: pointer;
 
@@ -45,44 +45,44 @@
               left: 100%;
               top: 50%;
               transform: translateX(4px) translateY(-50%);
-              cursor: col-resize;            
-            }         
+              cursor: col-resize;
+            }
 
             .top-value {
               width: 4px;
-              height: 10px;            
+              height: 10px;
               left: 50%;
               top: 0%;
               transform: translateX(-50%) translateY(calc(-100% - 4px));
-              cursor: row-resize;            
-            }          
+              cursor: row-resize;
+            }
 
             .bottom-value {
               width: 4px;
-              height: 10px;                        
+              height: 10px;
               left: 50%;
               top: 100%;
               transform: translateX(-50%) translateY(4px);
-              cursor: row-resize;                        
-            }                    
+              cursor: row-resize;
+            }
         }
-      } 
+      }
 
     }
 
     > .saturation {
         background-color: rgba(204, 154, 129, 0);
         background-image: linear-gradient(to right, #FFF, rgba(204, 154, 129, 0));
-        background-repeat: repeat-x; 
-    
+        background-repeat: repeat-x;
+
         > .value {
             background-image: linear-gradient(to top, #000000, rgba(204, 154, 129, 0));
-    
+
             > .drag-pointer {
                 border: 1px solid #fff;
                 box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.05);
             }
         }
     }
-    
+
 }
