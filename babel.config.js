@@ -3,11 +3,19 @@ module.exports = function(api) {
 
   // set presets
   const presets = [
-    '@babel/preset-env',
+    [
+      '@babel/preset-env',
+      {},
+    ],
   ];
 
   // set plugins
-  const plugins = [];
+  const plugins = [
+    [
+      '@babel/plugin-transform-runtime',
+      {},
+    ],
+  ];
 
   return {
     presets,

@@ -13,7 +13,7 @@ export default class EventMachin {
     this.state = new State(this);
     this.refs = {}
 
-    this.childComponents = this.components()
+    this.childComponents = this.components();
   }
 
   /**
@@ -22,10 +22,9 @@ export default class EventMachin {
    * 모든 데이타는 $store 기준으로 작성한다.
    */
   newChildComponents () {
-    const childKeys = Object.keys(this.childComponents)
+    const childKeys = Object.keys(this.childComponents);
     childKeys.forEach(key => {
-      const Component = this.childComponents[key]
-
+      const Component = this.childComponents[key];
       this[key] = new Component(this);
     })
   }
@@ -38,20 +37,19 @@ export default class EventMachin {
    */
   render () {
     // 1. 나의 template 을 만들어내고
-    this.$el = this.parseTemplate(this.template())
+    this.$el = this.parseTemplate(this.template());
     this.refs.$el = this.$el;
 
     // 개별 객체 셋팅하고
-    this.parseTarget()
+    this.parseTarget();
 
     // 데이타 로드 하고
-    this.load()
+    this.load();
 
-    this.afterRender()
-
+    this.afterRender();
   }
 
-  afterRender() { }
+  afterRender() {}
 
   /**
    * 자식 컴포넌트로 사용될 객체 정의
@@ -67,13 +65,13 @@ export default class EventMachin {
    * @param {*} html
    */
   parseTemplate (html) {
-    const $el = new Dom("div").html(html).firstChild()
+    const $el = new Dom("div").html(html).firstChild();
 
     // ref element 정리
-    var refs = $el.findAll('[ref]');
+    const refs = $el.findAll('[ref]');
 
     [...refs].forEach(node => {
-      const name = node.getAttribute('ref')
+      const name = node.getAttribute('ref');
       this.refs[name] = new Dom(node);
     })
 
@@ -121,9 +119,7 @@ export default class EventMachin {
     return '<div></div>';
   }
 
-  initialize() {
-
-  }
+  initialize() {}
 
   /**
    * 이벤트를 초기화한다.

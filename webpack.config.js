@@ -100,11 +100,20 @@ const config = (env, options) => {
       libraryTarget: 'umd',
       libraryExport: 'default'
     };
-    out.externals = {};
     out.optimization = {
       minimize: true,
       minimizer: [
-        new TerserJSPlugin({}),
+        new TerserJSPlugin({
+          minify: (file, sourceMap) => {
+            const uglifyJsOptions = {};
+            if (sourceMap) {
+              uglifyJsOptions.sourceMap = { content: sourceMap };
+            }
+            let str = require('uglify-js').minify(file, uglifyJsOptions);
+            str.code = str.code.replace(/\s\s/gi, '');
+            return str;
+          },
+        }),
         new CssMinimizerPlugin(),
       ],
     };
