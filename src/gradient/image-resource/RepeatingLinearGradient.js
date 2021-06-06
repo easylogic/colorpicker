@@ -8,7 +8,7 @@ export class RepeatingLinearGradient extends LinearGradient {
     });
   }
 
-  static parse(str) { 
+  static parse(str) {
     var linear = LinearGradient.parse(str);
     return new RepeatingLinearGradient({
       angle: linear.angle,
@@ -16,4 +16,3 @@ export class RepeatingLinearGradient extends LinearGradient {
     });
   }
 }
- s

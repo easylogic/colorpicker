@@ -1,4 +1,15 @@
 @import './common';
 @import './mixins';
-@import './colorpicker';  
-                                       
+
+.easylogic-colorpicker {
+  // color
+  --cp-color-bg: #fff;
+  // size
+  --cp-size-width: 224px;
+  --cp-size-radius: 3px;
+  --cp-size-color-height: 150px;
+  // etc
+  --cp-outer-shadow: 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15);
+}
+
+@import './colorpicker';

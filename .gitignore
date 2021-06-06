@@ -1,4 +1,9 @@
 node_modules/
-.DS_Store 
 test-report/
+.idea/
+
+.DS_Store
 package-lock.json
+yarn.lock
+yarn-error.log
+stats.json
