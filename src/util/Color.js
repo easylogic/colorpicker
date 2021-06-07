@@ -8,12 +8,11 @@ import fromHSL from './functions/fromHSL'
 import fromYCrCb from './functions/fromYCrCb'
 import mixin from "./functions/mixin";
 import parser from "./functions/parser";
-import image from "./functions/image";
 
 
 export default {
-    ...formatter, 
-    ...math, 
+    ...formatter,
+    ...math,
     ...mixin,
     ...parser,
     ...fromYCrCb,
@@ -22,6 +21,5 @@ export default {
     ...fromHSV,
     ...fromHSL,
     ...fromLAB,
-    ...image
 }
 
