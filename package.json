@@ -4,7 +4,7 @@
   "description": "simple colorpicker used anywhere",
   "main": "./dist/colorpicker.js",
   "scripts": {
-    "dev": "webpack serve --inline --progress --mode development",
+    "dev": "webpack serve --inline --progress --mode development --open",
     "prebuild": "rm -rf dist",
     "build": "webpack --mode production",
     "docs": "http-server ./docs",
@@ -29,6 +29,18 @@
     "palette"
   ],
   "author": "easylogic",
+  "contributors": [
+    {
+      "name": "easylogic",
+      "email": "cyberuls@gmail.com",
+      "url": "https://colorpicker.easylogic.studio"
+    },
+    {
+      "name": "Redgoose",
+      "email": "scripter@me.com",
+      "url": "https://redgoose.me"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/easylogic/easylogic-colorpicker/issues"
