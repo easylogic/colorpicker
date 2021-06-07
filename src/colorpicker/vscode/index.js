@@ -1,7 +1,7 @@
 import BaseColorPicker from '../BaseColorPicker'
 
 import ColorControl from './ColorControl'
-import ColorPalette from '../ui/ColorPalette'
+import _ColorPalette from '../ui/ColorPalette'
 import Color from '../../util/Color'
 
 export default class VSCodePicker extends BaseColorPicker {
@@ -18,11 +18,11 @@ export default class VSCodePicker extends BaseColorPicker {
                 </div>
             </div>
         `
-    } 
+    }
 
     components() {
-        return { 
-            palette: ColorPalette,  
+        return {
+            palette: _ColorPalette,
             control: ColorControl
         }
     }
@@ -73,8 +73,8 @@ export default class VSCodePicker extends BaseColorPicker {
         this.refresh()
     }
 
-    '@initColor' () { 
-        this.refresh() 
+    '@initColor' () {
+        this.refresh()
     }
 
 

@@ -4,18 +4,18 @@ import BaseModule from '../BaseModule';
 
 
 function isUndefined (v) {
-    return typeof v == 'undefined' || v == null;  
+    return typeof v == 'undefined' || v == null;
 }
 
 export default class ColorManager extends BaseModule {
 
-    initialize () {        
+    initialize () {
         super.initialize()
 
         this.$store.rgb = {}
         this.$store.hsl = {}
         this.$store.hsv = {}
-        this.$store.alpha = 1 
+        this.$store.alpha = 1
         this.$store.format = 'hex'
 
         // this.$store.dispatch('/changeColor');
@@ -40,23 +40,23 @@ export default class ColorManager extends BaseModule {
             colorObj = Color.parse(colorObj);
         }
 
-        colorObj.source = colorObj.source || source 
+        colorObj.source = colorObj.source || source
 
-        $store.alpha = isUndefined(colorObj.a) ? $store.alpha : colorObj.a; 
+        $store.alpha = isUndefined(colorObj.a) ? $store.alpha : colorObj.a;
         $store.format = colorObj.type != 'hsv' ? (colorObj.type || $store.format) : $store.format;
-        
+
         if (colorObj.type == 'hsl') {
-            $store.hsl = Object.assign($store.hsl, colorObj); 
+            $store.hsl = Object.assign($store.hsl, colorObj);
             $store.rgb = Color.HSLtoRGB($store.hsl);
-            $store.hsv = Color.HSLtoHSV(colorObj);            
+            $store.hsv = Color.HSLtoHSV(colorObj);
         } else if (colorObj.type == 'hex') {
             $store.rgb = Object.assign($store.rgb, colorObj);
             $store.hsl = Color.RGBtoHSL($store.rgb);
-            $store.hsv = Color.RGBtoHSV(colorObj);            
+            $store.hsv = Color.RGBtoHSV(colorObj);
         } else if (colorObj.type == 'rgb') {
             $store.rgb = Object.assign($store.rgb, colorObj);
-            $store.hsl = Color.RGBtoHSL($store.rgb);            
-            $store.hsv = Color.RGBtoHSV(colorObj);            
+            $store.hsl = Color.RGBtoHSL($store.rgb);
+            $store.hsv = Color.RGBtoHSV(colorObj);
         } else if (colorObj.type == 'hsv') {
             $store.hsv = Object.assign($store.hsv, colorObj);
             $store.rgb = Color.HSVtoRGB($store.hsv);
@@ -83,14 +83,14 @@ export default class ColorManager extends BaseModule {
     }
 
     '/toColor' ($store, type) {
-        type = type || $store.format; 
+        type = type || $store.format;
 
         if (type == 'rgb') {
             return $store.dispatch('/toRGB')
         } else if (type == 'hsl') {
             return $store.dispatch('/toHSL')
         } else if (type == 'hex') {
-            return $store.dispatch('/toHEX')            
+            return $store.dispatch('/toHEX')
         }
 
         return $store.dispatch('/toString', type);

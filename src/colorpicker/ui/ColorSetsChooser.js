@@ -1,4 +1,5 @@
 import UIElement from '../UIElement';
+import './ColorSetsChooser.scss';
 
 const DATA_COLORSETS_INDEX = 'data-colorsets-index';
 
@@ -30,9 +31,9 @@ export default class ColorSetsChooser extends UIElement {
         this.toggle()
     }
 
-    // loadable 
+    // loadable
     'load $colorsetsList' () {
-        // colorsets 
+        // colorsets
         const colorSets = this.$store.dispatch('/getColorSetsList');
 
         return `

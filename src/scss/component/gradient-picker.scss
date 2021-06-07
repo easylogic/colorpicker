@@ -1,11 +1,11 @@
 &.gradient-picker {
-  
+
   width: 460px;
   box-sizing: border-box;
 
   .gradient-body {
     display: grid;
-    grid-template-columns: 1fr 224px; 
+    grid-template-columns: 1fr 224px;
     // grid-column-gap: 4px;
 
     > div:first-child {
@@ -228,8 +228,8 @@
       }
     }
   }
-   
-  .easylogic-colorpicker {
+
+  .el-colorpicker {
     width: 223px;
     border-radius: 0px;
     border-top-right-radius: 3px;

@@ -1,0 +1,46 @@
+.el-cp-palette {
+  --pointer-size: 10px;
+  --pointer-color: #fff;
+  --pointer-stroke: 2px;
+  --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
+  position: relative;
+  height: var(--cp-size-palette-height);
+  cursor: pointer;
+  box-sizing: border-box;
+  background-color: var(--palette-bg, #eee);
+  border-top-left-radius: var(--cp-size-radius);
+  border-top-right-radius: var(--cp-size-radius);
+  //overflow: hidden; // TODO: 문제 없을거 같으면 삭제하기
+
+  &:before,
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &:before {
+    background-color: rgba(204,154,129,0);
+    background-image: linear-gradient(to right, #fff, rgba(204,154,129,0));
+    background-repeat: repeat-x;
+  }
+  &:after {
+    background-image: linear-gradient(to top, #000, rgba(204,154,129,0));
+  }
+
+  &__pointer {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    width: var(--pointer-size);
+    height: var(--pointer-size);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: var(--pointer-stroke) solid var(--pointer-color);
+    box-shadow: var(--pointer-shadow);
+    box-sizing: border-box;
+  }
+}

@@ -8,15 +8,15 @@ import ColorSetsChooser from '../ui/ColorSetsChooser'
 import CurrentColorSets from '../ui/CurrentColorSets'
 import CurrentColorSetsContextMenu from '../ui/CurrentColorSetsContextMenu'
 import ColorRing from '../ui/ColorRing';
-import ColorPalette from '../ui/ColorPalette';
+import _ColorPalette from '../ui/ColorPalette';
 
 export default class RingColorPicker extends BaseColorPicker {
- 
+
     template () {
         return `
             <div class='colorpicker-body'>
                 <div target="colorring"></div>
-                <div target="palette"></div> 
+                <div target="palette"></div>
                 <div target="control"></div>
                 <div target="information"></div>
                 <div target="currentColorSets"></div>
@@ -27,9 +27,9 @@ export default class RingColorPicker extends BaseColorPicker {
     }
 
     components() {
-        return { 
-            colorring: ColorRing, 
-            palette: ColorPalette, 
+        return {
+            colorring: ColorRing,
+            palette: _ColorPalette,
             control: ColorControl,
             information: ColorInformation,
             currentColorSets: CurrentColorSets,

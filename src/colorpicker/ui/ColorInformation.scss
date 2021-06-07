@@ -106,26 +106,6 @@
     }
   }
 
-  > .information-change {
-    position:absolute;
-    display:block;
-    width:40px;
-    top:0px;
-    right:0px;
-    bottom:0px;
-    text-align: center;
-    box-sizing: border-box;
-    padding-top:5px;
-
-    > .format-change-button {
-      box-sizing: border-box;
-      background:transparent;
-      border:0px;
-      cursor:pointer;
-      outline:none;
-    }
-  }
-
   > .title {
     color: #a3a3a3;
   }
@@ -134,4 +114,23 @@
     color: #333;
   }
 
+}
+
+.information-change {
+  position:absolute;
+  display:block;
+  width:40px;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top:5px;
+  .format-change-button {
+    box-sizing: border-box;
+    background:transparent;
+    border:0px;
+    cursor:pointer;
+    outline:none;
+  }
 }

@@ -1,7 +1,7 @@
 import BaseColorPicker from '../BaseColorPicker'
 
 import ColorControl from './ColorControl'
-import ColorPalette from '../ui/ColorPalette'
+import _ColorPalette from '../ui/ColorPalette'
 
 export default class MiniColorPicker extends BaseColorPicker {
 
@@ -12,11 +12,11 @@ export default class MiniColorPicker extends BaseColorPicker {
                 <div target="control"></div>
             </div>
         `
-    } 
+    }
 
     components() {
-        return { 
-            palette: ColorPalette,  
+        return {
+            palette: _ColorPalette,
             control: ColorControl
         }
     }

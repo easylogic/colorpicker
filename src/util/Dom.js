@@ -1,6 +1,6 @@
 import ColorUtil from './Color'
 
-const color = ColorUtil.color; 
+const color = ColorUtil.color;
 
 let counter = 0;
 let cached = [];
@@ -8,11 +8,11 @@ let cached = [];
 export default class Dom {
 
     constructor (tag, className, attr) {
-    
+
         if (typeof tag != 'string') {
             this.el = tag;
         } else {
-    
+
             var el  = document.createElement(tag);
             this.uniqId = counter++;
 
@@ -21,11 +21,11 @@ export default class Dom {
             }
 
             attr = attr || {};
-    
+
             for(var k in attr) {
                 el.setAttribute(k, attr[k]);
             }
-    
+
             this.el = el;
         }
     }
@@ -45,14 +45,14 @@ export default class Dom {
 
         this.el.setAttribute(key, value);
 
-        return this; 
+        return this;
     }
 
     closest (cls) {
-        
+
         var temp = this;
         var checkCls = false;
-    
+
         while(!(checkCls = temp.hasClass(cls))) {
             if (temp.el.parentNode) {
                 temp = new Dom(temp.el.parentNode);
@@ -60,24 +60,24 @@ export default class Dom {
                 return null;
             }
         }
-    
+
         if (checkCls) {
             return temp;
         }
-    
+
         return null;
     }
 
     checked() {
         return this.el.checked;
     }
-    
+
     removeClass (cls) {
         this.el.className = ((` ${this.el.className} `).replace(` ${cls} `, ' ')).trim();
 
-        return this; 
+        return this;
     }
-    
+
     hasClass (cls) {
         if (!this.el.className)
         {
@@ -87,14 +87,14 @@ export default class Dom {
             return newClass.indexOf(` ${cls} `) > -1;
         }
     }
-    
+
     addClass (cls) {
         if (!this.hasClass(cls)) {
             this.el.className = `${this.el.className} ${cls}`;
         }
 
-        return this; 
-    
+        return this;
+
     }
 
     toggleClass (cls) {
@@ -104,7 +104,7 @@ export default class Dom {
             this.addClass(cls);
         }
     }
-    
+
     html (html) {
         try {
             if (typeof html == 'string') {
@@ -112,7 +112,7 @@ export default class Dom {
             } else {
                 this.empty().append(html);
             }
-    
+
         } catch (e) {
             console.log(html);
         }
@@ -122,72 +122,72 @@ export default class Dom {
 
     find (selector) {
         return this.el.querySelector(selector)
-    } 
+    }
 
     $ (selector) {
         return new Dom(this.find(selector))
     }
 
-    findAll (selector) { 
+    findAll (selector) {
         return this.el.querySelectorAll(selector)
-    } 
+    }
 
     $$ (selector) {
         return [...this.findAll(selector)].map(el => new Dom(el))
     }
 
-    
+
     empty () {
         return this.html('');
     }
-    
+
     append (el) {
-    
+
         if (typeof el == 'string') {
             this.el.appendChild(document.createTextNode(el));
         } else {
             this.el.appendChild(el.el || el);
         }
-    
+
         return this;
     }
-    
+
     appendTo (target) {
         var t = target.el ? target.el : target;
-    
+
         t.appendChild(this.el);
-    
+
         return this;
     }
-    
+
     remove () {
         if (this.el.parentNode) {
             this.el.parentNode.removeChild(this.el);
         }
-    
+
         return this;
     }
-    
+
     text () {
         return this.el.textContent;
     }
-    
+
     css (key, value) {
         if (arguments.length == 2) {
             this.el.style[key] = value;
         } else if (arguments.length == 1) {
-    
+
             if (typeof key == 'string') {
                 return getComputedStyle(this.el)[key];
             } else {
                 var keys = key || {};
                 Object.keys(keys).forEach(k => {
-                    this.el.style[k] = keys[k];    
+                    this.el.style[k] = keys[k];
                 })
-            } 
-    
+            }
+
         }
-    
+
         return this;
     }
 
@@ -202,7 +202,7 @@ export default class Dom {
     px (key, value) {
         return this.css(key, value + 'px');
     }
-    
+
     offset () {
         var rect = this.el.getBoundingClientRect();
 
@@ -215,7 +215,7 @@ export default class Dom {
     rect () {
         return this.el.getBoundingClientRect()
     }
-    
+
     position () {
 
         if (this.el.style.top) {
@@ -232,7 +232,7 @@ export default class Dom {
     size () {
         return [this.width(), this.height()]
     }
-    
+
     width () {
         return this.el.offsetWidth || this.el.getBoundingClientRect().width;
     }
@@ -240,7 +240,7 @@ export default class Dom {
     contentWidth() {
         return this.width() - this.cssFloat('padding-left') - this.cssFloat('padding-right');
     }
-    
+
     height () {
         return this.el.offsetHeight || this.el.getBoundingClientRect().height;
     }
@@ -249,11 +249,11 @@ export default class Dom {
     contentHeight() {
         return this.height() - this.cssFloat('padding-top') - this.cssFloat('padding-bottom');
     }
-    
+
     dataKey (key) {
         return this.uniqId + '.' + key;
     }
-    
+
     data (key, value) {
         if (arguments.length == 2) {
             cached[this.dataKey(key)] = value;
@@ -261,32 +261,32 @@ export default class Dom {
             return cached[this.dataKey(key)];
         } else {
             var keys = Object.keys(cached);
-    
+
             var uniqId = this.uniqId + ".";
             return keys.filter(function (key) {
                 if (key.indexOf(uniqId) == 0) {
                     return true;
                 }
-    
+
                 return false;
             }).map(function (value) {
                 return cached[value];
             })
         }
-    
+
         return this;
     }
-    
+
     val (value) {
         if (arguments.length == 0) {
             return this.el.value;
         } else if (arguments.length == 1) {
             this.el.value = value;
         }
-    
+
         return this;
     }
-    
+
     int () {
         return parseInt(this.val(), 10);
     }
@@ -294,11 +294,11 @@ export default class Dom {
     float () {
         return parseFloat(this.val());
     }
-    
+
     show () {
         return this.css('display', 'block');
     }
-    
+
     hide () {
         return this.css('display', 'none');
     }
@@ -317,7 +317,7 @@ export default class Dom {
         }
 
         return this.el.scrollTop
-    } 
+    }
 
     scrollLeft () {
         if (this.el === document.body) {
@@ -330,13 +330,13 @@ export default class Dom {
     on (eventName, callback, opt1, opt2) {
         this.el.addEventListener(eventName, callback, opt1, opt2);
 
-        return this; 
+        return this;
     }
 
     off (eventName, callback ) {
         this.el.removeEventListener(eventName, callback);
 
-        return this; 
+        return this;
     }
 
     getElement ( ) {
@@ -359,7 +359,7 @@ export default class Dom {
     replace (oldElement, newElement) {
         this.el.replaceChild(newElement, oldElement);
 
-        return this; 
+        return this;
     }
 }
 

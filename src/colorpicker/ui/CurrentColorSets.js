@@ -1,5 +1,6 @@
 import Dom from '../../util/Dom'
 import UIElement from '../UIElement';
+import './CurrentColorSets.scss';
 
 export default class CurrentColorSets extends UIElement {
 
@@ -12,8 +13,8 @@ export default class CurrentColorSets extends UIElement {
                 <div ref="$colorSetsColorList" class="color-list"></div>
             </div>
         `
-    }    
-    
+    }
+
     'load $colorSetsColorList' () {
         const currentColorSets  = this.$store.dispatch('/getCurrentColorSets')
         const colors  = this.$store.dispatch('/getCurrentColors')
@@ -27,13 +28,13 @@ export default class CurrentColorSets extends UIElement {
                         <div class="empty"></div>
                         <div class="color-view" style="background-color: ${color}"></div>
                     </div>`
-                }).join('')}   
-                ${currentColorSets.edit ? `<div class="add-color-item">+</div>` : ''}         
+                }).join('')}
+                ${currentColorSets.edit ? `<div class="add-color-item">+</div>` : ''}
                 </div>
             </div>
-            
+
         `
-    }    
+    }
 
     refresh () {
         this.load();
@@ -57,11 +58,11 @@ export default class CurrentColorSets extends UIElement {
         const currentColorSets  = this.$store.dispatch('/getCurrentColorSets')
 
         if (!currentColorSets.edit) {
-            return; 
+            return;
         }
 
         const $target = new Dom(e.target);
-        
+
         const $item = $target.closest('color-item');
 
         if ($item) {
@@ -69,7 +70,7 @@ export default class CurrentColorSets extends UIElement {
 
             this.$store.emit('showContextMenu', e, index);
         } else {
-            this.$store.emit('showContextMenu', e);            
+            this.$store.emit('showContextMenu', e);
         }
     }
 
@@ -79,7 +80,7 @@ export default class CurrentColorSets extends UIElement {
 
     'click $colorSetsColorList .color-item'  (e) {
         this.$store.dispatch('/changeColor', e.$delegateTarget.attr('data-color'));
-        this.$store.emit('lastUpdateColor')        
+        this.$store.emit('lastUpdateColor')
     }
 
 }

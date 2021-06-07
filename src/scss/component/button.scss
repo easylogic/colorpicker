@@ -1,18 +1,20 @@
+@import "../mixins";
+
 .arrow-button {
   position: relative;
   width: 10px;
   height: 12px;
-  padding: 0px;
-  background-color: transparent; 
-  
+  padding: 0;
+  background-color: transparent;
+
   &:before {
     content: "";
     display:inline-block;
     position:absolute;
-    left:0px;
-    right:0px;
-    top:0px;
-    height:50%;    
+    left: 0;
+    right: 0;
+    top: 0;
+    height:50%;
     @include arrow_top(3px, black);
     margin: 2px;
     box-sizing:border-box;
@@ -22,12 +24,12 @@
     content: "";
     display:inline-block;
     position:absolute;
-    left:0px;
-    right:0px;
-    bottom:0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     top:50%;
     @include arrow_bottom(3px, black);
     margin: 2px;
-    box-sizing:border-box;    
+    box-sizing:border-box;
   }
 }
