@@ -13,12 +13,11 @@
 
   position: relative;
   width: var(--cp-size-width);
-  //z-index: 1000; // TODO: 조율할 필요가 있다.
   background-color: var(--cp-color-bg);
   border-radius: var(--cp-size-radius);
   box-shadow: var(--cp-outer-shadow);
   box-sizing: border-box;
-  padding: 1px; // TODO: 임시조취
+  user-select: none;
 
   > .arrow {
     position: absolute;
@@ -29,7 +28,6 @@
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     display:none;
-
     border-bottom: 10px solid rgba(0, 0, 0, 0.2);
     pointer-events: none;
     &:after {

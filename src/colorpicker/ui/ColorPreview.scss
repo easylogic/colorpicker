@@ -1,0 +1,29 @@
+@import "../../scss/mixins";
+
+.el-cp-color-preview {
+  position: relative;
+  display: block;
+  width: var(--preview-size, 32px);
+  height: var(--preview-size, 32px);
+  border-radius: var(--preview-radius, 50%);
+  box-sizing: border-box;
+  overflow: hidden;
+  @include transparent-background();
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+    border-radius: var(--preview-radius, 50%);
+    pointer-events: none;
+  }
+  em {
+    position: relative;
+    display: block;
+    height: 100%;
+  }
+}

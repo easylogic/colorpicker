@@ -3,6 +3,8 @@ import BaseSlider from "../../BaseSlider";
 
 export default class HueScale extends BaseSlider {
 
+  // TODO: 사용 필요성이 없어보여서 삭제 검토 필요합니다.
+
     initialize () {
         super.initialize()
         this.minValue = 0
@@ -29,17 +31,17 @@ export default class HueScale extends BaseSlider {
     getCalculatedDist (e) {
         var current = e ? this.getMousePosition(e) : this.getCurrent(this.getDefaultValue() / this.maxValue);
         var dist = this.getDist(current);
-        
-        return dist; 
-    }    
+
+        return dist;
+    }
 
     refreshColorUI(e) {
 
         var dist = this.getCalculatedDist(e);
-     
+
         const isDifferent = this.setColorUI(dist/100);
 
-        // hue 가 변경되지 않은 상태면 changeColor 를 하지 않는다. 
+        // hue 가 변경되지 않은 상태면 changeColor 를 하지 않는다.
         if (isDifferent !== true) {
             this.changeColor({
                 h: (this.minValue + this.fullDist * (dist/100)) * 360,
@@ -47,27 +49,27 @@ export default class HueScale extends BaseSlider {
             })
         }
 
-    }     
+    }
 
     setColorUI(v) {
         let p;
 
         if (v) {
-            p =  this.minValue + v * this.fullDist; 
+            p =  this.minValue + v * this.fullDist;
 
             if (this.lastP === p) return true;
 
-            this.lastP = p; 
+            this.lastP = p;
         } else {
 
             p = (this.getDefaultValue() / 360);
 
             if (this.lastP === p) return true;
 
-            this.lastP = p;                     
+            this.lastP = p;
 
             let maxP = p + 0.05;
-            let minP = p - 0.05; 
+            let minP = p - 0.05;
 
             if (maxP > 1) {
                 const dist = maxP - 1
@@ -85,15 +87,15 @@ export default class HueScale extends BaseSlider {
 
             this.list = list;
 
-            const minValue = list[0].start; 
+            const minValue = list[0].start;
             const maxValue = list[list.length-1].start;
-    
+
             this.minValue = minValue;
             this.maxValue = maxValue;
 
             const fullDist = this.maxValue - this.minValue;
-            this.fullDist = fullDist;  
-            
+            this.fullDist = fullDist;
+
 
             const colorsteps = list.map(it => {
                 return {
@@ -102,9 +104,9 @@ export default class HueScale extends BaseSlider {
                     unit: '%'
                 }
             })
-    
+
             // console.log(colorsteps);
-    
+
             this.refs.$container.css('background-image', `linear-gradient(to right, ${colorsteps.map(it => `${it.color} ${it.percent}${it.unit}`).join(',')})`);
         }
 
@@ -118,6 +120,6 @@ export default class HueScale extends BaseSlider {
             this.refs.$bar.removeClass('last').removeClass('first')
         }
 
-        this.setMousePosition(this.getMaxDist() * ( (p-this.minValue) / this.fullDist));        
+        this.setMousePosition(this.getMaxDist() * ( (p-this.minValue) / this.fullDist));
     }
 }

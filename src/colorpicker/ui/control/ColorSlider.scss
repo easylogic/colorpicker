@@ -1,0 +1,71 @@
+@import "../../../scss/mixins";
+
+.el-cp-slider {
+  --slider-pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
+  position: relative;
+  box-sizing: border-box;
+
+  &__body {
+    margin: 0;
+    position: relative;
+    height: var(--slider-height, 10px);
+    border-radius: var(--slider-radius, 5px);
+    box-sizing: border-box;
+    cursor: default;
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+      border-radius: var(--slider-radius, 5px);
+    }
+  }
+  &__bar {
+    display: block;
+    height: 100%;
+    border-radius: var(--slider-radius, 5px);
+  }
+  &__pointer {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 0;
+    width: var(--slider-pointer-size, 14px);
+    height: var(--slider-pointer-size, 14px);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    border: var(--slider-pointer-stroke, 3px) solid var(--slider-pointer-color, #fff);
+    box-shadow: var(--slider-pointer-shadow);
+    box-sizing: border-box;
+  }
+
+  &--hue {
+    .el-cp-slider {
+      &__body {
+        background: linear-gradient(
+          to right,
+          #ff0000 0%,
+          #ffff00 17%,
+          #00ff00 33%,
+          #00ffff 50%,
+          #0000ff 67%,
+          #ff00ff 83%,
+          #ff0000 100%
+        );
+      }
+    }
+  }
+  &--alpha {
+    .el-cp-slider {
+      &__body {
+        @include transparent-background();
+      }
+    }
+  }
+}

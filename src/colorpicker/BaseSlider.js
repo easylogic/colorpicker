@@ -1,101 +1,82 @@
-
-import Event from '../util/Event'
+import Event from '~/util/Event';
 import BaseBox from './BaseBox';
 
 export default class BaseSlider extends BaseBox {
 
-    constructor (opt) {
-        super(opt)
+  constructor(opt) {
+    super(opt)
+    this.minValue = 0; // min domain value
+    this.maxValue = 1; // max domain value
+    this.source = 'base-slider';
+  }
 
-        this.minValue = 0   // min domain value 
-        this.maxValue = 1   // max domain value 
-        this.source = 'base-slider'
+  // slider container's min and max position
+  getMinMaxPosition() {
+    const min = this.getMinPosition();
+    const width = this.getMaxDist();
+    const max = min + width;
+    return { min, max, width };
+  }
+
+  /** get current position on page  */
+  getCurrent(value) {
+    return this.getMaxDist() * value;
+  }
+
+  /** get min position on slider container  */
+  getMinPosition() {
+    return this.refs.$container.offset().left;
+  }
+
+  getMaxDist() {
+    return this.refs.$container.size()[0];
+  }
+
+  /** get dist for position value */
+  getDist(current) {
+    const { min, max } = this.getMinMaxPosition();
+    let dist;
+    if (current < min) {
+      dist = 0;
+    } else if (current > max) {
+      dist = 100;
+    } else {
+      dist = (current - min) / (max - min) * 100;
     }
+    return dist;
+  }
 
-    /* slider container's min and max position */
-    getMinMaxPosition () {
-        var min = this.getMinPosition();
-        var width = this.getMaxDist()
-        var max = min + width;
+  /** get caculated dist for domain value */
+  getCaculatedDist(e) {
+    const current = e ? this.getMousePosition(e) : this.getCurrent(this.getDefaultValue() / this.maxValue);
+    return this.getDist(current);
+  }
 
-        return { min, max, width }
-    }
+  /** get default value used in slider container */
+  getDefaultValue() {
+    return 0;
+  }
 
-    /** get current position on page  */
-    getCurrent (value) {
-        return min + this.getMaxDist() * value; 
-    }
+  /** set mosue position */
+  setMousePosition(x) {
+    this.refs.$bar.css({ left: `${x}%` });
+  }
 
-    /** get min position on slider container  */
-    getMinPosition () {
-        return this.refs.$container.offset().left;
-    }    
+  /** set mouse position in page */
+  getMousePosition(e) {
+    return Event.pos(e).pageX;
+  }
 
-    getMaxDist () {
-        return this.state.get('$container.width');
-    }
+  refresh() {
+    this.setColorUI();
+  }
 
-    /** get dist for position value */
-    getDist (current) {
-        var {min, max} = this.getMinMaxPosition()
+  /** set drag bar position  */
+  setColorUI(v) {
+    v = v || this.getDefaultValue();
+    if (this.lastV === v) return;
+    this.lastV = v;
+    this.setMousePosition(100 * ((v || 0) / this.maxValue));
+  }
 
-        var dist; 
-        if (current < min) {
-            dist = 0;
-        } else if (current > max) {
-            dist = 100;
-        } else {
-            dist = (current - min) / (max - min) * 100;
-        }
-
-        return dist; 
-    }
-
-    /** get caculated dist for domain value   */
-    getCaculatedDist (e) {
-        var current = e ? this.getMousePosition(e) : this.getCurrent(this.getDefaultValue() / this.maxValue);
-        var dist = this.getDist(current);
-        
-        return dist; 
-    }
-
-    /** get default value used in slider container */
-    getDefaultValue () {
-        return 0
-    }
-
-    /** set mosue position */
-    setMousePosition (x) {
-        this.refs.$bar.css({ left : (x) + 'px' });
-    }
-
-    /** set mouse position in page */
-    getMousePosition (e) {
-        return Event.pos(e).pageX;
-    }    
- 
-    refresh () {
-        this.setColorUI()
-    }
-
-    /** set drag bar position  */
-    setColorUI(v) {
-    
-        v = v || this.getDefaultValue(); 
-
-        if (this.lastV === v) return true;
-
-        this.lastV = v;        
-
-        if (v <= this.minValue) {
-            this.refs.$bar.addClass('first').removeClass('last')
-        } else if (v >= this.maxValue) {
-            this.refs.$bar.addClass('last').removeClass('first')
-        } else {
-            this.refs.$bar.removeClass('last').removeClass('first')
-        }
-
-        this.setMousePosition(this.getMaxDist() * ( (v || 0) / this.maxValue));
-    }    
-    
 }

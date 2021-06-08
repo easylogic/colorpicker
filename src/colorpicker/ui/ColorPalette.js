@@ -26,79 +26,31 @@ export default class ColorPalette extends UIElement {
 
   calculateSV() {
     const pos = this.drag_pointer_pos || { x : 0, y : 0 };
-    const width = this.state.get('$el.width');
-    const height = this.state.get('$el.height');
-    const s = (pos.x / width);
-    const v = ((height - pos.y) / height);
-    this.$store.dispatch('/changeColor', {
-      type: 'hsv',
-      s,
-      v,
-      source,
-    })
+    const s = (pos.x / 100);
+    const v = ((100 - pos.y) / 100);
+    this.$store.dispatch('/changeColor', { type: 'hsv', s, v, source });
   }
 
   setColorUI() {
-    const x = this.w * this.$store.hsv.s;
-    const y = this.h * ( 1 - this.$store.hsv.v );
+    const x = 100 * this.$store.hsv.s;
+    const y = 100 * (1 - this.$store.hsv.v);
     this.refs.$drag_pointer.css({
-      top: `${y}px`,
-      left: `${x}px`,
+      left: `${x}%`,
+      top: `${y}%`,
     });
     this.drag_pointer_pos = { x, y };
     this.setBackgroundColor(this.$store.dispatch('/getHueColor'))
   }
 
-  setSubColor(e) {
-    const localX = e.pageX;
-    const localY = e.pageY;
-    const distX = localX - this.x;
-    const distY = localY - this.y;
-    const w = this.$el.contentWidth();
-    const h = this.$el.contentHeight();
-    let x = this.refs.$drag_pointer.cssFloat("left");
-    let y = this.refs.$drag_pointer.cssFloat("top");
-
-    if (this.axis === 'saturation') {
-      x += distX;
-    } else if (this.axis === 'value') {
-      y += distY;
-    }
-
-    if (x < 0) x = 0;
-    else if (x > w) x = w;
-
-    if (y < 0) y = 0;
-    else if (y > h) y = h;
-
-    this.refs.$drag_pointer.px('left', x);
-    this.refs.$drag_pointer.px('top', y);
-
-    this.drag_pointer_pos = { x, y };
-
-    this.x = localX;
-    this.y = localY;
-
-    this.calculateSV();
-  }
-
   setMainColor(e) {
-    // position for screen
     const pos = this.$el.offset();
-    const w = this.w;
-    const h = this.h;
-    let x = Event.pos(e).pageX - pos.left;
-    let y = Event.pos(e).pageY - pos.top;
-
-    if (x < 0) x = 0;
-    else if (x > w) x = w;
-
-    if (y < 0) y = 0;
-    else if (y > h) y = h;
-
+    let x = 100 * ((Event.pos(e).pageX - pos.left) / this.w);
+    let y = 100 * ((Event.pos(e).pageY - pos.top) / this.h);
+    x = Math.max(0, Math.min(100, x));
+    y = Math.max(0, Math.min(100, y));
     this.refs.$drag_pointer.css({
-      top: `${y}px`,
-      left: `${x}px`,
+      left: `${x}%`,
+      top: `${y}%`,
     });
     this.drag_pointer_pos = { x, y };
     this.calculateSV();
@@ -123,11 +75,7 @@ export default class ColorPalette extends UIElement {
   'mousemove document'(e) {
     if (!this.isDown) return;
     this.cacheSize();
-    if (this.axis === 'saturation' || this.axis === 'value') {
-      this.setSubColor(e);
-    } else {
-      this.setMainColor(e);
-    }
+    this.setMainColor(e);
   }
 
   mousedown(e) {
@@ -136,12 +84,7 @@ export default class ColorPalette extends UIElement {
     this.axis = new Dom(e.target).attr('data-axis-value');
     this.x = e.pageX;
     this.y = e.pageY;
-
-    if (this.axis === 'saturation' || this.axis === 'value') {
-      this.setSubColor(e);
-    } else {
-      this.setMainColor(e);
-    }
+    this.setMainColor(e);
   }
 
   'touchend document'() {
@@ -149,9 +92,8 @@ export default class ColorPalette extends UIElement {
   }
 
   'touchmove document'(e) {
-    if (this.isDown) {
-      this.setMainColor(e);
-    }
+    if (!this.isDown) return;
+    this.setMainColor(e);
   }
 
   touchstart(e) {
@@ -166,8 +108,9 @@ export default class ColorPalette extends UIElement {
   }
 
   cacheSize() {
-    this.w = this.state.get('$el.contentWidth');
-    this.h = this.state.get('$el.contentHeight');
+    const [ width, height ] = this.$el.size();
+    this.w = width;
+    this.h = height;
   }
 
 }
