@@ -1,15 +1,23 @@
 @import "../../../scss/mixins";
 
 .el-cp-slider {
-  --slider-pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
+  --slider-pointer-shadow: 0 0 2px 1px rgba(0,0,0,.4), inset 0 0 3px 0 rgba(0,0,0,.5);
   position: relative;
   box-sizing: border-box;
+
+  &:active {
+    .el-cp-slider {
+      &__pointer {
+        box-shadow: var(--slider-pointer-shadow), 0 0 0 1px var(--cp-color-key);
+      }
+    }
+  }
 
   &__body {
     margin: 0;
     position: relative;
-    height: var(--slider-height, 10px);
-    border-radius: var(--slider-radius, 5px);
+    height: var(--slider-height, 8px);
+    border-radius: var(--slider-radius, 4px);
     box-sizing: border-box;
     cursor: default;
     &:after {
@@ -36,13 +44,14 @@
     z-index: 2;
     top: 50%;
     left: 0;
-    width: var(--slider-pointer-size, 14px);
-    height: var(--slider-pointer-size, 14px);
+    width: var(--slider-pointer-size, 12px);
+    height: var(--slider-pointer-size, 12px);
     border-radius: 50%;
     transform: translate(-50%, -50%);
     border: var(--slider-pointer-stroke, 3px) solid var(--slider-pointer-color, #fff);
     box-shadow: var(--slider-pointer-shadow);
     box-sizing: border-box;
+    transition: box-shadow var(--cp-speed-focus) ease-out;
   }
 
   &--hue {

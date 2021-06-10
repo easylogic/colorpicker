@@ -105,9 +105,8 @@ body, button, input, textarea, select {
 
 .color-picker-solo {
   > .el-colorpicker {
-    display: block;
     margin: 0 auto;
-    --cp-size-width: auto;
+    //--cp-size-width: auto;
     //--cp-outer-shadow: 0 0 0 1px red;
     //--cp-size-radius: 5px;
   }

@@ -29,6 +29,13 @@
   &:after {
     background-image: linear-gradient(to top, #000, rgba(204,154,129,0));
   }
+  &:active {
+    .el-cp-palette {
+      &__pointer {
+        box-shadow: var(--pointer-shadow), 0 0 0 1px var(--cp-color-key);
+      }
+    }
+  }
 
   &__pointer {
     display: block;

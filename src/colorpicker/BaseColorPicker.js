@@ -78,10 +78,6 @@ export default class BaseColorPicker extends UIElement {
       this.$root.addClass('hide-colorsets')
     }
 
-    this.$arrow = new Dom('div', 'arrow');
-
-    this.$root.append(this.$arrow);
-
     if (this.opt.colorSets) {
       this.$store.dispatch('/setUserPalette', this.opt.colorSet);
     } else if (isFunction(this.opt.onRetrievePreset)) {

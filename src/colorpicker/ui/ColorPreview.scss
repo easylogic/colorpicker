@@ -8,7 +8,7 @@
   border-radius: var(--preview-radius, 50%);
   box-sizing: border-box;
   overflow: hidden;
-  @include transparent-background();
+  @include transparent-background(16px);
   &:after {
     content: '';
     display: block;

@@ -1,10 +1,19 @@
 .el-colorpicker--default {
+  --cp-side-padding: 16px;
   .el-colorpicker {
     &__wrap {
       //
     }
     &__body {
-      //
+      padding: 1px 0;
     }
+  }
+  .el-cp-color-control {
+    margin: 16px 0;
+    padding: 0 var(--cp-side-padding);
+  }
+  .el-cp-color-form {
+    margin: 16px 0;
+    padding: 0 var(--cp-side-padding);
   }
 }

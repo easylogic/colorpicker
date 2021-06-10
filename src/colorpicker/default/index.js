@@ -17,7 +17,7 @@ export default class DefaultColorPicker extends BaseColorPicker {
           <template target="control"></template>
           <template target="information"></template>
         </div>
-<!--        <div target="currentColorSets"></div>-->
+<!--        <template target="currentColorSets"></template>-->
 <!--        <div target="colorSetsChooser"></div>-->
 <!--        <div target="contextMenu"></div>-->
       </div>

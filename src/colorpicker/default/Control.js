@@ -18,7 +18,7 @@ export default class Control extends UIElement {
 
   template() {
     return `
-      <article class="control el-cp-color-control">
+      <article class="el-cp-color-control">
         <div class="el-cp-color-control__body">
           <template target="Hue"></template>
           <template target="Opacity"></template>
