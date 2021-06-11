@@ -1,11 +1,11 @@
-import Default from '~/colorpicker/default';
-import MacOSColorPicker from '~/colorpicker/macos';
-import ChromeDevToolColorPicker from '~/colorpicker/chromedevtool';
-import MiniColorPicker from '~/colorpicker/mini';
-import MiniVerticalColorPicker from '~/colorpicker/mini-vertical';
-import RingColorPicker from '~/colorpicker/ring';
-import XDColorPicker from '~/colorpicker/xd';
-import VSCodePicker from '~/colorpicker/vscode';
+import Default from '~/colorpicker/theme/default';
+import MacOSColorPicker from '~/colorpicker/theme/macos';
+import ChromeDevToolColorPicker from '~/colorpicker/theme/chromedevtool';
+import MiniColorPicker from '~/colorpicker/theme/mini';
+import MiniVerticalColorPicker from '~/colorpicker/theme/mini-vertical';
+import RingColorPicker from '~/colorpicker/theme/ring';
+import XDColorPicker from '~/colorpicker/theme/xd';
+import VSCodePicker from '~/colorpicker/theme/vscode';
 
 export default {
   create (opts) {

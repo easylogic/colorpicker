@@ -4,7 +4,7 @@
   --pointer-stroke: 2px;
   --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
   position: relative;
-  height: var(--cp-size-palette-height);
+  height: var(--cp-palette-height);
   cursor: default;
   box-sizing: border-box;
   background-color: var(--palette-bg, #eee);

@@ -1,97 +1,87 @@
-import UIElement from '../UIElement';
+import UIElement from '~/colorpicker/UIElement';
 import './ColorSetsChooser.scss';
-
-const DATA_COLORSETS_INDEX = 'data-colorsets-index';
 
 export default class ColorSetsChooser extends UIElement {
 
-    template () {
-        return `
-            <div class="color-chooser">
-                <div class="color-chooser-container">
-                    <div class="colorsets-item colorsets-item-header">
-                        <h1 class="title">Color Palettes</h1>
-                        <span ref="$toggleButton" class="items">&times;</span>
-                    </div>
-                    <div ref="$colorsetsList" class="colorsets-list"></div>
-                </div>
-            </div>
-        `
-    }
+  template() {
+    return `
+      <article class="el-cp-color-theme">
+        <div class="el-cp-color-theme__wrap">
+          <header class="el-cp-color-theme__header">
+            <h1>Color Palettes</h1>
+            <button ref="$closeButton" type="button" title="Close">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+          </header>
+          <div ref="$colorsetsList" class="el-cp-color-theme__body"></div>
+        </div>
+      </article>
+    `;
+  }
 
-    refresh () {
-        this.load();
-    }
+  refresh() {
+    this.load();
+  }
 
-    '@changeCurrentColorSets' () {
-        this.refresh()
-    }
+  '@changeCurrentColorSets'() {
+    this.refresh();
+  }
+  '@closeColorChooser'() {
+    this.hide();
+  }
+  '@openColorChooser'() {
+    this.show();
+  }
 
-    '@toggleColorChooser' () {
-        this.toggle()
-    }
-
-    // loadable
-    'load $colorsetsList' () {
-        // colorsets
-        const colorSets = this.$store.dispatch('/getColorSetsList');
-
-        return `
-            <div>
-                ${colorSets.map( (element, index) => {
-                    return `
-                        <div class="colorsets-item" data-colorsets-index="${index}" >
-                            <h1 class="title">${element.name}</h1>
-                            <div class="items">
-                                <div>
-                                    ${element.colors.filter((color, i) => i < 5).map(color => {
-                                        color = color || 'rgba(255, 255, 255, 1)';
-                                        return  `<div class="color-item" title="${color}">
-                                                <div class="color-view" style="background-color: ${color}"></div>
-                                            </div>`
-                                    }).join('')}
-                                </div>
-                            </div>
-                        </div>`
+  // loadable
+  'load $colorsetsList'() {
+    const colorSets = this.$store.dispatch('/getColorSetsList');
+    return `
+      <ul class="el-cp-color-theme__index">
+        ${colorSets.map( (element, index) => {
+          return `
+            <li class="el-cp-color-theme-item" role="button" data-key="${index}">
+              <strong>${element.name}</strong>
+              <ul>
+                ${element.colors.filter((color, i) => i < 5).map(color => {
+                  color = color || 'rgba(255,255,255,1)';
+                  return `
+                    <li class="color-item" title="${color}">
+                      <i class="color-view" style="background-color: ${color}"></i>
+                    </li>
+                  `;
                 }).join('')}
-            </div>
-        `
-    }
+              </ul>
+            </li>
+          `;
+        }).join('')}
+      </ul>
+    `;
+  }
 
-    show () {
-        this.$el.addClass('open');
-    }
+  show() {
+    this.$el.addClass('el-cp-color-theme--on');
+  }
+  hide() {
+    this.$el.removeClass('el-cp-color-theme--on');
+  }
 
-    hide () {
-        this.$el.removeClass('open');
-    }
+  'click $closeButton'() {
+    this.hide();
+  }
+  'click $colorsetsList .el-cp-color-theme-item'(e) {
+    const $item = e.$delegateTarget;
+    if (!$item) return;
+    this.$store.dispatch('/setCurrentColorSets', Number($item.el.dataset.key));
+    this.hide();
+  }
 
-    toggle () {
-        this.$el.toggleClass('open');
-    }
-
-
-    'click $toggleButton' (e) {
-        this.toggle();
-    }
-
-    'click $colorsetsList .colorsets-item' (e) {
-        const $item = e.$delegateTarget;
-
-        if ($item) {
-
-            const index = parseInt($item.attr(DATA_COLORSETS_INDEX));
-
-            this.$store.dispatch('/setCurrentColorSets', index);
-
-            this.hide();
-        }
-    }
-
-    destroy () {
-        super.destroy();
-
-        this.hide();
-    }
+  destroy() {
+    super.destroy();
+    this.hide();
+  }
 
 }

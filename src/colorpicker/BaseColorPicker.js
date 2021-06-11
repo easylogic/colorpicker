@@ -49,9 +49,7 @@ export default class BaseColorPicker extends UIElement {
     this.colorpickerAddCurrentColorCallback = function () { };
 
     this.$body = new Dom(this.getContainer());
-    this.$root = new Dom('div', 'el-colorpicker', {
-      tabIndex: -1
-    });
+    this.$root = new Dom('div', 'el-colorpicker', {});
 
     //  append colorpicker to container (ex : body)
     if (this.opt.position === 'inline') {
@@ -108,7 +106,6 @@ export default class BaseColorPicker extends UIElement {
    */
 
   /**
-   *
    * show colorpicker with position
    *
    * @param {{left, top, hideDelay, isShortCut}} opt

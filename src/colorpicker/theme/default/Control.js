@@ -1,6 +1,6 @@
+import UIElement from '~/colorpicker/UIElement';
 import Hue from '~/colorpicker/ui/control/Hue';
 import Opacity from '~/colorpicker/ui/control/Opacity';
-import UIElement from '~/colorpicker/UIElement';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
 import './Control.scss';
 
@@ -31,9 +31,6 @@ export default class Control extends UIElement {
   }
 
   refresh() {
-    this.setColorUI();
-  }
-  setColorUI() {
     this.Hue.setColorUI();
     this.Opacity.setColorUI();
   }

@@ -1,0 +1,22 @@
+.el-colorpicker--default {
+  --cp-side-padding: 16px;
+  .el-colorpicker {
+    &__wrap {
+      position: relative;
+      padding: 0 0 16px;
+    }
+  }
+  .el-cp-color-control {
+    margin: 16px 0 0;
+    padding: 0 var(--cp-side-padding);
+  }
+  .el-cp-color-form {
+    margin: 16px 0 0;
+    padding: 0 var(--cp-side-padding);
+  }
+  .el-cp-swatches {
+    margin: 16px 0 0;
+    padding: 16px var(--cp-side-padding) 0;
+    border-top: 1px solid var(--cp-color-light);
+  }
+}

@@ -37,7 +37,7 @@ function changeRoute(name) {
     case 'basic':
       picker = new EasyLogicColorPicker.create({
         container: document.getElementById('basic'),
-        // type : 'default',
+        // type : 'mini-vertical',
         // type : 'mini-vertical', // ChromeDevTool,macos,xd,ring,mini,vscode,mini-vertical
         position: 'inline',
       });
