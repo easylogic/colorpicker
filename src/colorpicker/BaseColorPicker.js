@@ -60,6 +60,7 @@ export default class BaseColorPicker extends UIElement {
     let theme;
     switch (this.opt.type) {
       case 'ChromeDevTool':
+      case 'circle':
         theme = this.opt.type;
         break;
       default:

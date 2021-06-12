@@ -76,4 +76,11 @@
       }
     }
   }
+  &--brightness {
+    .el-cp-slider {
+      &__body {
+        background-image: linear-gradient(to right, #000 0%, rgba(255, 255, 255, 0) 100%);
+      }
+    }
+  }
 }

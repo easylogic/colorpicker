@@ -89,17 +89,32 @@ body, button, input, textarea, select {
 .layout-section {
   &__title {
     margin: 0;
-    font-size: 24px;
-    letter-spacing: -.5px;
+    font-size: 32px;
+    letter-spacing: -.75px;
     font-weight: 800;
-    line-height: 1.25;
+    line-height: 1.15;
   }
   &__description {
-    margin: 8px 0 0;
-    font-size: 13px;
+    margin: 2px 0 0;
+    font-size: 12px;
+    letter-spacing: -.25px;
+    line-height: 1.42;
   }
   &__body {
-    margin: 16px 0 0;
+    margin: 24px 0 0;
+  }
+}
+.layout-section-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  &__column {}
+  &__label {
+    margin: 8px 0 0;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.5px;
   }
 }
 
@@ -109,5 +124,11 @@ body, button, input, textarea, select {
     //--cp-size-width: auto;
     //--cp-outer-shadow: 0 0 0 1px red;
     //--cp-size-radius: 5px;
+  }
+}
+
+.color-picker-theme {
+  > .el-colorpicker {
+    margin: 0 auto;
   }
 }

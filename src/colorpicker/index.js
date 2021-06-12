@@ -1,5 +1,5 @@
 import Default from '~/colorpicker/theme/default';
-import MacOSColorPicker from '~/colorpicker/theme/macos';
+import CircleColorPicker from '~/colorpicker/theme/circle';
 import ChromeDevToolColorPicker from '~/colorpicker/theme/chromedevtool';
 import MiniColorPicker from '~/colorpicker/theme/mini';
 import MiniVerticalColorPicker from '~/colorpicker/theme/mini-vertical';
@@ -14,8 +14,8 @@ export default {
       case 'sketch':
       case 'palette':
         return new ChromeDevToolColorPicker(opts);
-      case 'macos':
-        return new MacOSColorPicker(opts);
+      case 'circle':
+        return new CircleColorPicker(opts);
       case 'xd':
         return new XDColorPicker(opts);
       case 'ring':
@@ -32,7 +32,7 @@ export default {
   },
   ColorPicker: ChromeDevToolColorPicker,
   ChromeDevToolColorPicker,
-  MacOSColorPicker,
+  CircleColorPicker,
   RingColorPicker,
   MiniColorPicker,
   VSCodePicker,

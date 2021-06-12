@@ -30,8 +30,9 @@
   flex: 1;
   display: none;
   margin: 0 -4px;
-  div {
+  label {
     flex: 1;
+    display: block;
     padding: 0 4px;
     text-align: center;
   }
@@ -61,7 +62,7 @@
       -webkit-appearance: none;
     }
   }
-  label {
+  span {
     display: block;
     margin: 4px 0 0;
     font-size: 10px;
@@ -71,7 +72,7 @@
 }
 
 .el-cp-color-nav {
-  margin-left: var(--cp-side-padding);
+  margin-left: var(--cp-size-side-padding);
   &__label {
     position: relative;
     display: block;

@@ -1,12 +1,15 @@
-.el-colorpicker--default {
+.el-colorpicker--circle {
   .el-colorpicker {
     &__wrap {
       position: relative;
       padding: 0 0 16px;
     }
   }
+  .el-cp-palette-circle {
+    padding: 20px;
+  }
   .el-cp-color-control {
-    margin: 16px 0 0;
+    margin: 0;
     padding: 0 var(--cp-size-side-padding);
   }
   .el-cp-color-form {

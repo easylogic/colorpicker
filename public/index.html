@@ -13,7 +13,7 @@
     <h1>ColorPicker Development</h1>
     <nav>
       <button type="button" data-route="basic">Basic</button>
-      <button type="button" data-route="foo">Foo</button>
+      <button type="button" data-route="themes">Themes</button>
     </nav>
   </header>
   <div class="container">
@@ -21,8 +21,29 @@
       <h2 class="layout-section__title">
         Basic component
       </h2>
+      <p class="layout-section__description">
+        기본적으로 표현하는 컴포넌트의 모습입니다.
+      </p>
       <div class="layout-section__body">
         <div id="basic" class="color-picker-solo"></div>
+      </div>
+    </section>
+    <section data-route="themes" class="layout-section">
+      <h2 class="layout-section__title">
+        Themes
+      </h2>
+      <p class="layout-section__description">
+        여러가지 테마의 모습입니다.
+      </p>
+      <div class="layout-section__body layout-section-grid">
+        <div class="layout-section-grid__column">
+          <div id="theme_default" class="color-picker-theme"></div>
+          <h3 class="layout-section-grid__label">default</h3>
+        </div>
+        <div class="layout-section-grid__column">
+          <div id="theme_circle" class="color-picker-theme"></div>
+          <h3 class="layout-section-grid__label">circle</h3>
+        </div>
       </div>
     </section>
     <section class="empty">

@@ -13,6 +13,7 @@
   // size
   --cp-size-width: 240px;
   --cp-size-radius: 3px;
+  --cp-size-side-padding: 16px;
   // etc
   --cp-outer-shadow: 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15);
   --cp-speed-focus: 200ms;
@@ -53,7 +54,6 @@
   /* theme */
   @import './themes/sketch';
   @import './themes/palette';
-  @import './themes/macos';
   @import './themes/mini';
   @import './themes/mini-vertical';
   @import './themes/ring';

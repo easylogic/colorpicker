@@ -1,4 +1,3 @@
-import Event from '../../util/Event';
 import UIElement from '../UIElement';
 import './ColorInformation.scss';
 
@@ -12,46 +11,46 @@ export default class ColorInformation extends UIElement {
         <legend>change color code</legend>
         <div class="el-cp-color-form__wrap">
           <div class="el-cp-color-field">
-            <div>
-              <input ref="$hexCode" type="text" id="cp_color_hex"/>
-              <label for="cp_color_hex">HEX</label>
-            </div>
+            <label>
+              <input ref="$hexCode" type="text"/>
+              <span>HEX</span>
+            </label>
           </div>
           <div class="el-cp-color-field">
-            <div>
-              <input ref="$rgb_r" type="number" id="cp_color_rgb_r" step="1" min="0" max="255"/>
-              <label for="cp_color_rgb_r">R</label>
-            </div>
-            <div>
-              <input ref="$rgb_g" type="number" id="cp_color_rgb_g" step="1" min="0" max="255"/>
-              <label for="cp_color_rgb_g">G</label>
-            </div>
-            <div>
-              <input ref="$rgb_b" type="number" id="cp_color_rgb_b" step="1" min="0" max="255"/>
-              <label for="cp_color_rgb_b">B</label>
-            </div>
-            <div>
-              <input ref="$rgb_a" type="number" id="cp_color_rgb_a" step="0.01" min="0" max="1"/>
-              <label for="cp_color_rgb_a">A</label>
-            </div>
+            <label>
+              <input ref="$rgb_r" type="number" step="1" min="0" max="255"/>
+              <span>R</span>
+            </label>
+            <label>
+              <input ref="$rgb_g" type="number" step="1" min="0" max="255"/>
+              <span>G</span>
+            </label>
+            <label>
+              <input ref="$rgb_b" type="number" step="1" min="0" max="255"/>
+              <span>B</span>
+            </label>
+            <label>
+              <input ref="$rgb_a" type="number" step="0.01" min="0" max="1"/>
+              <span>A</span>
+            </label>
           </div>
           <div class="el-cp-color-field">
-            <div>
-              <input ref="$hsl_h" type="number" id="cp_color_hsl_h" step="1" min="0" max="360"/>
-              <label for="cp_color_hsl_h">H</label>
-            </div>
-            <div>
-              <input ref="$hsl_s" type="number" id="cp_color_hsl_s" step="1" min="0" max="100"/>
-              <label for="cp_color_hsl_s">S</label>
-            </div>
-            <div>
-              <input ref="$hsl_l" type="number" id="cp_color_hsl_l" step="1" min="0" max="100"/>
-              <label for="cp_color_hsl_l">L</label>
-            </div>
-            <div>
-              <input ref="$hsl_a" type="number" id="cp_color_hsl_a" step="0.01" min="0" max="1"/>
-              <label for="cp_color_hsl_a">A</label>
-            </div>
+            <label>
+              <input ref="$hsl_h" type="number" step="1" min="0" max="360"/>
+              <span>H</span>
+            </label>
+            <label>
+              <input ref="$hsl_s" type="number" step="1" min="0" max="100"/>
+              <span>S</span>
+            </label>
+            <label>
+              <input ref="$hsl_l" type="number" step="1" min="0" max="100"/>
+              <span>L</span>
+            </label>
+            <label>
+              <input ref="$hsl_a" type="number" step="0.01" min="0" max="1"/>
+              <span>A</span>
+            </label>
           </div>
           <nav ref="$informationChange" class="el-cp-color-nav">
             <label title="Change color model" class="el-cp-color-nav__label">

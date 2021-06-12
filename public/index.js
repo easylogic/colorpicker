@@ -14,9 +14,17 @@ const $empty = document.querySelector('.container > .empty');
 function changeRoute(name) {
   // disabled
   if (picker) {
-    picker.destroy();
-    picker.$body.el.innerHTML = '';
-    picker = null;
+    if (Array.isArray(picker)) {
+      picker.forEach((o,k) => {
+        o.destroy();
+        o.$body.el.innerHTML = '';
+        picker[k] = null;
+      });
+    } else {
+      picker.destroy();
+      picker.$body.el.innerHTML = '';
+      picker = null;
+    }
   }
   for (let i=0; i<$buttons.length; i++) {
     $buttons[i].removeAttribute('disabled');
@@ -37,9 +45,18 @@ function changeRoute(name) {
     case 'basic':
       picker = new EasyLogicColorPicker.create({
         container: document.getElementById('basic'),
-        // type : 'mini-vertical',
-        // type : 'mini-vertical', // ChromeDevTool,macos,xd,ring,mini,vscode,mini-vertical
+        type: 'default', // ChromeDevTool,macos,xd,ring,mini,vscode,mini-vertical
         position: 'inline',
+      });
+      break;
+    case 'themes':
+      picker = [];
+      ['default', 'circle'].forEach(o => {
+        picker.push(new EasyLogicColorPicker.create({
+          container: document.getElementById(`theme_${o}`),
+          type: o,
+          position: 'inline',
+        }));
       });
       break;
   }
