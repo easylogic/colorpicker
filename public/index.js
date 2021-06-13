@@ -51,7 +51,7 @@ function changeRoute(name) {
       break;
     case 'themes':
       picker = [];
-      ['default', 'circle'].forEach(o => {
+      ['default', 'circle', 'ring'].forEach(o => {
         picker.push(new EasyLogicColorPicker.create({
           container: document.getElementById(`theme_${o}`),
           type: o,

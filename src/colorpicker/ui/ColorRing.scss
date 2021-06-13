@@ -1,0 +1,35 @@
+.el-cp-palette-ring {
+  --pointer-size: 10px;
+  --pointer-color: #fff;
+  --pointer-stroke: 2px;
+  --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
+  box-sizing: border-box;
+  &__wrap {
+    position: relative;
+    padding-top: 100%;
+  }
+  &__canvas {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 50%;
+  }
+  &__pointer {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: var(--pointer-size);
+    height: var(--pointer-size);
+    border: var(--pointer-stroke) solid var(--pointer-color);
+    border-radius: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: var(--pointer-shadow);
+    box-sizing: border-box;
+  }
+}

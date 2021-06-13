@@ -12,7 +12,7 @@ export default class ColorWheel extends UIElement {
     this.width = 214;
     this.height = 214;
     this.thinkness = 0;
-    this.half_thinkness = 0;
+    this.halfThinkness = 0;
     this.source = 'colorwheel';
   }
 

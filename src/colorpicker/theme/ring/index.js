@@ -1,11 +1,10 @@
 import BaseColorPicker from '~/colorpicker/BaseColorPicker';
-import ColorInformation from '~/colorpicker/ui/ColorInformation';
-import ColorSetsChooser from '~/colorpicker/ui/ColorSetsChooser';
-import CurrentColorSets from '~/colorpicker/ui/CurrentColorSets';
-import CurrentColorSetsContextMenu from '~/colorpicker/ui/CurrentColorSetsContextMenu';
 import ColorRing from '~/colorpicker/ui/ColorRing';
 import _ColorPalette from '~/colorpicker/ui/ColorPalette';
-import ColorControl from './ColorControl';
+import ColorInformation from '~/colorpicker/ui/ColorInformation';
+import CurrentColorSets from '~/colorpicker/ui/CurrentColorSets';
+import Control from './Control';
+import './index.scss';
 
 export default class RingColorPicker extends BaseColorPicker {
 
@@ -13,24 +12,22 @@ export default class RingColorPicker extends BaseColorPicker {
     return {
       colorring: ColorRing,
       palette: _ColorPalette,
-      control: ColorControl,
+      control: Control,
       information: ColorInformation,
       currentColorSets: CurrentColorSets,
-      colorSetsChooser: ColorSetsChooser,
-      contextMenu: CurrentColorSetsContextMenu
     }
   }
 
   template() {
     return `
-      <div class='colorpicker-body'>
-        <div target="colorring"></div>
-        <div target="palette"></div>
-        <div target="control"></div>
-        <div target="information"></div>
-        <div target="currentColorSets"></div>
-        <div target="colorSetsChooser"></div>
-        <div target="contextMenu"></div>
+      <div class="el-colorpicker__wrap">
+        <div class="el-colorpicker__body">
+          <template target="colorring"></template>
+          <template target="palette"></template>
+        </div>
+        <template target="control"></template>
+        <template target="information"></template>
+        <template target="currentColorSets"></template>
       </div>
     `;
   }
