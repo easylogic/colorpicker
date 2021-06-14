@@ -4,12 +4,11 @@
   --pointer-stroke: 2px;
   --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
   position: relative;
-  height: var(--cp-palette-height);
+  width: var(--cp-palette-width, 100%);
+  height: var(--cp-palette-height, 150px);
   cursor: default;
   box-sizing: border-box;
   background-color: var(--palette-bg, #eee);
-  border-top-left-radius: var(--cp-size-radius);
-  border-top-right-radius: var(--cp-size-radius);
 
   &:before,
   &:after {

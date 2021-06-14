@@ -81,7 +81,7 @@ export default class EventMachin {
   /**
    * target 으로 지정된 자식 컴포넌트를 대체해준다.
    */
-  parseTarget () {
+  parseTarget() {
     const $el = this.$el;
     const targets = $el.findAll('[target]');
 
@@ -89,15 +89,15 @@ export default class EventMachin {
       const targetComponentName = node.getAttribute('target')
       const refName = node.getAttribute('ref') || targetComponentName
 
-      var Component = this.childComponents[targetComponentName]
-      var instance = new Component(this);
-      this[refName] = instance
-      this.refs[refName] = instance.$el
+      const Component = this.childComponents[targetComponentName]
+      const instance = new Component(this);
+      this[refName] = instance;
+      this.refs[refName] = instance.$el;
 
       if (instance) {
-        instance.render()
-        var $parent = new Dom(node.parentNode)
-        $parent.replace(node, instance.$el.el)
+        instance.render();
+        const $parent = new Dom(node.parentNode);
+        $parent.replace(node, instance.$el.el);
       }
     })
   }

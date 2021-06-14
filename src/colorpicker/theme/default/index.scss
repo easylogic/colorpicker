@@ -5,9 +5,29 @@
       padding: 0 0 16px;
     }
   }
+  .el-cp-palette {
+    &,
+    &:before,
+    &:after {
+      border-top-left-radius: var(--cp-size-radius);
+      border-top-right-radius: var(--cp-size-radius);
+    }
+  }
   .el-cp-color-control {
+    display: flex;
+    align-items: center;
+    user-select: none;
     margin: 16px 0 0;
     padding: 0 var(--cp-size-side-padding);
+    &__body {
+      flex: 1;
+      > *:nth-child(n+2) {
+        margin-top: 8px;
+      }
+    }
+    &__preview {
+      margin-left: var(--cp-size-side-padding, 16px);
+    }
   }
   .el-cp-color-form {
     margin: 16px 0 0;

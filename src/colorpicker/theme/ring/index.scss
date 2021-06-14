@@ -15,14 +15,26 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    z-index: 10;
+    z-index: 3;
     width: calc(100% - (20px * 2) - (16px * 2) - (var(--cp-ring-palette-inner-padding) * 2));
     height: calc(100% - (20px * 2) - (16px * 2) - (var(--cp-ring-palette-inner-padding) * 2));
     transform: translate(-50%, -50%);
   }
   .el-cp-color-control {
+    display: flex;
+    align-items: center;
+    user-select: none;
     margin: 0;
     padding: 0 var(--cp-size-side-padding);
+    &__body {
+      flex: 1;
+      > *:nth-child(n+2) {
+        margin-top: 8px;
+      }
+    }
+    &__preview {
+      margin-left: var(--cp-size-side-padding, 16px);
+    }
   }
   .el-cp-color-form {
     margin: 16px 0 0;

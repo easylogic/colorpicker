@@ -1,0 +1,57 @@
+.el-colorpicker--mini {
+  --cp-control-width: 40px;
+  .el-colorpicker {
+    &__wrap {
+      position: relative;
+    }
+    &__body {
+      position: relative;
+      padding-right: var(--cp-control-width);
+    }
+    &__palette {
+      position: relative;
+      padding-top: 100%;
+    }
+  }
+  .el-cp-palette {
+    --cp-palette-width: 100%;
+    --cp-palette-height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    &,
+    &:before,
+    &:after {
+      border-top-left-radius: var(--cp-size-radius);
+      border-bottom-left-radius: var(--cp-size-radius);
+    }
+  }
+  .el-cp-color-control {
+    --cp-slider-radius: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--cp-control-width);
+    display: flex;
+    > * {
+      flex: 1;
+      &:last-child {
+        .el-cp-slider {
+          &__body {
+            &:after {
+              border-top-right-radius: var(--cp-size-radius);
+              border-bottom-right-radius: var(--cp-size-radius);
+            }
+          }
+        }
+      }
+    }
+  }
+  .el-cp-swatches {
+    margin: 0;
+    padding: 16px var(--cp-size-side-padding) 16px;
+  }
+}

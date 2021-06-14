@@ -9,7 +9,7 @@
   border-radius: var(--cp-size-radius);
   overflow: hidden;
   backface-visibility: hidden;
-  z-index: 3;
+  z-index: 5;
   pointer-events: none;
   &__wrap {
     height: 100%;

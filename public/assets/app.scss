@@ -34,7 +34,7 @@ body, button, input, textarea, select {
   align-items: center;
   padding: 0;
   box-shadow: inset 0 -1px 0 0 hsla(0,0%,0%,.1), 0 1px 10px 0 hsla(0,0%,0%,.15);
-  z-index: 1;
+  z-index: 10;
   user-select: none;
   background: #fff;
   > h1 {
@@ -106,15 +106,22 @@ body, button, input, textarea, select {
 }
 .layout-section-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  &__column {}
+  &__column {
+    border: 1px dashed #ccc;
+    padding: 30px 24px;
+    border-radius: 2px;
+  }
   &__label {
-    margin: 8px 0 0;
+    margin: 12px 0 0;
     text-align: center;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -.5px;
+  }
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

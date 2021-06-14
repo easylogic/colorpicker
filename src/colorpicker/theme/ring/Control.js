@@ -1,7 +1,6 @@
 import UIElement from '~/colorpicker/UIElement';
 import Opacity from '~/colorpicker/ui/control/Opacity';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
-import '~/colorpicker/theme/default/Control.scss';
 
 const source = 'macos-control';
 

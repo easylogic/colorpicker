@@ -45,13 +45,12 @@ function changeRoute(name) {
     case 'basic':
       picker = new ColorPicker({
         container: document.getElementById('basic'),
-        type: 'default',
+        type: 'mini',
       });
-      console.log(picker)
       break;
     case 'themes':
       picker = [];
-      ['default', 'circle', 'ring'].forEach(o => {
+      ['default', 'circle', 'ring', 'mini'].forEach(o => {
         picker.push(new ColorPicker({
           container: document.getElementById(`theme_${o}`),
           type: o,

@@ -4,7 +4,7 @@ import './ColorSlider.scss';
 export default class Hue extends BaseSlider {
 
   constructor(opt) {
-    super(opt)
+    super(opt);
     this.minValue = 0;
     this.maxValue = 360;
     this.source = 'hue-control';
@@ -14,7 +14,7 @@ export default class Hue extends BaseSlider {
     return /*html*/`
       <nav class="el-cp-slider el-cp-slider--hue">
         <p ref="$container" class="el-cp-slider__body">
-          <i ref="$bar" class="el-cp-slider__pointer"></i>
+          <i ref="$bar" class="el-cp-slider__circle"></i>
         </p>
       </nav>
     `;
@@ -25,8 +25,9 @@ export default class Hue extends BaseSlider {
   }
   refreshColorUI(e) {
     const dist = this.getCaculatedDist(e);
-    const isDifferent = this.setColorUI(dist / 100 * this.maxValue);
-    if (!!isDifferent) return;
+    // const isDifferent = this.setColorUI(dist / 100 * this.maxValue);
+    // console.log(isDifferent)
+    // if (!!isDifferent) return;
     this.changeColor({
       h: (dist / 100) * this.maxValue,
       type: 'hsv',

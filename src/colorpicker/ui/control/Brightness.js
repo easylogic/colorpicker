@@ -14,7 +14,7 @@ export default class Brightness extends BaseSlider {
     return /*html*/`
       <nav class="el-cp-slider el-cp-slider--brightness">
         <p ref="$container" class="el-cp-slider__body">
-          <i ref="$bar" class="el-cp-slider__pointer"></i>
+          <i ref="$bar" class="el-cp-slider__circle"></i>
         </p>
       </nav>
     `;

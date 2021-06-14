@@ -62,6 +62,7 @@ export default class BaseColorPicker extends UIElement {
       case 'ChromeDevTool':
       case 'circle':
       case 'ring':
+      case 'mini':
         theme = this.opt.type;
         break;
       default:
@@ -429,7 +430,5 @@ export default class BaseColorPicker extends UIElement {
     this.colorpickerShowCallback = undefined;
     this.colorpickerHideCallback = undefined;
   }
-
-
 
 }

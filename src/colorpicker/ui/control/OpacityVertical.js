@@ -1,24 +1,21 @@
-import BaseSlider from '~/colorpicker/BaseSlider';
 import Color from '~/util/Color';
-import './ColorSlider.scss';
+import VerticalSlider from '~/colorpicker/VerticalSlider';
 
-export default class Opacity extends BaseSlider {
+export default class Opacity extends VerticalSlider {
 
-  constructor (opt) {
+  constructor(opt) {
     super(opt);
-    this.minValue = 0;
-    this.maxValue = 1;
-    this.source = 'opacity-control';
+    this.source = 'vertical-opacity-control';
   }
 
-  template () {
+  template() {
     return `
-      <nav class="el-cp-slider el-cp-slider--alpha">
+      <div class="el-cp-slider el-cp-slider--vertical el-cp-slider--alpha">
         <p ref="$container" class="el-cp-slider__body">
           <span ref="$colorbar" class="el-cp-slider__bar"></span>
-          <i ref="$bar" class="el-cp-slider__circle"></i>
+          <i ref="$bar" class="el-cp-slider__brick"></i>
         </p>
-      </nav>
+      </div>
     `;
   }
 
@@ -30,7 +27,7 @@ export default class Opacity extends BaseSlider {
   setOpacityColorBar() {
     const start = Color.format({ ...this.$store.rgb, a: 0 }, 'rgb');
     const end = Color.format({ ...this.$store.rgb, a: 1 }, 'rgb');
-    this.refs.$colorbar.css('background', `linear-gradient(to right, ${start}, ${end})`);
+    this.refs.$colorbar.css('background', `linear-gradient(to top, ${start}, ${end})`);
   }
 
   getDefaultValue() {
@@ -39,9 +36,9 @@ export default class Opacity extends BaseSlider {
 
   refreshColorUI(e) {
     const dist = this.getCaculatedDist(e);
-    this.setColorUI((dist / 100) * this.maxValue);
+    this.setColorUI((dist / 100 * this.maxValue));
     this.changeColor({
-      a: (Math.floor(dist) / 100) * this.maxValue,
+      a: Math.floor(dist) / 100 * this.maxValue,
     });
   }
 

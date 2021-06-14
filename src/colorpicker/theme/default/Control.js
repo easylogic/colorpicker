@@ -2,7 +2,6 @@ import UIElement from '~/colorpicker/UIElement';
 import Hue from '~/colorpicker/ui/control/Hue';
 import Opacity from '~/colorpicker/ui/control/Opacity';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
-import './Control.scss';
 
 const source = 'chromedevtool-control';
 
