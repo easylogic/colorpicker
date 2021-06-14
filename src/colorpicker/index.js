@@ -1,40 +1,36 @@
 import Default from '~/colorpicker/theme/default';
 import CircleColorPicker from '~/colorpicker/theme/circle';
-import ChromeDevToolColorPicker from '~/colorpicker/theme/chromedevtool';
-import MiniColorPicker from '~/colorpicker/theme/mini';
-import MiniVerticalColorPicker from '~/colorpicker/theme/mini-vertical';
+// import MiniColorPicker from '~/colorpicker/theme/mini'; // TODO: 조정예정
+// import MiniVerticalColorPicker from '~/colorpicker/theme/mini-vertical'; // TODO: 조정예정
 import RingColorPicker from '~/colorpicker/theme/ring';
-import XDColorPicker from '~/colorpicker/theme/xd';
-import VSCodePicker from '~/colorpicker/theme/vscode';
 
-export default {
-  create (opts) {
-    switch(opts.type) {
-      case 'ChromeDevTool':
-      case 'sketch':
-      case 'palette':
-        return new ChromeDevToolColorPicker(opts);
-      case 'circle':
-        return new CircleColorPicker(opts);
-      case 'xd':
-        return new XDColorPicker(opts);
-      case 'ring':
-        return new RingColorPicker(opts);
-      case 'mini':
-        return new MiniColorPicker(opts);
-      case 'vscode':
-        return new VSCodePicker(opts);
-      case 'mini-vertical':
-        return new MiniVerticalColorPicker(opts);
-      default:
-        return new Default(opts);
-    }
-  },
-  ColorPicker: ChromeDevToolColorPicker,
-  ChromeDevToolColorPicker,
-  CircleColorPicker,
-  RingColorPicker,
-  MiniColorPicker,
-  VSCodePicker,
-  MiniVerticalColorPicker,
+function ColorPicker(options) {
+  let core;
+
+  // merge options
+  options = Object.assign({}, this.defaults, options);
+
+  // switch theme
+  switch (options.type) {
+    case 'circle':
+      core = new CircleColorPicker(options);
+      break;
+    case 'ring':
+      core = new RingColorPicker(options);
+      break;
+    default:
+      core = new Default(options);
+      break;
+  }
+
+  return core;
 }
+
+// set default options
+ColorPicker.prototype.defaults = {
+  container: undefined,
+  type: null, // default,circle,ring
+  position: 'inline', // TODO: 나중에 조정예정
+};
+
+export default ColorPicker;

@@ -1,4 +1,4 @@
-import EasyLogicColorPicker from '~/index';
+import ColorPicker from '~/index';
 import './assets/app.scss';
 
 const initialRoute = 'basic';
@@ -43,16 +43,16 @@ function changeRoute(name) {
   $section.classList.add('active');
   switch (name) {
     case 'basic':
-      picker = new EasyLogicColorPicker.create({
+      picker = new ColorPicker({
         container: document.getElementById('basic'),
-        type: 'default', // ChromeDevTool,macos,xd,ring,mini,vscode,mini-vertical
-        position: 'inline',
+        type: 'default',
       });
+      console.log(picker)
       break;
     case 'themes':
       picker = [];
       ['default', 'circle', 'ring'].forEach(o => {
-        picker.push(new EasyLogicColorPicker.create({
+        picker.push(new ColorPicker({
           container: document.getElementById(`theme_${o}`),
           type: o,
           position: 'inline',
