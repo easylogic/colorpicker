@@ -70,6 +70,12 @@
     "webpack-cli": "^4.7.0",
     "webpack-dev-server": "^3.11.2"
   },
+  "dependencies": {
+    "@easylogic/color": "^0.0.5"
+  },
+  "peerDependencies": {
+    "@easylogic/color": "^0.0.5"
+  },
   "jest": {
     "modulePaths": [
       "<rootDir>/src",

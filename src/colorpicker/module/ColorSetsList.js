@@ -1,4 +1,4 @@
-import Color from '../../util/Color'
+import Color from '@easylogic/color';
 import BaseModule from '../BaseModule';
 
 export default class ColorSetsList extends BaseModule {
@@ -7,19 +7,19 @@ export default class ColorSetsList extends BaseModule {
 
         // set property
         this.$store.colorSetsList = [
-            {   name : "Material", 
-                colors: [ 
-                    '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', 
-                    '#2196F3', '#03A9F4', '#00BCD4',  '#009688', '#4CAF50', 
-                    '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', 
-                    '#FF5722',  '#795548', '#9E9E9E', '#607D8B' 
+            {   name : "Material",
+                colors: [
+                    '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5',
+                    '#2196F3', '#03A9F4', '#00BCD4',  '#009688', '#4CAF50',
+                    '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800',
+                    '#FF5722',  '#795548', '#9E9E9E', '#607D8B'
                 ],
                 edit: true
             },
             { name : "Custom", "edit" : true, "colors" : [] },
             { name: "Color Scale", "scale" : ['red', 'yellow', 'black' ], count : 5 }
         ]
-        this.$store.currentColorSets = {}        
+        this.$store.currentColorSets = {}
     }
 
     '/list' ($store) {
@@ -27,7 +27,7 @@ export default class ColorSetsList extends BaseModule {
     }
 
     '/setUserPalette' ($store, list) {
-        $store.userList = list; 
+        $store.userList = list;
 
         $store.dispatch('/resetUserPalette');
         $store.dispatch('/setCurrentColorSets');
@@ -38,15 +38,15 @@ export default class ColorSetsList extends BaseModule {
             $store.userList = $store.userList.map( (element, index) => {
 
                 if (typeof element.colors == 'function') {
-                    const makeCallback = element.colors; 
+                    const makeCallback = element.colors;
 
                     element.colors = makeCallback($store);
                     element._colors = makeCallback;
                 }
 
-                return Object.assign({ 
+                return Object.assign({
                     name: `color-${index}`,
-                    colors : [] 
+                    colors : []
                 }, element)
             })
 
@@ -67,7 +67,7 @@ export default class ColorSetsList extends BaseModule {
                 return obj.name == nameOrIndex;
             })[0];
         }
-    
+
         $store.emit('changeCurrentColorSets');
     }
 
@@ -80,7 +80,7 @@ export default class ColorSetsList extends BaseModule {
             $store.currentColorSets.colors.push(color);
             $store.emit('changeCurrentColorSets');
             $store.emit("addCurrentColor", color);
-        } 
+        }
     }
 
     '/setCurrentColorAll' ($store, colors = []) {
@@ -100,7 +100,7 @@ export default class ColorSetsList extends BaseModule {
             $store.currentColorSets.colors.splice(index, Number.MAX_VALUE);
             $store.emit('changeCurrentColorSets');
         }
-    }    
+    }
 
     '/clearPalette' ($store) {
         if ($store.currentColorSets.colors) {
@@ -117,8 +117,8 @@ export default class ColorSetsList extends BaseModule {
         if (element.scale) {
             return Color.scale(element.scale, element.count);
         }
-        
-        return element.colors || []; 
+
+        return element.colors || [];
     }
 
     '/getColorSetsList' ($store) {
@@ -127,8 +127,8 @@ export default class ColorSetsList extends BaseModule {
                name : element.name,
                edit : element.edit,
                colors : $store.dispatch('/getColors', element)
-           } 
+           }
         });
     }
-  
+
 }

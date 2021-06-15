@@ -1,5 +1,5 @@
+import Color from '@easylogic/color';
 import BaseSlider from '~/colorpicker/BaseSlider';
-import Color from '~/util/Color';
 import './ColorSlider.scss';
 
 export default class Opacity extends BaseSlider {
