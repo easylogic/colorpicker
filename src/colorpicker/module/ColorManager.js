@@ -1,5 +1,5 @@
-import Color from '../../util/Color'
-import HueColor from '../../util/HueColor'
+import Color from '@easylogic/color';
+
 import BaseModule from '../BaseModule';
 
 
@@ -64,7 +64,7 @@ export default class ColorManager extends BaseModule {
   }
 
   '/getHueColor' ($store) {
-    return HueColor.checkHueColor($store.hsv.h/360);
+    return Color.checkHueColor($store.hsv.h/360);
   }
 
   '/toString' ($store, type) {

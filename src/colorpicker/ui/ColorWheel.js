@@ -1,5 +1,5 @@
+import Color from '@easylogic/color';
 import UIElement from '~/colorpicker/UIElement';
-import Color from '~/util/Color';
 import Dom from '~/util/Dom';
 import Event from '~/util/Event';
 import { getXYInCircle, caculateAngle } from '~/util/functions/math';

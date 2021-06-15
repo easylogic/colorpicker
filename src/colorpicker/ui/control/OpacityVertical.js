@@ -1,4 +1,4 @@
-import Color from '~/util/Color';
+import Color from '@easylogic/color';
 import VerticalSlider from '~/colorpicker/VerticalSlider';
 
 export default class Opacity extends VerticalSlider {
@@ -9,7 +9,7 @@ export default class Opacity extends VerticalSlider {
   }
 
   template() {
-    return `
+    return /*html*/`
       <div class="el-cp-slider el-cp-slider--vertical el-cp-slider--alpha">
         <p ref="$container" class="el-cp-slider__body">
           <span ref="$colorbar" class="el-cp-slider__bar"></span>

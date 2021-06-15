@@ -100,6 +100,14 @@ const config = (env, options) => {
       libraryTarget: 'umd',
       libraryExport: 'default'
     };
+    out.externals = {
+      "@easylogic/color": {
+        'commonjs': '@easylogic/color',
+        'commonjs2': '@easylogic/color',
+        'amd': '@easylogic/color',
+        'root': ['Color']
+      }
+    }
     out.optimization = {
       minimize: true,
       minimizer: [
