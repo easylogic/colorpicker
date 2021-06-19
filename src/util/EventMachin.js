@@ -35,9 +35,10 @@ export default class EventMachin {
    *
    * 그리고 자동으로 load 되어질게 있으면 로드 해준다.
    */
-  render () {
+  render() {
     // 1. 나의 template 을 만들어내고
-    this.$el = this.parseTemplate(this.template());
+    if (!this.template()) return;
+    this.$el = this.template() ? this.parseTemplate(this.template()) : null;
     this.refs.$el = this.$el;
 
     // 개별 객체 셋팅하고
@@ -97,17 +98,17 @@ export default class EventMachin {
       if (instance) {
         instance.render();
         const $parent = new Dom(node.parentNode);
-        $parent.replace(node, instance.$el.el);
+        if (instance.$el) {
+          $parent.replace(node, instance.$el.el);
+        }
       }
     })
   }
 
   // load function이 정의된 객체는 load 를 실행해준다.
-  load () {
-
+  load() {
     this.filterProps(CHECK_LOAD_PATTERN).forEach(callbackName => {
       const elName = callbackName.split('load ')[1]
-
       if (this.refs[elName]) {
         this.refs[elName].html(this.parseTemplate(this[callbackName].call(this)))
       }
@@ -115,7 +116,7 @@ export default class EventMachin {
   }
 
   // 기본 템플릿 지정
-  template () {
+  template() {
     return '<div></div>';
   }
 

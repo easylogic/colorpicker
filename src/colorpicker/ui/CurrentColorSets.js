@@ -1,6 +1,5 @@
-import UIElement from '../UIElement';
+import UIElement from '~/colorpicker/UIElement';
 import ColorSetsChooser from '~/colorpicker/ui/ColorSetsChooser';
-import CurrentColorSetsContextMenu from '~/colorpicker/ui/CurrentColorSetsContextMenu';
 import './CurrentColorSets.scss';
 
 export default class CurrentColorSets extends UIElement {
@@ -8,12 +7,12 @@ export default class CurrentColorSets extends UIElement {
   components() {
     return {
       colorSetsChooser: ColorSetsChooser,
-      contextMenu: CurrentColorSetsContextMenu,
     };
   }
 
   template() {
     const { name } = this.$store.dispatch('/getCurrentColorSets');
+    if (!name) return null;
     return `
       <div class="el-cp-swatches">
         <header class="el-cp-swatches__header">

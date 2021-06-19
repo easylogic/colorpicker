@@ -1,4 +1,5 @@
 import ColorPicker from '~/index';
+import options from './options';
 import './assets/app.scss';
 
 const initialRoute = 'basic';
@@ -45,16 +46,15 @@ function changeRoute(name) {
     case 'basic':
       picker = new ColorPicker({
         container: document.getElementById('basic'),
-        type: 'mini',
+        ...options.basic,
       });
       break;
     case 'themes':
       picker = [];
-      ['default', 'circle', 'ring', 'mini'].forEach(o => {
+      Object.keys(options.themes).forEach(key => {
         picker.push(new ColorPicker({
-          container: document.getElementById(`theme_${o}`),
-          type: o,
-          position: 'inline',
+          container: document.getElementById(`theme_${key}`),
+          ...options.themes[key],
         }));
       });
       break;

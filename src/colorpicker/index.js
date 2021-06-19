@@ -2,6 +2,7 @@ import Default from '~/colorpicker/theme/default';
 import CircleColorPicker from '~/colorpicker/theme/circle';
 import RingColorPicker from '~/colorpicker/theme/ring';
 import MiniColorPicker from '~/colorpicker/theme/mini';
+import NoneColorPicker from '~/colorpicker/theme/none';
 
 function ColorPicker(options) {
   let core;
@@ -20,6 +21,9 @@ function ColorPicker(options) {
     case 'mini':
       core = new MiniColorPicker(options);
       break;
+    case 'none':
+      core = new NoneColorPicker(options);
+      break;
     default:
       core = new Default(options);
       break;
@@ -31,9 +35,10 @@ function ColorPicker(options) {
 // set default options
 ColorPicker.prototype.defaults = {
   container: undefined,
-  type: null, // default,circle,ring,mini
+  type: null, // default,circle,ring,mini,none
   color: '#ffffff',
   position: 'inline', // TODO: 나중에 조정예정
+  colorSets: undefined,
 };
 
 export default ColorPicker;

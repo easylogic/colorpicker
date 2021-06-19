@@ -9,7 +9,6 @@ export default class BaseColorPicker extends UIElement {
 
   constructor (opt) {
     super(opt);
-
     this.isColorPickerShow = false;
     this.isShortCut = false;
     this.hideDelay = +(typeof this.opt.hideDeplay == 'undefined' ? 2000 : this.opt.hideDelay);
@@ -17,7 +16,6 @@ export default class BaseColorPicker extends UIElement {
     this.autoHide = this.opt.autoHide || true;
     this.outputFormat = this.opt.outputFormat
     this.$checkColorPickerClass = this.checkColorPickerClass.bind(this);
-
   }
 
   initialize () {
@@ -27,8 +25,8 @@ export default class BaseColorPicker extends UIElement {
     this.$store = new BaseStore({
       modules: [
         ColorManager,
-        ColorSetsList
-      ]
+        ColorSetsList,
+      ],
     });
 
     this.callbackChange = () => {
@@ -63,6 +61,7 @@ export default class BaseColorPicker extends UIElement {
       case 'circle':
       case 'ring':
       case 'mini':
+      case 'none':
         theme = this.opt.type;
         break;
       default:
@@ -80,7 +79,7 @@ export default class BaseColorPicker extends UIElement {
     }
 
     if (this.opt.colorSets) {
-      this.$store.dispatch('/setUserPalette', this.opt.colorSet);
+      this.$store.dispatch('/setUserPalette', this.opt.colorSets);
     } else if (isFunction(this.opt.onRetrievePreset)) {
       this.$store.dispatch('/setUserPalette', this.opt.onRetrievePreset());
     } else {

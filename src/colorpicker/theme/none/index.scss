@@ -1,0 +1,17 @@
+.el-colorpicker--none {
+  .el-colorpicker {
+    &__wrap {
+      position: relative;
+      padding: 16px;
+    }
+    &__empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 65px;
+      font-size: 12px;
+      color: var(--cp-color-blur);
+      letter-spacing: -.25px;
+    }
+  }
+}
