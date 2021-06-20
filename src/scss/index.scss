@@ -59,26 +59,10 @@
     line-height: 1.25;
   }
 
-  // TODO: 여기서부터 레거시 코드
-  @import './component/button';
-
-  &.chromedevtool {}
-
-  /* theme */
-  @import './themes/sketch';
-  @import './themes/palette';
-  @import './themes/mini';
-  @import './themes/mini-vertical';
-  @import './themes/ring';
-  @import './themes/xd';
-  @import './themes/vscode';
-
+  // TODO: 조정예정
   &.hide-colorsets {
     .colorsets {
       display: none !important;
     }
   }
 }
-
-@import './component/colorsets-contextmenu';
-

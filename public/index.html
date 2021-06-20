@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-color-mode="">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EasyLogicColorPicker</title>
 <link rel="shortcut icon" href="favicon.ico"/>
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/>
 </head>
 <body>
 <main>
   <header class="layout-header">
     <h1>ColorPicker Development</h1>
-    <nav>
+    <nav class="layout-header__nav">
       <button type="button" data-route="basic">Basic</button>
       <button type="button" data-route="themes">Themes</button>
     </nav>
   </header>
   <div class="container">
+    <!-- basic -->
     <section data-route="basic" class="layout-section">
       <h2 class="layout-section__title">
         Basic component
@@ -27,7 +27,24 @@
       <div class="layout-section__body">
         <div id="basic" class="color-picker-solo"></div>
       </div>
+      <nav class="layout-controller">
+        <h2 class="layout-controller__title">Controller</h2>
+        <div id="controller" class="layout-controller__body">
+          <label>
+            <span>darkmode</span>
+            <select data-type="color-mode">
+              <option value="">None</option>
+              <option value="system">System</option>
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+            <span>px</span>
+          </label>
+        </div>
+      </nav>
     </section>
+    <!-- // basic -->
+    <!-- themes -->
     <section data-route="themes" class="layout-section">
       <h2 class="layout-section__title">
         Themes
@@ -58,11 +75,11 @@
         </div>
       </div>
     </section>
+    <!-- // themes -->
     <section class="empty">
       .empty-component
     </section>
   </div>
 </main>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 </body>
 </html>

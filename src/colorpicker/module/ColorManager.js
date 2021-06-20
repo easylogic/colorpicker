@@ -85,8 +85,9 @@ export default class ColorManager extends BaseModule {
         return $store.dispatch('/toHSL');
       case 'hex':
         return $store.dispatch('/toHEX');
+      default:
+        return $store.dispatch('/toString', type);
     }
-    return $store.dispatch('/toString', type);
   }
 
   '/toRGB' ($store) {

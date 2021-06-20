@@ -36,8 +36,10 @@ function ColorPicker(options) {
 ColorPicker.prototype.defaults = {
   container: undefined,
   type: null, // default,circle,ring,mini,none
+  outputFormat: undefined, // hex,rgb,hsl
   color: '#ffffff',
   position: 'inline', // TODO: 나중에 조정예정
+  darkMode: false, // TODO: 추후에 기능추가예정
   colorSets: undefined,
 };
 

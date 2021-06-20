@@ -70,14 +70,17 @@ export default class BaseColorPicker extends UIElement {
     }
     this.$root.addClass(`el-colorpicker--${theme}`);
 
+    // TODO: 조정예정
     if (this.opt.hideInformation) {
       this.$root.addClass('hide-information')
     }
 
+    // TODO: 조정예정
     if (this.opt.hideColorsets) {
       this.$root.addClass('hide-colorsets')
     }
 
+    // set colorSets
     if (this.opt.colorSets) {
       this.$store.dispatch('/setUserPalette', this.opt.colorSets);
     } else if (isFunction(this.opt.onRetrievePreset)) {
@@ -86,16 +89,11 @@ export default class BaseColorPicker extends UIElement {
       this.$store.dispatch('/setUserPalette', []);
     }
 
-
-    this.render()
-
-    this.$root.append(this.$el)
-
+    this.render();
+    this.$root.append(this.$el);
     this.initColorWithoutChangeEvent(this.opt.color);
-
-    // 이벤트 연결
+    // initial events
     this.initializeEvent();
-
   }
 
   initColorWithoutChangeEvent (color) {

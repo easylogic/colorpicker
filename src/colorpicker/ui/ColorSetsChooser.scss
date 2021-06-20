@@ -12,12 +12,16 @@
   z-index: 5;
   pointer-events: none;
   &__wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
     height: 100%;
     will-change: transform;
     background: var(--cp-color-bg);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    transform: translateY(100%);
+    transform: translateY(0);
     transition: transform 500ms cubic-bezier(.215,1,.69,1);
   }
   &__header {
@@ -82,7 +86,7 @@
     pointer-events: auto;
     .el-cp-color-theme {
       &__wrap {
-        transform: translateY(0);
+        transform: translateY(-100%);
       }
     }
   }
