@@ -6,6 +6,7 @@ const source = 'chromedevtool-information';
 export default class ColorInformation extends UIElement {
 
   template() {
+    if (!this.opt.useInformation) return null;
     return /*html*/`
       <fieldset class="el-cp-color-form">
         <legend>change color code</legend>
@@ -177,10 +178,13 @@ export default class ColorInformation extends UIElement {
   setHexInput() {
     this.refs.$hexCode.val(this.$store.dispatch('/toHEX'));
   }
+
   refresh() {
+    if (!this.opt.useInformation) return;
     this.setCurrentFormat(this.$store.format);
     this.setRGBInput();
     this.setHSLInput();
     this.setHexInput();
   }
+
 }

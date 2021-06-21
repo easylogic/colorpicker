@@ -40,6 +40,7 @@ ColorPicker.prototype.defaults = {
   color: '#ffffff',
   position: 'inline', // TODO: 나중에 조정예정
   darkMode: false, // TODO: 추후에 기능추가예정
+  useInformation: true,
   colorSets: undefined,
 };
 

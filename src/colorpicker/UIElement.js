@@ -1,12 +1,12 @@
-import EventMachin from "../util/EventMachin";
+import EventMachin from '~/util/EventMachin';
 
-const CHECK_STORE_EVENT_PATTERN = /^@/
+const CHECK_STORE_EVENT_PATTERN = /^@/;
 
 class UIElement extends EventMachin {
 
   constructor (opt) {
-    super(opt)
-    this.opt = opt || {};
+    super(opt);
+    this.opt = (opt && opt.opt) ? opt.opt : (opt || {});
     if (opt && opt.$store) this.$store = opt.$store;
     this.initialize();
     this.initializeStoreEvent();
@@ -18,22 +18,22 @@ class UIElement extends EventMachin {
    * you can define '@xxx' method(event) in UIElement
    */
   initializeStoreEvent() {
-    this.storeEvents = {}
+    this.storeEvents = {};
     this.filterProps(CHECK_STORE_EVENT_PATTERN).forEach((key) => {
-      const arr = key.split('@')
+      const arr = key.split('@');
       arr.shift();
       const event = arr.join('@');
-      this.storeEvents[event] = this[key].bind(this)
+      this.storeEvents[event] = this[key].bind(this);
       this.$store.on(event, this.storeEvents[event]);
     });
   }
 
   destoryStoreEvent () {
     Object.keys(this.storeEvents).forEach(event => {
-      this.$store.off(event, this.storeEvents[event])
+      this.$store.off(event, this.storeEvents[event]);
     });
   }
 
 }
 
-export default UIElement
+export default UIElement;

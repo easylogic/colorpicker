@@ -1,7 +1,5 @@
-import Color from '@easylogic/color';
-
-import BaseModule from '../BaseModule';
-
+import * as Color from '@easylogic/color';
+import BaseModule from '~/colorpicker/BaseModule';
 
 function isUndefined (v) {
     return typeof v == 'undefined' || v == null;
@@ -9,12 +7,12 @@ function isUndefined (v) {
 
 export default class ColorManager extends BaseModule {
   initialize () {
-    super.initialize()
-    this.$store.rgb = {}
-    this.$store.hsl = {}
-    this.$store.hsv = {}
-    this.$store.alpha = 1
-    this.$store.format = 'hex'
+    super.initialize();
+    this.$store.rgb = {};
+    this.$store.hsl = {};
+    this.$store.hsv = {};
+    this.$store.alpha = 1;
+    this.$store.format = 'hex';
     // this.$store.dispatch('/changeColor'); // TODO: 쓸모가 있는지 검증하기
   }
 
@@ -28,7 +26,7 @@ export default class ColorManager extends BaseModule {
     $store.emit('initColor');
   }
 
-  '/changeColor' ($store, colorObj, source, isNotEmit) {
+  '/changeColor'($store, colorObj, source, isNotEmit) {
     colorObj = colorObj || '#ffffff';
     if (typeof colorObj == 'string') colorObj = Color.parse(colorObj);
 
@@ -63,11 +61,11 @@ export default class ColorManager extends BaseModule {
     if (!isNotEmit) $store.emit('changeColor', colorObj.source);
   }
 
-  '/getHueColor' ($store) {
-    return Color.checkHueColor($store.hsv.h/360);
+  '/getHueColor'($store) {
+    return Color.checkHueColor($store.hsv.h / 360);
   }
 
-  '/toString' ($store, type) {
+  '/toString'($store, type) {
     type = type || $store.format
     var colorObj = $store[type] || $store.rgb
     return Color.format({
@@ -76,7 +74,7 @@ export default class ColorManager extends BaseModule {
     }, type);
   }
 
-  '/toColor' ($store, type) {
+  '/toColor'($store, type) {
     type = type || $store.format;
     switch (type) {
       case 'rgb':
@@ -90,15 +88,15 @@ export default class ColorManager extends BaseModule {
     }
   }
 
-  '/toRGB' ($store) {
+  '/toRGB'($store) {
     return $store.dispatch('/toString', 'rgb');
   }
 
-  '/toHSL' ($store) {
+  '/toHSL'($store) {
     return $store.dispatch('/toString', 'hsl');
   }
 
-  '/toHEX' ($store) {
+  '/toHEX'($store) {
     return $store.dispatch('/toString', 'hex').toUpperCase();
   }
 
