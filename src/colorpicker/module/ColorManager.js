@@ -1,9 +1,5 @@
-import * as Color from '@easylogic/color';
+import Color from '@easylogic/color/src';
 import BaseModule from '~/colorpicker/BaseModule';
-
-function isUndefined (v) {
-    return typeof v == 'undefined' || v == null;
-}
 
 export default class ColorManager extends BaseModule {
   initialize () {
@@ -21,19 +17,19 @@ export default class ColorManager extends BaseModule {
     $store.emit('changeFormat');
   }
 
-  '/initColor' ($store, colorObj, source) {
-    $store.dispatch('/changeColor', colorObj, source, true);
+  '/initColor'($store, colorObj) {
+    $store.dispatch('/changeColor', colorObj, true);
     $store.emit('initColor');
   }
 
-  '/changeColor'($store, colorObj, source, isNotEmit) {
+  '/changeColor'($store, colorObj, isInit) {
     colorObj = colorObj || '#ffffff';
-    if (typeof colorObj == 'string') colorObj = Color.parse(colorObj);
+    if (typeof colorObj === 'string') colorObj = Color.parse(colorObj);
 
-    colorObj.source = colorObj.source || source;
-
-    $store.alpha = isUndefined(colorObj.a) ? $store.alpha : colorObj.a;
-    $store.format = colorObj.type !== 'hsv' ? (colorObj.type || $store.format) : $store.format;
+    $store.alpha = (typeof colorObj.a === 'undefined' || colorObj.a === null) ? $store.alpha : colorObj.a;
+    if (!$store.format) {
+      $store.format = colorObj.type !== 'hsv' ? (colorObj.type || 'hex') : 'hex';
+    }
 
     switch (colorObj.type) {
       case 'hsl':
@@ -58,7 +54,7 @@ export default class ColorManager extends BaseModule {
         break;
     }
 
-    if (!isNotEmit) $store.emit('changeColor', colorObj.source);
+    if (!isInit) $store.emit('changeColor', colorObj);
   }
 
   '/getHueColor'($store) {

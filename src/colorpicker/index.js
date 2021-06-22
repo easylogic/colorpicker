@@ -34,14 +34,24 @@ function ColorPicker(options) {
 
 // set default options
 ColorPicker.prototype.defaults = {
+  // values
   container: undefined,
   type: null, // default,circle,ring,mini,none
-  outputFormat: undefined, // hex,rgb,hsl
   color: '#ffffff',
-  position: 'inline', // TODO: 나중에 조정예정
-  darkMode: false, // TODO: 추후에 기능추가예정
+  format: 'hex', // hex,rgb,hsl
+  outputFormat: undefined, // hex,rgb,hsl
   useInformation: true,
-  colorSets: undefined,
+  darkMode: false, // TODO: 추후에 기능추가예정
+  swatchTitle: 'Color palette',
+  swatchColors: [],
+  colorSets: undefined, // TODO: `swatchColors`로 변경예정
+  // callback functions
+  onInit: undefined,
+  onChange: undefined,
+  onChanged: undefined,
+  onChangeFormat: undefined,
+  onSwatchAddColor: undefined,
+  onSwatchRemoveColor: undefined,
 };
 
 export default ColorPicker;

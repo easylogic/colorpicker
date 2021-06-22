@@ -28,12 +28,6 @@ class UIElement extends EventMachin {
     });
   }
 
-  destoryStoreEvent () {
-    Object.keys(this.storeEvents).forEach(event => {
-      this.$store.off(event, this.storeEvents[event]);
-    });
-  }
-
 }
 
 export default UIElement;

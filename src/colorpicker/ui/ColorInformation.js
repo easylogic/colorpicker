@@ -7,7 +7,7 @@ export default class ColorInformation extends UIElement {
 
   template() {
     if (!this.opt.useInformation) return null;
-    return /*html*/`
+    return `
       <fieldset class="el-cp-color-form">
         <legend>change color code</legend>
         <div class="el-cp-color-form__wrap">
@@ -71,7 +71,7 @@ export default class ColorInformation extends UIElement {
   }
 
   setCurrentFormat(format) {
-    this.format = format
+    this.format = format;
     this.initFormat();
   }
   initFormat() {

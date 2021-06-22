@@ -13,7 +13,7 @@ export default class BaseBox extends UIElement {
 
   /** push change event  */
   changeColor(opt) {
-    this.$store.dispatch('/changeColor',Object.assign({
+    this.$store.dispatch('/changeColor', Object.assign({
       source: this.source
     }, opt || {}))
   }
@@ -77,10 +77,10 @@ export default class BaseBox extends UIElement {
     this.onDragEnd();
   }
 
-  '@changeColor' (sourceType) {
+  '@changeColor'(sourceType) {
     if (this.source !== sourceType) this.refresh();
   }
-  '@initColor' () {
+  '@initColor'() {
     this.refresh();
   }
 

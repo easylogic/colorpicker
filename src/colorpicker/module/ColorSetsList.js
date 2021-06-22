@@ -65,6 +65,7 @@ export default class ColorSetsList extends BaseModule {
   }
 
   '/setCurrentColorAll'($store, colors = []) {
+    console.log('/setCurrentColorAll')
     $store.currentColorSets.colors = colors;
     $store.emit('changeCurrentColorSets');
   }

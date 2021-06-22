@@ -28,7 +28,7 @@ export default class ColorPalette extends UIElement {
     const pos = this.drag_pointer_pos || { x : 0, y : 0 };
     const s = (pos.x / 100);
     const v = ((100 - pos.y) / 100);
-    this.$store.dispatch('/changeColor', { type: 'hsv', s, v, source });
+    this.$store.dispatch('/changeColor', { type: 'hsv', s, v });
   }
 
   setColorUI() {

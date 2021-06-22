@@ -9,19 +9,10 @@ export default class BaseColorPicker extends UIElement {
 
   constructor (opt) {
     super(opt);
-    this.isColorPickerShow = false;
-    this.isShortCut = false;
-    this.hideDelay = +(typeof this.opt.hideDeplay == 'undefined' ? 2000 : this.opt.hideDelay);
-    this.timerCloseColorPicker = undefined;
-    this.autoHide = this.opt.autoHide || true;
-    this.outputFormat = this.opt.outputFormat;
-    // this.$checkColorPickerClass = this.checkColorPickerClass.bind(this);
   }
 
   initialize() {
-    this.$body = null;
-    this.$root = null;
-
+    // set store
     this.$store = new BaseStore({
       modules: [
         ColorManager,
@@ -29,22 +20,7 @@ export default class BaseColorPicker extends UIElement {
       ],
     });
 
-    // set callbacks
-    this.callbackChange = () => {
-      this.callbackColorValue();
-    }
-    this.callbackLastUpdate = () => {
-      this.callbackLastUpdateColorValue();
-    }
-    this.callbackAddCurrentColor = (color) => {
-      this.callbackAddCurrentColorValue(color);
-    }
-
-    this.colorpickerShowCallback = function() {};
-    this.colorpickerHideCallback = function() {};
-    this.colorpickerLastUpdateCallback = function() {};
-    this.colorpickerAddCurrentColorCallback = function() {};
-
+    // set elements
     this.$body = new Dom(this.opt.container || document.body);
     this.$root = new Dom('div', 'el-colorpicker', {});
 
@@ -75,16 +51,23 @@ export default class BaseColorPicker extends UIElement {
       this.$store.dispatch('/setUserPalette', []);
     }
 
+    // render component
     this.render();
+
+    // set color
+    this.$store.dispatch('/changeFormat', this.opt.format);
+    this.$store.dispatch('/initColor', this.opt.color);
+
+    // append element
     this.$root.append(this.$el);
-    this.initColorWithoutChangeEvent(this.opt.color);
 
     // initial events
     this.initializeEvent();
-  }
 
-  initColorWithoutChangeEvent (color) {
-    this.$store.dispatch('/initColor', color);
+    // call onInit
+    if (this.opt.onInit && typeof this.opt.onInit === 'function') {
+      this.opt.onInit(this);
+    }
   }
 
   /**
@@ -103,93 +86,52 @@ export default class BaseColorPicker extends UIElement {
   }
 
   /**
-   * set to colors in current sets that you see
-   * @param {Array} colors
-   */
-  setColorsInPalette (colors = []) {
-    this.$store.dispatch('/setCurrentColorAll', colors);
-  }
-
-  /**
-   * refresh all color palette
-   *
-   * @param {*} list
-   */
-  setUserPalette (list = []) {
-    this.$store.dispatch('/setUserPalette', list);
-  }
-
-  /**
    * get color
    *
-   * @param {string} type hex,rgb,hsl
+   * @param {string} format hex,rgb,hsl
    * @return {string}
    */
-  getColor(type) {
-    return this.$store.dispatch('/toColor', type);
+  getColor(format = undefined) {
+    return this.$store.dispatch('/toColor', format || this.opt.outputFormat);
   }
 
-  // TODO: set color 메서드 추가
+  /**
+   * set color
+   *
+   * @param {string} color
+   * @param {string} format
+   */
+  changeColor(color, format = undefined) {
+    this.$store.dispatch('/changeColor', color);
+  }
+
+  changeOptions() {}
 
   /**
    * private methods
    */
 
-  callbackColorValue(color) {
-    color = color || this.getCurrentColor();
-    if (typeof this.opt.onChange === 'function') {
-      this.opt.onChange.call(this, color);
-    }
-    if (typeof this.colorpickerShowCallback === 'function') {
-      this.colorpickerShowCallback(color);
-    }
-  }
-
-  callbackLastUpdateColorValue(color) {
-    color = color || this.getCurrentColor();
-    if (typeof this.opt.onLastUpdate === 'function') {
-      this.opt.onLastUpdate.call(this, color);
-    }
-    if (typeof this.colorpickerLastUpdateCallback === 'function') {
-      this.colorpickerLastUpdateCallback(color);
-    }
-  }
-
-  callbackAddCurrentColorValue(color) {
-    if (typeof this.opt.onLastUpdate === 'function') {
-      this.opt.onAddPreset.call(this, color);
-    }
-    if (typeof this.colorpickerAddCurrentColorCallback === 'function') {
-      this.colorpickerAddCurrentColorCallback(color);
-    }
-  }
-
-  getCurrentColor() {
-    return this.$store.dispatch('/toColor', this.outputFormat);
-  }
-
   initializeStoreEvent() {
     super.initializeStoreEvent();
-    this.$store.on('changeColor', this.callbackChange);
-    this.$store.on('lastUpdateColor', this.callbackLastUpdate);
-    this.$store.on('changeFormat', this.callbackChange);
-    this.$store.on('addCurrentColor', this.callbackAddCurrentColor);
+    this.$store.on('changeColor', () => {
+      if (!(this.opt.onChange && typeof this.opt.onChange === 'function')) return;
+      this.opt.onChange(this.getColor());
+    });
+    this.$store.on('lastUpdateColor', () => {
+      if (!(this.opt.onChanged && typeof this.opt.onChanged === 'function')) return;
+      this.opt.onChanged(this.getColor());
+    });
+    this.$store.on('changeFormat', () => {
+      if (!(this.opt.onChangeFormat && typeof this.opt.onChangeFormat === 'function')) return;
+      this.opt.onChangeFormat(this.$store.format);
+    });
   }
 
   destroy() {
     super.destroy();
-    // off events
-    this.$store.off('changeColor', this.callbackChange);
-    this.$store.off('lastUpdateColor', this.callbackLastUpdate)
-    this.$store.off('changeFormat', this.callbackChange);
-    this.$store.off('addCurrentColor', this.callbackAddCurrentColor)
-    // remove callbacks
-    this.callbackChange = undefined;
-    this.callbackLastUpdate = undefined;
-    this.callbackAddCurrentColor = undefined;
-    // remove color picker callback
-    this.colorpickerShowCallback = undefined;
-    this.colorpickerHideCallback = undefined;
+    this.$store.off('changeColor');
+    this.$store.off('lastUpdateColor');
+    this.$store.off('changeFormat');
   }
 
 }

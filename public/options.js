@@ -2,35 +2,54 @@ export default {
   // basic
   basic: {
     type: 'default',
+    color: '#44D7B6',
+    // format: 'hex',
+    outputFormat: 'hex',
+    // swatchTitle: 'Color palette', // TODO: 작업예정
+    // swatchColors: [], // TODO: 작업예정
     colorSets: [
       {
         name: "Custom colors",
-        edit: true,
         colors: [ '#ff0000', '#00ff00', '#0000ff' ],
       },
+      {
+        name: "fooooooo",
+        edit: true,
+        colors: [ 'green', 'red', 'blue' ],
+      },
     ],
+    onInit: (self) => {
+      // console.log('user onInit()', self);
+      // setTimeout(() => {
+      //   self.changeColor('rgba(255,0,0,.5)');
+      // }, 3000)
+    },
+    onChange: (color) => {
+      // console.log('user onChange()', color);
+    },
+    onChanged: (color) => {
+      // console.log('user onChanged()', color);
+    },
+    onChangeFormat: (format) => {
+      // console.log('user onChangeFormat()', format);
+    },
   },
   // themes
   themes: {
     default: {
       type: 'default',
-      position: 'inline',
     },
     circle: {
       type: 'circle',
-      position: 'inline',
     },
     ring: {
       type: 'ring',
-      position: 'inline',
     },
     mini: {
       type: 'mini',
-      position: 'inline',
     },
     none: {
       type: 'none',
-      position: 'inline',
       colorSets: [
         {
           name: 'Sketch samples',
