@@ -25,9 +25,6 @@ export default class Hue extends BaseSlider {
   }
   refreshColorUI(e) {
     const dist = this.getCaculatedDist(e);
-    // const isDifferent = this.setColorUI(dist / 100 * this.maxValue);
-    // console.log(isDifferent)
-    // if (!!isDifferent) return;
     this.changeColor({
       h: (dist / 100) * this.maxValue,
       type: 'hsv',

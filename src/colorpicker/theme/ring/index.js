@@ -2,7 +2,7 @@ import BaseColorPicker from '~/colorpicker/BaseColorPicker';
 import ColorRing from '~/colorpicker/ui/ColorRing';
 import _ColorPalette from '~/colorpicker/ui/ColorPalette';
 import ColorInformation from '~/colorpicker/ui/ColorInformation';
-import CurrentColorSets from '~/colorpicker/ui/CurrentColorSets';
+import Swatch from '~/colorpicker/ui/Swatch';
 import Control from './Control';
 import './index.scss';
 
@@ -14,7 +14,7 @@ export default class RingColorPicker extends BaseColorPicker {
       palette: _ColorPalette,
       control: Control,
       information: ColorInformation,
-      currentColorSets: CurrentColorSets,
+      Swatch,
     }
   }
 
@@ -27,7 +27,7 @@ export default class RingColorPicker extends BaseColorPicker {
         </div>
         <template target="control"></template>
         <template target="information"></template>
-        <template target="currentColorSets"></template>
+        <template target="Swatch"></template>
       </div>
     `;
   }

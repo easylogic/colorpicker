@@ -44,14 +44,12 @@ ColorPicker.prototype.defaults = {
   darkMode: false, // TODO: 추후에 기능추가예정
   swatchTitle: 'Color palette',
   swatchColors: [],
-  colorSets: undefined, // TODO: `swatchColors`로 변경예정
   // callback functions
   onInit: undefined,
+  onDestroy: undefined,
   onChange: undefined,
   onChanged: undefined,
   onChangeFormat: undefined,
-  onSwatchAddColor: undefined,
-  onSwatchRemoveColor: undefined,
 };
 
 export default ColorPicker;

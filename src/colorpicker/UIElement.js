@@ -4,7 +4,7 @@ const CHECK_STORE_EVENT_PATTERN = /^@/;
 
 class UIElement extends EventMachin {
 
-  constructor (opt) {
+  constructor(opt) {
     super(opt);
     this.opt = (opt && opt.opt) ? opt.opt : (opt || {});
     if (opt && opt.$store) this.$store = opt.$store;

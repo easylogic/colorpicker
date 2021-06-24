@@ -4,6 +4,7 @@
   &__header {
     display: flex;
     align-items: center;
+    margin: 0 0 16px;
     h2 {
       flex: 1;
       margin: 0;
@@ -12,37 +13,11 @@
       font-weight: 600;
       line-height: 1.15;
     }
-    button {
-      display: block;
-      margin: -4px;
-      padding: 4px;
-      box-sizing: border-box;
-      cursor: pointer;
-      font-size: 0;
-      border: none;
-      background: none;
-      border-radius: 2px;
-      outline: none;
-      transition: box-shadow var(--cp-speed-focus) ease-out, opacity var(--cp-speed-focus) ease-out;
-      -webkit-tap-highlight-color: transparent;
-      svg {
-        display: block;
-        margin: 0 auto;
-        width: 16px;
-        height: 16px;
-      }
-      &:active {
-        opacity: .5;
-      }
-      &:focus {
-        box-shadow: 0 0 0 2px var(--cp-color-key);
-      }
-    }
   }
 }
 
 .el-cp-colors {
-  margin: 16px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: grid;

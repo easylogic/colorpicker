@@ -1,23 +1,38 @@
 import Dom from '~/util/Dom';
-import ColorSetsList from '~/colorpicker/module/ColorSetsList';
 import UIElement from '~/colorpicker/UIElement';
 import ColorManager from '~/colorpicker/module/ColorManager';
+import ColorSwatch from '~/colorpicker/module/ColorSwatch';
 import BaseStore from '~/colorpicker/BaseStore';
-import { isFunction } from '~/util/functions/func';
 
 export default class BaseColorPicker extends UIElement {
 
-  constructor (opt) {
+  constructor(opt) {
     super(opt);
   }
 
   initialize() {
+    if (this.$store) return;
+
     // set store
     this.$store = new BaseStore({
       modules: [
         ColorManager,
-        ColorSetsList,
+        ColorSwatch,
       ],
+    });
+
+    // set store events
+    this.$store.on('changeColor', () => {
+      if (!(this.opt.onChange && typeof this.opt.onChange === 'function')) return;
+      this.opt.onChange(this.getColor());
+    });
+    this.$store.on('lastUpdateColor', () => {
+      if (!(this.opt.onChanged && typeof this.opt.onChanged === 'function')) return;
+      this.opt.onChanged(this.getColor());
+    });
+    this.$store.on('changeFormat', () => {
+      if (!(this.opt.onChangeFormat && typeof this.opt.onChangeFormat === 'function')) return;
+      this.opt.onChangeFormat(this.$store.format);
     });
 
     // set elements
@@ -42,14 +57,8 @@ export default class BaseColorPicker extends UIElement {
     }
     this.$root.addClass(`el-colorpicker--${theme}`);
 
-    // set colorSets
-    if (this.opt.colorSets) {
-      this.$store.dispatch('/setUserPalette', this.opt.colorSets);
-    } else if (isFunction(this.opt.onRetrievePreset)) {
-      this.$store.dispatch('/setUserPalette', this.opt.onRetrievePreset());
-    } else {
-      this.$store.dispatch('/setUserPalette', []);
-    }
+    // set swatchColors
+    this.$store.dispatch('/swatch.set', this.opt.swatchColors);
 
     // render component
     this.render();
@@ -71,21 +80,6 @@ export default class BaseColorPicker extends UIElement {
   }
 
   /**
-   * public methods
-   */
-
-  /**
-   * initialize color for colorpicker
-   * // TODO: 옵션을 변경하는것으로 대체할 수 있어 보입니다.
-   *
-   * @param {String|Object} newColor
-   * @param {String} format  hex, rgb, hsl
-   */
-  initColor(newColor, format) {
-    this.$store.dispatch('/changeColor', newColor, format);
-  }
-
-  /**
    * get color
    *
    * @param {string} format hex,rgb,hsl
@@ -101,37 +95,35 @@ export default class BaseColorPicker extends UIElement {
    * @param {string} color
    * @param {string} format
    */
-  changeColor(color, format = undefined) {
+  setColor(color, format = undefined) {
     this.$store.dispatch('/changeColor', color);
   }
 
-  changeOptions() {}
-
   /**
-   * private methods
+   * set options
+   *
+   * @param {object} options
    */
-
-  initializeStoreEvent() {
-    super.initializeStoreEvent();
-    this.$store.on('changeColor', () => {
-      if (!(this.opt.onChange && typeof this.opt.onChange === 'function')) return;
-      this.opt.onChange(this.getColor());
-    });
-    this.$store.on('lastUpdateColor', () => {
-      if (!(this.opt.onChanged && typeof this.opt.onChanged === 'function')) return;
-      this.opt.onChanged(this.getColor());
-    });
-    this.$store.on('changeFormat', () => {
-      if (!(this.opt.onChangeFormat && typeof this.opt.onChangeFormat === 'function')) return;
-      this.opt.onChangeFormat(this.$store.format);
-    });
+  setOption(options) {
+    if (!options) return;
+    this.opt = Object.assign(this.opt, options);
+    this.destroy();
+    this.initialize();
   }
 
+  /**
+   * destroy colorpicker
+   */
   destroy() {
     super.destroy();
     this.$store.off('changeColor');
     this.$store.off('lastUpdateColor');
     this.$store.off('changeFormat');
+    this.$body.html('');
+    delete this.$store;
+    if (this.opt.onDestroy && typeof this.opt.onDestroy === 'function') {
+      this.opt.onDestroy();
+    }
   }
 
 }

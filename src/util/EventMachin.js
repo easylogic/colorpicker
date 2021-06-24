@@ -66,7 +66,7 @@ export default class EventMachin {
    * @param {*} html
    */
   parseTemplate (html) {
-    const $el = new Dom("div").html(html).firstChild();
+    const $el = new Dom('div').html(html).firstChild();
 
     // ref element 정리
     const refs = $el.findAll('[ref]');
@@ -341,4 +341,5 @@ export default class EventMachin {
   removeEvent({eventName, dom, callback}) {
     Event.removeEvent(dom, eventName, callback);
   }
+
 }

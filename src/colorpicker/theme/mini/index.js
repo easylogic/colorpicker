@@ -1,9 +1,8 @@
 import BaseColorPicker from '~/colorpicker/BaseColorPicker';
 import _ColorPalette from '~/colorpicker/ui/ColorPalette';
-import CurrentColorSets from '~/colorpicker/ui/CurrentColorSets';
+import Swatch from '~/colorpicker/ui/Swatch';
 import Control from './Control';
 import './index.scss';
-
 
 export default class MiniColorPicker extends BaseColorPicker {
 
@@ -11,7 +10,7 @@ export default class MiniColorPicker extends BaseColorPicker {
     return {
       palette: _ColorPalette,
       control: Control,
-      currentColorSets: CurrentColorSets,
+      Swatch,
     }
   }
 
@@ -24,7 +23,7 @@ export default class MiniColorPicker extends BaseColorPicker {
           </div>
           <template target="control"></template>
         </div>
-        <template target="currentColorSets"></template>
+        <template target="Swatch"></template>
       </div>
     `;
   }

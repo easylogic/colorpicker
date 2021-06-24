@@ -1,6 +1,6 @@
 export default class BaseStore {
 
-  constructor (opt) {
+  constructor(opt) {
     this.callbacks = [];
     this.actions = [];
     this.modules = opt.modules || [];
@@ -11,13 +11,13 @@ export default class BaseStore {
     this.initializeModule();
   }
 
-  initializeModule () {
+  initializeModule() {
     this.modules.forEach(Module => {
       const instance = new Module(this);
     })
   }
 
-  action (action, context) {
+  action(action, context) {
     this.actions[action] = { context, callback: context[action] };
   }
 

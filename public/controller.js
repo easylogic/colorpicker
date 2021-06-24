@@ -30,9 +30,17 @@ export function initEvent(getPicker) {
     $buttons[i].addEventListener('click', e => {
       const $self = e.target;
       switch ($self.dataset.type) {
-        // case 'darkmode':
-        //   darkmode();
-        //   break;
+        case 'init':
+          picker.initialize();
+          break;
+        case 'destroy':
+          picker.destroy();
+          break;
+        case 'change-option':
+          picker.setOption({
+            color: 'lime',
+          });
+          break;
       }
     });
   }

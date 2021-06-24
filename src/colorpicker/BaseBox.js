@@ -3,8 +3,8 @@ import UIElement from './UIElement';
 export default class BaseBox extends UIElement {
 
   constructor (opt) {
-    super(opt)
-    this.source = 'base-box'
+    super(opt);
+    this.source = 'base-box';
   }
 
   refresh() {}
@@ -15,42 +15,42 @@ export default class BaseBox extends UIElement {
   changeColor(opt) {
     this.$store.dispatch('/changeColor', Object.assign({
       source: this.source
-    }, opt || {}))
+    }, opt || {}));
   }
 
   // Event Bindings
-  'mouseup document'(e) {
+  ['mouseup document'](e) {
     this.onDragEnd(e);
   }
 
-  'mousemove document'(e) {
+  ['mousemove document'](e) {
     this.onDragMove(e);
   }
 
-  'mousedown $bar'(e) {
+  ['mousedown $bar'](e) {
     e.preventDefault();
     this.isDown = true;
   }
 
-  'mousedown $container'(e) {
+  ['mousedown $container'](e) {
     this.isDown = true;
     this.onDragStart(e);
   }
 
-  'touchend document'(e) {
+  ['touchend document'](e) {
     this.onDragEnd(e);
   }
 
-  'touchmove document'(e) {
+  ['touchmove document'](e) {
     this.onDragMove(e);
   }
 
-  'touchstart $bar'(e) {
+  ['touchstart $bar'](e) {
     e.preventDefault();
     this.isDown = true;
   }
 
-  'touchstart $container'(e) {
+  ['touchstart $container'](e) {
     this.onDragStart(e);
   }
 
@@ -60,9 +60,7 @@ export default class BaseBox extends UIElement {
   }
 
   onDragMove(e) {
-    if (this.isDown) {
-      this.refreshColorUI(e);
-    }
+    if (this.isDown) this.refreshColorUI(e);
   }
 
   /* called when mouse is ended move  */
@@ -77,10 +75,10 @@ export default class BaseBox extends UIElement {
     this.onDragEnd();
   }
 
-  '@changeColor'(sourceType) {
+  ['@changeColor'](sourceType) {
     if (this.source !== sourceType) this.refresh();
   }
-  '@initColor'() {
+  ['@initColor']() {
     this.refresh();
   }
 

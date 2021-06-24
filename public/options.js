@@ -1,37 +1,35 @@
+let custom = {};
+
 export default {
   // basic
   basic: {
     type: 'default',
     color: '#44D7B6',
-    // format: 'hex',
-    outputFormat: 'hex',
-    // swatchTitle: 'Color palette', // TODO: 작업예정
-    // swatchColors: [], // TODO: 작업예정
-    colorSets: [
-      {
-        name: "Custom colors",
-        colors: [ '#ff0000', '#00ff00', '#0000ff' ],
-      },
-      {
-        name: "fooooooo",
-        edit: true,
-        colors: [ 'green', 'red', 'blue' ],
-      },
-    ],
+    format: 'hex', // hex,rgb,hsl
+    // outputFormat: 'rgb',
+    swatchTitle: undefined,
+    swatchColors: [ '#ff0000', '#00ff00', '#0000ff' ],
     onInit: (self) => {
-      // console.log('user onInit()', self);
-      // setTimeout(() => {
-      //   self.changeColor('rgba(255,0,0,.5)');
-      // }, 3000)
+      custom = {
+        $color: document.querySelector('#colorSample > i'),
+        $code: document.querySelector('#colorSample > em'),
+      };
+      custom.$color.style.setProperty('--color', self.getColor());
+      custom.$code.innerText = self.getColor();
     },
     onChange: (color) => {
-      // console.log('user onChange()', color);
+      custom.$color.style.setProperty('--color', color);
+      custom.$code.innerText = color;
     },
     onChanged: (color) => {
-      // console.log('user onChanged()', color);
+      custom.$color.style.setProperty('--color', color);
+      custom.$code.innerText = color;
     },
     onChangeFormat: (format) => {
       // console.log('user onChangeFormat()', format);
+    },
+    onDestroy: () => {
+      custom = {};
     },
   },
   // themes

@@ -1,7 +1,7 @@
 import BaseColorPicker from '~/colorpicker/BaseColorPicker';
 import ColorWheel from '~/colorpicker/ui/ColorWheel';
 import ColorInformation from '~/colorpicker/ui/ColorInformation';
-import CurrentColorSets from '~/colorpicker/ui/CurrentColorSets';
+import Swatch from '~/colorpicker/ui/Swatch';
 import Control from './Control';
 import './index.scss';
 
@@ -12,7 +12,7 @@ export default class CircleColorPicker extends BaseColorPicker {
       colorwheel: ColorWheel,
       control: Control,
       information: ColorInformation,
-      currentColorSets: CurrentColorSets,
+      Swatch,
     }
   }
 
@@ -22,7 +22,7 @@ export default class CircleColorPicker extends BaseColorPicker {
         <template target="colorwheel"></template>
         <template target="control"></template>
         <template target="information"></template>
-        <template target="currentColorSets"></template>
+        <template target="Swatch"></template>
       </div>
     `;
   }
