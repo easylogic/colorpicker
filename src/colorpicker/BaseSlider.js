@@ -7,7 +7,6 @@ export default class BaseSlider extends BaseBox {
     super(opt)
     this.minValue = 0; // min domain value
     this.maxValue = 1; // max domain value
-    this.source = 'base-slider';
   }
 
   // slider container's min and max position
@@ -67,16 +66,16 @@ export default class BaseSlider extends BaseBox {
     return Event.pos(e).pageX;
   }
 
-  refresh() {
-    this.setColorUI();
-  }
-
   /** set drag bar position  */
   setColorUI(v) {
     v = v || this.getDefaultValue();
     if (this.lastV === v) return;
     this.lastV = v;
     this.setMousePosition(100 * ((v || 0) / this.maxValue));
+  }
+
+  refresh() {
+    this.setColorUI();
   }
 
 }

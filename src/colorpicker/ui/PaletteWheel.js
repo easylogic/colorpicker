@@ -3,16 +3,15 @@ import UIElement from '~/colorpicker/UIElement';
 import Dom from '~/util/Dom';
 import Event from '~/util/Event';
 import { getXYInCircle, caculateAngle } from '~/util/functions/math';
-import './ColorWheel.scss';
+import './PaletteWheel.scss';
 
-export default class ColorWheel extends UIElement {
+export default class PaletteWheel extends UIElement {
 
   constructor(opt) {
     super(opt);
-    this.width = 214;
-    this.height = 214;
-    this.thinkness = 0;
-    this.halfThinkness = 0;
+    this.width = this.opt.paletteWidth;
+    this.height = this.opt.paletteHeight;
+    this.thickness = 0;
     this.source = 'colorwheel';
   }
 
@@ -37,7 +36,6 @@ export default class ColorWheel extends UIElement {
     this.renderValue();
     this.setHueColor(null, isEvent);
   }
-
 
   renderValue() {
     var value = (1 - (this.$store.hsv.v));
@@ -92,12 +90,12 @@ export default class ColorWheel extends UIElement {
 
     context.putImageData(img,0, 0)
 
-    if (this.thinkness > 0) {
+    if (this.thickness > 0) {
       // destination-out 은 그리는 영역이 지워진다.
       context.globalCompositeOperation = 'destination-out';
       context.fillStyle = 'black';
       context.beginPath();
-      context.arc(cx, cy, radius - this.thinkness, 0, Math.PI * 2);
+      context.arc(cx, cy, radius - this.thickness, 0, Math.PI * 2);
       context.closePath();
       context.fill();
     }
@@ -112,19 +110,12 @@ export default class ColorWheel extends UIElement {
     const context = $canvas.el.getContext('2d');
 
     let [ width, height ] = $canvas.size();
-
     if (this.width && !width) width = this.width;
     if (this.height && !height) height = this.height;
-
     $canvas.el.width = width;
     $canvas.el.height = height;
-    $canvas.css({
-      width: width + 'px',
-      height: height + 'px',
-    });
 
-    var $wheelCanvas = this.renderWheel(width, height);
-
+    const $wheelCanvas = this.renderWheel(width, height);
     context.drawImage($wheelCanvas.el, 0, 0);
 
     this.$store.createdWheelCanvas = true;
@@ -159,7 +150,10 @@ export default class ColorWheel extends UIElement {
     };
   }
   setHueColor(e, isEvent) {
-    if (!this.state.get('$wrap.width')) return;
+    if (!this.state.get('$wrap.width')) {
+      setTimeout(() => this.setHueColor(null, isEvent), 100);
+      return;
+    }
 
     const { minX, minY, radius, centerX, centerY, width, height } = this.getRectangle();
     let { x , y } = this.getCurrentXY(
@@ -185,9 +179,11 @@ export default class ColorWheel extends UIElement {
     const saturation = Math.min(Math.sqrt(d) / radius, 1);
 
     // set drag pointer position
+    const cssWidth = (x - minX) / width * 100;
+    const cssHeight = (y - minY) / height * 100;
     this.refs.$drag_pointer.css({
-      left: `${(x - minX) / width * 100}%`,
-      top: `${(y - minY) / height * 100}%`,
+      left: `${cssWidth}%`,
+      top: `${cssHeight}%`,
     });
 
     if (!isEvent) {

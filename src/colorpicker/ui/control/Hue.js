@@ -7,11 +7,10 @@ export default class Hue extends BaseSlider {
     super(opt);
     this.minValue = 0;
     this.maxValue = 360;
-    this.source = 'hue-control';
   }
 
   template() {
-    return /*html*/`
+    return `
       <nav class="el-cp-slider el-cp-slider--hue">
         <p ref="$container" class="el-cp-slider__body">
           <i ref="$bar" class="el-cp-slider__circle"></i>
@@ -23,6 +22,7 @@ export default class Hue extends BaseSlider {
   getDefaultValue() {
     return this.$store.hsv.h;
   }
+
   refreshColorUI(e) {
     const dist = this.getCaculatedDist(e);
     this.changeColor({

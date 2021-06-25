@@ -6,18 +6,27 @@
     }
     &__body {
       position: relative;
+      width: var(--width);
+      height: var(--height);
+      padding: 20px;
+      margin: 0 auto;
     }
   }
   .el-cp-palette-ring {
-    padding: 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--width);
+    height: var(--height);
+    transform: translate(-50%, -50%);
   }
   .el-cp-palette {
     position: absolute;
     left: 50%;
     top: 50%;
     z-index: 3;
-    width: calc(100% - (20px * 2) - (16px * 2) - (var(--cp-ring-palette-inner-padding) * 2));
-    height: calc(100% - (20px * 2) - (16px * 2) - (var(--cp-ring-palette-inner-padding) * 2));
+    width: calc(var(--width) - (var(--thickness) * 2) - 30%);
+    height: calc(var(--height) - (var(--thickness) * 2) - 30%);
     transform: translate(-50%, -50%);
   }
   .el-cp-color-control {

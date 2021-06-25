@@ -3,10 +3,13 @@ let custom = {};
 export default {
   // basic
   basic: {
-    type: 'default',
+    type: 'ring', // default,circle,ring,mini,none
     color: '#44D7B6',
     format: 'hex', // hex,rgb,hsl
     // outputFormat: 'rgb',
+    paletteWidth: 200,
+    paletteHeight: 200,
+    paletteThickness: 16,
     swatchTitle: undefined,
     swatchColors: [ '#ff0000', '#00ff00', '#0000ff' ],
     onInit: (self) => {
@@ -36,28 +39,27 @@ export default {
   themes: {
     default: {
       type: 'default',
+      color: '#44D7B6C4',
     },
     circle: {
       type: 'circle',
+      color: '#44D7B6C4',
     },
     ring: {
       type: 'ring',
+      color: '#44D7B6C4',
     },
     mini: {
       type: 'mini',
+      color: '#44D7B6C4',
     },
     none: {
       type: 'none',
-      colorSets: [
-        {
-          name: 'Sketch samples',
-          edit: false,
-          colors: [
-            '#E02020', '#FA6400', '#F7B500', '#6DD400', '#44D7B6',
-            '#32C5FF', '#0091FF', '#6236FF', '#B620E0', '#6D7278',
-            'rgba(0,0,0,.1)', 'rgba(0,0,0,.25)', 'rgba(0,0,0,.5)', 'rgba(0,0,0,.85)', '#ffffff',
-          ],
-        },
+      swatchTitle: 'Color palette',
+      swatchColors: [
+        '#E02020', '#FA6400', '#F7B500', '#6DD400', '#44D7B6',
+        '#32C5FF', '#0091FF', '#6236FF', '#B620E0', '#6D7278',
+        'rgba(0,0,0,.1)', 'rgba(0,0,0,.25)', 'rgba(0,0,0,.5)', 'rgba(0,0,0,.85)', '#ffffff',
       ],
     },
   },

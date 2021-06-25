@@ -1,15 +1,15 @@
-import ColorWheel from './ColorWheel';
+import PaletteWheel from './PaletteWheel';
 import { caculateAngle } from '~/util/functions/math';
-import './ColorRing.scss';
+import './PaletteRing.scss';
 
-export default class ColorRing extends ColorWheel {
+export default class PaletteRing extends PaletteWheel {
 
   constructor (opt) {
-    super(opt)
-    this.width = 214;
-    this.height = 214;
-    this.thinkness = 16;
-    this.halfThinkness = this.thinkness * .5;
+    super(opt);
+    this.width = this.opt.paletteWidth;
+    this.height = this.opt.paletteWidth;
+    this.thickness = this.opt.paletteThickness;
+    this.halfThickness = this.thickness * .5;
     this.source = 'colorring';
   }
 
@@ -30,15 +30,18 @@ export default class ColorRing extends ColorWheel {
   }
 
   getDefaultValue() {
-    return this.$store.hsv.h
+    return this.$store.hsv.h;
   }
 
   setHueColor(e, isEvent) {
-    if (!this.state.get('$el.width')) return;
+    if (!this.state.get('$el.width')) {
+      setTimeout(() => this.setHueColor(null, isEvent), 100);
+      return;
+    }
     const { minX, minY, width, height, radius, centerX, centerY } = this.getRectangle();
     const position = this.getCurrentXY(e, this.getDefaultValue(), radius, centerX, centerY);
     const hue = caculateAngle(position.x - centerX, position.y - centerY);
-    const positionForHalf = this.getCurrentXY(null, hue, radius - this.halfThinkness, centerX, centerY);
+    const positionForHalf = this.getCurrentXY(null, hue, radius - this.halfThickness, centerX, centerY);
     // set drag pointer position
     this.refs.$drag_pointer.css({
       left: `${(positionForHalf.x - minX) / width * 100}%`,

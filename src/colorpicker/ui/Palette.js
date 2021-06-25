@@ -1,11 +1,11 @@
 import UIElement from '~/colorpicker/UIElement';
 import Event from '~/util/Event'
 import Dom from '~/util/Dom';
-import './ColorPalette.scss';
+import './Palette.scss';
 
 const source = 'chromedevtool-palette';
 
-export default class ColorPalette extends UIElement {
+export default class Palette extends UIElement {
 
   template() {
     return /*html*/`

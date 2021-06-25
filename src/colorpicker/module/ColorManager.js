@@ -2,7 +2,8 @@ import Color from '@easylogic/color/src';
 import BaseModule from '~/colorpicker/BaseModule';
 
 export default class ColorManager extends BaseModule {
-  initialize () {
+
+  initialize() {
     super.initialize();
     this.$store.rgb = {};
     this.$store.hsl = {};
