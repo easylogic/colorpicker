@@ -1,8 +1,6 @@
 import UIElement from '../UIElement';
 import './ColorInformation.scss';
 
-const source = 'chromedevtool-information';
-
 export default class ColorInformation extends UIElement {
 
   template() {
@@ -107,7 +105,6 @@ export default class ColorInformation extends UIElement {
       g : this.refs.$rgb_g.int(),
       b : this.refs.$rgb_b.int(),
       a : this.refs.$rgb_a.float(),
-      source,
     })
     this.$store.emit('lastUpdateColor');
   }
@@ -118,15 +115,12 @@ export default class ColorInformation extends UIElement {
       s : this.refs.$hsl_s.int(),
       l : this.refs.$hsl_l.int(),
       a : this.refs.$hsl_a.float(),
-      source,
     });
     this.$store.emit('lastUpdateColor');
   }
 
-  '@changeColor' (sourceType) {
-    if (source !== sourceType) {
-      this.refresh()
-    }
+  '@changeColor'() {
+    this.refresh()
   }
   '@initColor'() {
     this.refresh();
@@ -143,7 +137,7 @@ export default class ColorInformation extends UIElement {
   'keyup $hexCode'() {
     const code = this.refs.$hexCode.val();
     if(code.charAt(0) === '#' && (code.length === 7 || code.length === 9)) {
-      this.$store.dispatch('/changeColor', code, source)
+      this.$store.dispatch('/changeColor', code)
       this.$store.emit('lastUpdateColor')
     }
   }

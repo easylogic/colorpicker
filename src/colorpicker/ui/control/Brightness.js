@@ -7,7 +7,6 @@ export default class Brightness extends BaseSlider {
     super(opt);
     this.minValue = 0;
     this.maxValue = 1;
-    this.source = 'value-control';
   }
 
   template() {
@@ -23,6 +22,7 @@ export default class Brightness extends BaseSlider {
   getDefaultValue() {
     return this.$store.hsv.v;
   }
+
   refreshColorUI(e) {
     const dist = this.getCaculatedDist(e);
     this.setColorUI(dist / 100 * this.maxValue);

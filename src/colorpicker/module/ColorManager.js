@@ -10,7 +10,6 @@ export default class ColorManager extends BaseModule {
     this.$store.hsv = {};
     this.$store.alpha = 1;
     this.$store.format = 'hex';
-    // this.$store.dispatch('/changeColor'); // TODO: 쓸모가 있는지 검증하기
   }
 
   '/changeFormat' ($store, format) {

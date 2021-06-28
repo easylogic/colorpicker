@@ -56,7 +56,7 @@ export default class BaseSlider extends BaseBox {
     return 0;
   }
 
-  /** set mosue position */
+  /** set mouse position */
   setMousePosition(x) {
     this.refs.$bar.css({ left: `${x}%` });
   }
@@ -67,7 +67,7 @@ export default class BaseSlider extends BaseBox {
   }
 
   /** set drag bar position  */
-  setColorUI(v) {
+  setColorUI(v = null) {
     v = v || this.getDefaultValue();
     if (this.lastV === v) return;
     this.lastV = v;

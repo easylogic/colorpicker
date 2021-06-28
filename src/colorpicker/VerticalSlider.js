@@ -27,8 +27,4 @@ export default class VerticalSlider extends BaseSlider {
     return this.refs.$container.offset().top;
   }
 
-  // refresh() {
-  //   this.setColorUI();
-  // }
-
 }

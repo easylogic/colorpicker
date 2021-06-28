@@ -3,8 +3,6 @@ import Brightness from '~/colorpicker/ui/control/Brightness';
 import Opacity from '~/colorpicker/ui/control/Opacity';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
 
-const source = 'macos-control';
-
 export default class Control extends UIElement {
 
   components() {
@@ -34,8 +32,7 @@ export default class Control extends UIElement {
     this.Opacity.setColorUI();
   }
 
-  '@changeColor'(sourceType) {
-    if (source === sourceType) return;
+  '@changeColor'() {
     this.refresh();
   }
   '@initColor'() {

@@ -2,8 +2,6 @@ import UIElement from '~/colorpicker/UIElement';
 import HueVertical from '~/colorpicker/ui/control/HueVertical';
 import OpacityVertical from '~/colorpicker/ui/control/OpacityVertical';
 
-const source = 'mini-control';
-
 export default class Control extends UIElement {
 
   components() {
@@ -27,11 +25,11 @@ export default class Control extends UIElement {
     this.OpacityVertical.setColorUI();
   }
 
-  '@changeColor'(sourceType) {
-    if(source === sourceType) return;
+  ['@changeColor']() {
     this.refresh();
   }
-  '@initColor'() {
+
+  ['@initColor']() {
     this.refresh();
   }
 

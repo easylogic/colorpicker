@@ -3,7 +3,7 @@ let custom = {};
 export default {
   // basic
   basic: {
-    type: 'ring', // default,circle,ring,mini,none
+    type: 'default', // default,circle,ring,mini,none
     color: '#44D7B6',
     format: 'hex', // hex,rgb,hsl
     // outputFormat: 'rgb',

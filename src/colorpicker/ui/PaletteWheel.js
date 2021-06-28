@@ -12,7 +12,6 @@ export default class PaletteWheel extends UIElement {
     this.width = this.opt.paletteWidth;
     this.height = this.opt.paletteHeight;
     this.thickness = 0;
-    this.source = 'colorwheel';
   }
 
   template() {
@@ -199,13 +198,10 @@ export default class PaletteWheel extends UIElement {
     }
   }
   changeColor(opt) {
-    this.$store.dispatch('/changeColor', Object.assign({
-      source: this.source,
-    }, opt || {}));
+    this.$store.dispatch('/changeColor', opt);
   }
 
-  '@changeColor'(sourceType) {
-    if (this.source === sourceType) return
+  '@changeColor'() {
     this.refresh(true);
   }
   '@initColor'() {
