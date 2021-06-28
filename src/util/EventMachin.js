@@ -35,11 +35,15 @@ export default class EventMachin {
    *
    * 그리고 자동으로 load 되어질게 있으면 로드 해준다.
    */
-  render() {
+  render($container) {
     // 1. 나의 template 을 만들어내고
     if (!this.template()) return;
     this.$el = this.template() ? this.parseTemplate(this.template()) : null;
     this.refs.$el = this.$el;
+
+    if ($container) {
+      $container.append(this.$el);
+    }
 
     // 개별 객체 셋팅하고
     this.parseTarget();

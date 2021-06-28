@@ -61,14 +61,14 @@ export default class BaseColorPicker extends UIElement {
     this.$store.dispatch('/swatch.set', this.opt.swatchColors);
 
     // render component
-    this.render();
+    this.render(this.$root);
 
     // set color
     this.$store.dispatch('/changeFormat', this.opt.format);
     this.$store.dispatch('/initColor', this.opt.color);
 
-    // append element
-    this.$root.append(this.$el);
+    // // append element
+    // this.$root.append(this.$el);
 
     // initial events
     this.initializeEvent();

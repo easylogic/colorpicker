@@ -27,6 +27,10 @@ export default class PaletteWheel extends UIElement {
     `;
   }
 
+  afterRender() {
+    this.refresh();
+  }
+
   refresh(isEvent) {
     this.setColorUI(isEvent);
   }
