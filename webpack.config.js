@@ -3,6 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
+const dotenv = require('dotenv');
+
+// set dotenv
+dotenv.config();
 
 const config = (env, options) => {
   const dev = options.mode === 'development';
@@ -66,10 +70,11 @@ const config = (env, options) => {
     out.devServer = {
       hot: true,
       host: '0.0.0.0',
-      port: options.port || 3000,
+      port: process.env.PORT ? Number(process.env.PORT) : (options.port || 3000),
       stats: 'minimal',
       historyApiFallback: true,
-      noInfo: true,
+      noInfo: process.env.SHOW_INFO !== 'true',
+      open: process.env.OPEN_BROWSER === 'true',
     };
     out.module.rules.push({
       test: /\.html$/,
