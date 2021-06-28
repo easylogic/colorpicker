@@ -12,31 +12,31 @@ This project was created to implement a color picker. It implemented basic funct
 Document Site: https://colorpicker.easylogic.studio/#colorpicker-for-standalone
 
 
-# Install 
+# Install
 
-## npm 
+## npm
 
 ```npm
 npm install @easylogic/colorpicker
 ```
 
-   
-# How to use (for  browser) 
+
+# How to use (for  browser)
 
 ```
 <link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.css" />
 <script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.min.js"></script>
 ```
 
-# How to use 
- 
+# How to use
+
 ```
 import '@easylogic/colorpicker/dist/colorpicker.css'
 import ColorPickerUI from '@easylogic/colorpicker' 
 ```
 
 
-# Use ColorPicker 
+# Use ColorPicker
 
 ```js
 import '@easylogic/colorpicker/dist/colorpicker.css';
@@ -54,35 +54,32 @@ import ColorPickerUI from '@easylogic/colorpicker'
 
 ```
 
-# Use GradientPicker 
+# Use GradientPicker
 
-```js
+```javascript
 import '@easylogic/colorpicker/dist/colorpicker.css';
 import ColorPickerUI from '@easylogic/colorpicker'
 
+this.gradientPicker = ColorPickerUI.createGradientPicker({
+ position: "inline",
+ container: this.refs.$color.el,
+ gradient: 'linear-gradient(to right, white 0%, black 100%)',
+ onChange: (gradientString) => {
+   console.log(gradientString);
+ }
+});
 
- this.gradientPicker = ColorPickerUI.createGradientPicker({
-   position: "inline",
-   container: this.refs.$color.el,
-   gradient: 'linear-gradient(to right, white 0%, black 100%)',
-   onChange: (gradientString) => {
-     console.log(gradientString);
-   }
- });
+// set value 
+this.gradientPicker.setValue('radial-gradient(circle, white 0%, black 100%');
 
-
- // set value 
- this.gradientPicker.setValue('radial-gradient(circle, white 0%, black 100%'));
-
- // get value
- var gradientString = this.gradientPicker.getValue()
-
+// get value
+var gradientString = this.gradientPicker.getValue()
 ```
 
 
-# Developments 
+# Developments
 
-## local dev 
+## local dev
 
 ```
 git clone https://github.com/easylogic/easylogic-colorpicker
@@ -92,10 +89,15 @@ npm run dev
 open localhost:10001 
 ```
 
-## build 
+## build
 
 ```
 npm run build 
 ```
+
+## .env
+
+[.env](https://github.com/easylogic/colorpicker/blob/main/resources/.env) 파일을 루트 디렉토리로 복사하여 개발환경을 변경할 수 있습니다.
+
 
 # License : MIT 
