@@ -6,10 +6,9 @@ export default class PaletteRing extends PaletteWheel {
 
   constructor (opt) {
     super(opt);
-    this.width = this.opt.paletteWidth;
-    this.height = this.opt.paletteWidth;
-    this.thickness = this.opt.paletteThickness;
-    this.halfThickness = this.thickness * .5;
+    this.width = this.opt.paletteWidth || 200;
+    this.height = this.opt.paletteWidth || 200;
+    this.thickness = this.opt.paletteThickness || 16;
   }
 
   template() {
@@ -33,14 +32,11 @@ export default class PaletteRing extends PaletteWheel {
   }
 
   setHueColor(e, isEvent) {
-    if (!this.state.get('$el.width')) {
-      setTimeout(() => this.setHueColor(null, isEvent), 100);
-      return;
-    }
+    if (!this.state.get('$el.width')) return;
     const { minX, minY, width, height, radius, centerX, centerY } = this.getRectangle();
     const position = this.getCurrentXY(e, this.getDefaultValue(), radius, centerX, centerY);
     const hue = caculateAngle(position.x - centerX, position.y - centerY);
-    const positionForHalf = this.getCurrentXY(null, hue, radius - this.halfThickness, centerX, centerY);
+    const positionForHalf = this.getCurrentXY(null, hue, radius - (this.thickness * .5), centerX, centerY);
     // set drag pointer position
     this.refs.$drag_pointer.css({
       left: `${(positionForHalf.x - minX) / width * 100}%`,

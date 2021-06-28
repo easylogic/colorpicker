@@ -7,9 +7,9 @@ export default {
     color: '#44D7B6',
     format: 'hex', // hex,rgb,hsl
     // outputFormat: 'rgb',
-    paletteWidth: 200,
-    paletteHeight: 200,
-    paletteThickness: 16,
+    // paletteWidth: 200,
+    // paletteHeight: 200,
+    // paletteThickness: undefined,
     swatchTitle: undefined,
     swatchColors: [ '#ff0000', '#00ff00', '#0000ff' ],
     onInit: (self) => {

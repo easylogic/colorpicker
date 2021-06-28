@@ -19,10 +19,15 @@ export default class RingColorPicker extends BaseColorPicker {
   }
 
   template() {
-    const { paletteWidth, paletteHeight, paletteThickness } = this.opt;
+    const { paletteWidth, paletteThickness } = this.opt;
+    const styles = [
+      paletteWidth && `--width: ${paletteWidth}px;`,
+      paletteWidth && `--height: ${paletteWidth}px;`,
+      `--thickness: ${paletteThickness || 16}px;`,
+    ].filter(Boolean).join('');
     return `
       <div class="el-colorpicker__wrap">
-        <div class="el-colorpicker__body" style="${`--width: ${paletteWidth}px; --height: ${paletteHeight}px; --thickness: ${paletteThickness}px;`}">
+        <div class="el-colorpicker__body" style="${styles}">
           <template target="PaletteRing"></template>
           <template target="Palette"></template>
         </div>

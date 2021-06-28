@@ -1,4 +1,4 @@
-import Color from '@easylogic/color';
+import Color from '@easylogic/color/src';
 import UIElement from '~/colorpicker/UIElement';
 import Dom from '~/util/Dom';
 import Event from '~/util/Event';
@@ -9,8 +9,8 @@ export default class PaletteWheel extends UIElement {
 
   constructor(opt) {
     super(opt);
-    this.width = this.opt.paletteWidth;
-    this.height = this.opt.paletteHeight;
+    this.width = this.opt.paletteWidth || 200;
+    this.height = this.opt.paletteWidth || 200;
     this.thickness = 0;
   }
 
@@ -41,49 +41,38 @@ export default class PaletteWheel extends UIElement {
   }
 
   renderValue() {
-    var value = (1 - (this.$store.hsv.v));
+    const value = (1 - (this.$store.hsv.v));
     this.refs.$valuewheel.css({
       'background-color': `rgba(0, 0, 0, ${value})`,
     });
   }
 
-
   renderWheel(width, height) {
-    if (this.width && !width) width = this.width;
-    if (this.height && !height) height = this.height;
-
     const $canvas = new Dom('canvas');
     const context = $canvas.el.getContext('2d');
     $canvas.el.width = width;
     $canvas.el.height = height;
-    $canvas.css({
-      width: `${width}px`,
-      height: height + 'px',
-    });
 
-    var img = context.getImageData(0, 0, width, height);
-    var pixels = img.data;
-    var half_width = Math.floor(width/2)
-    var half_height = Math.floor(height/2)
+    const img = context.getImageData(0, 0, width, height);
+    let pixels = img.data;
+    const half_width = Math.floor(width / 2);
+    const half_height = Math.floor(height / 2);
+    const radius = (width > height) ? half_height : half_width;
+    const cx = half_width;
+    const cy = half_height;
 
-    var radius = (width > height) ? half_height : half_width;
-    var cx = half_width;
-    var cy = half_height;
-
-    for (var y = 0; y < height; y++) {
-      for (var x = 0; x < width; x++) {
-        var rx = x - cx + 1,
-          ry = y - cy + 1,
-          d = rx * rx + ry * ry,
-          hue = caculateAngle(rx, ry);
-
-        var rgb = Color.HSVtoRGB(
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const rx = x - cx + 1;
+        const ry = y - cy + 1;
+        const d = rx * rx + ry * ry;
+        const hue = caculateAngle(rx, ry);
+        const rgb = Color.HSVtoRGB(
           hue, // 0~360 hue
           Math.min(Math.sqrt(d) / radius, 1), // 0..1 Saturation
           1, // 0..1 Value
         );
-
-        var index = (y * width + x) * 4;
+        const index = (y * width + x) * 4;
         pixels[index] = rgb.r;
         pixels[index + 1] = rgb.g;
         pixels[index + 2] = rgb.b;
@@ -91,7 +80,7 @@ export default class PaletteWheel extends UIElement {
       }
     }
 
-    context.putImageData(img,0, 0)
+    context.putImageData(img, 0, 0);
 
     if (this.thickness > 0) {
       // destination-out 은 그리는 영역이 지워진다.
@@ -105,22 +94,15 @@ export default class PaletteWheel extends UIElement {
 
     return $canvas;
   }
+
   renderCanvas() {
-    // only once rendering
     if (this.$store.createdWheelCanvas) return;
-
     const $canvas = this.refs.$colorwheel;
+    $canvas.el.width = this.width;
+    $canvas.el.height = this.height;
     const context = $canvas.el.getContext('2d');
-
-    let [ width, height ] = $canvas.size();
-    if (this.width && !width) width = this.width;
-    if (this.height && !height) height = this.height;
-    $canvas.el.width = width;
-    $canvas.el.height = height;
-
-    const $wheelCanvas = this.renderWheel(width, height);
+    const $wheelCanvas = this.renderWheel(this.width, this.height);
     context.drawImage($wheelCanvas.el, 0, 0);
-
     this.$store.createdWheelCanvas = true;
   }
   getDefaultValue() {
@@ -153,11 +135,7 @@ export default class PaletteWheel extends UIElement {
     };
   }
   setHueColor(e, isEvent) {
-    if (!this.state.get('$wrap.width')) {
-      setTimeout(() => this.setHueColor(null, isEvent), 100);
-      return;
-    }
-
+    if (!this.state.get('$wrap.width')) return;
     const { minX, minY, radius, centerX, centerY, width, height } = this.getRectangle();
     let { x , y } = this.getCurrentXY(
       e,

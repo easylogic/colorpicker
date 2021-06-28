@@ -8,11 +8,11 @@
   justify-content: center;
   &__wrap {
     position: relative;
-    border-radius: 50%;
-    overflow: hidden;
   }
   &__canvas {
     display: block;
+    overflow: hidden;
+    border-radius: 50%;
   }
   &__brightness {
     display: block;

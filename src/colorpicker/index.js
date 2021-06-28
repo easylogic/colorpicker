@@ -42,7 +42,7 @@ ColorPicker.prototype.defaults = {
   outputFormat: undefined, // hex,rgb,hsl
   useInformation: true,
   paletteWidth: 200,
-  paletteHeight: 200,
+  paletteHeight: undefined,
   paletteThickness: 16,
   darkMode: false, // TODO: 추후에 기능추가예정
   swatchTitle: 'Color palette',

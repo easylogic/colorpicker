@@ -6,8 +6,11 @@ import './Palette.scss';
 export default class Palette extends UIElement {
 
   template() {
-    return /*html*/`
-      <nav class="el-cp-palette">
+    const styles = [
+      this.opt.paletteHeight && `--cp-palette-height: ${this.opt.paletteHeight}px`,
+    ].filter(Boolean).join('');
+    return `
+      <nav class="el-cp-palette" style="${styles}">
         <span ref="$drag_pointer" data-axis-value="all" class="el-cp-palette__pointer"></span>
       </nav>
     `;
