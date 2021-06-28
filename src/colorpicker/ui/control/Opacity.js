@@ -8,7 +8,6 @@ export default class Opacity extends BaseSlider {
     super(opt);
     this.minValue = 0;
     this.maxValue = 1;
-    this.source = 'opacity-control';
   }
 
   template () {

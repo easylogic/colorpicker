@@ -5,7 +5,6 @@ export default class Opacity extends VerticalSlider {
 
   constructor(opt) {
     super(opt);
-    this.source = 'vertical-opacity-control';
   }
 
   template() {

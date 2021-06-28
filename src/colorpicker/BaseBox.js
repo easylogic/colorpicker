@@ -4,7 +4,6 @@ export default class BaseBox extends UIElement {
 
   constructor (opt) {
     super(opt);
-    this.source = 'base-box';
   }
 
   refresh() {}
@@ -13,9 +12,7 @@ export default class BaseBox extends UIElement {
 
   /** push change event  */
   changeColor(opt) {
-    this.$store.dispatch('/changeColor', Object.assign({
-      source: this.source
-    }, opt || {}));
+    this.$store.dispatch('/changeColor', opt);
   }
 
   // Event Bindings
@@ -75,9 +72,10 @@ export default class BaseBox extends UIElement {
     this.onDragEnd();
   }
 
-  ['@changeColor'](sourceType) {
-    if (this.source !== sourceType) this.refresh();
+  ['@changeColor']() {
+    this.refresh();
   }
+
   ['@initColor']() {
     this.refresh();
   }

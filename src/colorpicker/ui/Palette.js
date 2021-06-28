@@ -3,8 +3,6 @@ import Event from '~/util/Event'
 import Dom from '~/util/Dom';
 import './Palette.scss';
 
-const source = 'chromedevtool-palette';
-
 export default class Palette extends UIElement {
 
   template() {
@@ -56,10 +54,8 @@ export default class Palette extends UIElement {
     this.calculateSV();
   }
 
-  '@changeColor'(sourceType) {
-    if (source !== sourceType) {
-      this.refresh();
-    }
+  '@changeColor'() {
+    this.refresh();
   }
 
   '@initColor'() {

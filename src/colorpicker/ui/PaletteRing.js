@@ -10,7 +10,6 @@ export default class PaletteRing extends PaletteWheel {
     this.height = this.opt.paletteWidth;
     this.thickness = this.opt.paletteThickness;
     this.halfThickness = this.thickness * .5;
-    this.source = 'colorring';
   }
 
   template() {

@@ -3,8 +3,6 @@ import Hue from '~/colorpicker/ui/control/Hue';
 import Opacity from '~/colorpicker/ui/control/Opacity';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
 
-const source = 'chromedevtool-control';
-
 export default class Control extends UIElement {
 
   components() {
@@ -34,10 +32,10 @@ export default class Control extends UIElement {
     this.Opacity.setColorUI();
   }
 
-  '@changeColor'(sourceType) {
-    if (source === sourceType) return;
+  '@changeColor'() {
     this.refresh();
   }
+
   '@initColor'() {
     this.refresh();
   }
