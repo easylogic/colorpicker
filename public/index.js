@@ -52,13 +52,6 @@ function changeRoute(name) {
         ...options.basic,
       });
       controller.initEvent(picker);
-      // 예전버전
-      // ColorPicker.create({
-      //   container: document.getElementById('basic'),
-      //   position: 'inline',
-      //   color: '#44D7B6',
-      //   type: 'ring',
-      // })
       // TODO: 이벤트 테스트를 위하여 스토리지 저장기능을 넣어볼 예정
       break;
     case 'themes':

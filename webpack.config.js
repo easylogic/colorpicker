@@ -69,7 +69,7 @@ const config = (env, options) => {
     out.devtool = 'inline-source-map';
     out.devServer = {
       hot: true,
-      host: '0.0.0.0',
+      host: process.env.HOST ? process.env.HOST : '0.0.0.0',
       port: process.env.PORT ? Number(process.env.PORT) : (options.port || 3000),
       stats: 'minimal',
       historyApiFallback: true,

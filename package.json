@@ -2,7 +2,7 @@
   "name": "@easylogic/colorpicker",
   "version": "1.10.5",
   "description": "simple colorpicker used anywhere",
-  "main": "./dist/colorpicker.js",
+  "main": "src/colorpicker/index.js",
   "scripts": {
     "dev": "webpack serve --inline --progress --mode development",
     "prebuild": "rm -rf dist",
