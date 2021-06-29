@@ -4,6 +4,11 @@ import RingColorPicker from '~/colorpicker/theme/ring';
 import MiniColorPicker from '~/colorpicker/theme/mini';
 import NoneColorPicker from '~/colorpicker/theme/none';
 
+/**
+ * ColorPicker
+ *
+ * @param {object} options
+ */
 function ColorPicker(options) {
   let core;
 

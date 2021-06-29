@@ -4,20 +4,22 @@ import './ColorPreview.scss';
 export default class ColorPreview extends UIElement {
 
   template() {
-    return /*html*/`
+    return `
       <i class="el-cp-color-preview">
         <em ref="$color"></em>
       </i>
     `;
   }
+
   refresh() {
     this.refs.$color.css('background-color', this.$store.dispatch('/toRGB'));
   }
 
-  '@changeColor'() {
+  ['@changeColor']() {
     this.refresh();
   }
-  '@initColor'() {
+
+  ['@initColor']() {
     this.refresh();
   }
 

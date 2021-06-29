@@ -2,16 +2,16 @@ const DELEGATE_SPLIT = '.';
 
 export default class State {
 
-  constructor (masterObj, settingObj = {}) {
+  constructor(masterObj, settingObj = {}) {
     this.masterObj = masterObj;
     this.settingObj = settingObj;
   }
 
-  set (key, value, defaultValue = undefined) {
+  set(key, value, defaultValue = undefined) {
     this.settingObj[key] = value || defaultValue;
   }
 
-  init (key, ...args) {
+  init(key, ...args) {
     if (!this.has(key) || !this.settingObj[key]) {
       const arr = key.split(DELEGATE_SPLIT);
       const obj = this.masterObj.refs[arr[0]] || this.masterObj[arr[0]] || this.masterObj;
@@ -23,12 +23,12 @@ export default class State {
     }
   }
 
-  get (key, defaultValue = '') {
+  get(key, defaultValue = '') {
     this.init(key, defaultValue);
     return this.settingObj[key] || defaultValue;
   }
 
-  has (key) {
+  has(key) {
     return !!this.settingObj[key];
   }
 

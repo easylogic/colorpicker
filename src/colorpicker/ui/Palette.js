@@ -7,7 +7,7 @@ export default class Palette extends UIElement {
 
   template() {
     const styles = [
-      this.opt.paletteHeight && `--cp-palette-height: ${this.opt.paletteHeight}px`,
+      this.opt.paletteHeight && `--cp-palette-height: ${this.opt.paletteHeight}px;`,
     ].filter(Boolean).join('');
     return `
       <nav class="el-cp-palette" style="${styles}">
@@ -57,21 +57,21 @@ export default class Palette extends UIElement {
     this.calculateSV();
   }
 
-  '@changeColor'() {
+  ['@changeColor']() {
     this.refresh();
   }
 
-  '@initColor'() {
+  ['@initColor']() {
     this.refresh();
   }
 
-  'mouseup document'() {
+  ['mouseup document']() {
     if (!this.isDown) return;
     this.isDown = false;
     this.$store.emit('lastUpdateColor');
   }
 
-  'mousemove document'(e) {
+  ['mousemove document'](e) {
     if (!this.isDown) return;
     this.cacheSize();
     this.setMainColor(e);
@@ -86,11 +86,11 @@ export default class Palette extends UIElement {
     this.setMainColor(e);
   }
 
-  'touchend document'() {
+  ['touchend document']() {
     this['mouseup document']();
   }
 
-  'touchmove document'(e) {
+  ['touchmove document'](e) {
     if (!this.isDown) return;
     this.setMainColor(e);
   }

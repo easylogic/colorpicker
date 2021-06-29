@@ -4,14 +4,14 @@ let cached = [];
 export default class Dom {
 
   constructor(tag, className, attr) {
-    if (typeof tag != 'string') {
+    if (typeof tag !== 'string') {
       this.el = tag;
     } else {
-      var el  = document.createElement(tag);
+      const el  = document.createElement(tag);
       this.uniqId = counter++;
       if (className) el.className = className;
       attr = attr || {};
-      for(var k in attr) {
+      for (let k in attr) {
         el.setAttribute(k, attr[k]);
       }
       this.el = el;
@@ -19,11 +19,11 @@ export default class Dom {
   }
 
   static getScrollTop() {
-    return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+    return Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop);
   }
 
   static getScrollLeft() {
-    return Math.max(window.pageXOffset, document.documentElement.scrollLeft, document.body.scrollLeft)
+    return Math.max(window.pageXOffset, document.documentElement.scrollLeft, document.body.scrollLeft);
   }
 
   attr(key, value) {
@@ -34,65 +34,14 @@ export default class Dom {
     return this;
   }
 
-  closest(cls) {
-    var temp = this;
-    var checkCls = false;
-    while(!(checkCls = temp.hasClass(cls))) {
-      if (temp.el.parentNode) {
-        temp = new Dom(temp.el.parentNode);
-      } else {
-        return null;
-      }
-    }
-    if (checkCls) return temp;
-    return null;
-  }
-
-  checked() {
-    return this.el.checked;
-  }
-
-  removeClass(cls) {
-    this.el.className = ((` ${this.el.className} `).replace(` ${cls} `, ' ')).trim();
-
-    return this;
-  }
-
-  hasClass(cls) {
-    if (!this.el.className) {
-      return false;
-    } else {
-      var newClass = ` ${this.el.className} `;
-      return newClass.indexOf(` ${cls} `) > -1;
-    }
-  }
-
-  addClass(cls) {
-    if (!this.hasClass(cls)) {
-      this.el.className = `${this.el.className} ${cls}`;
-    }
-    return this;
-  }
-
-  toggleClass(cls) {
-    if (this.hasClass(cls)) {
-      this.removeClass(cls);
-    } else {
-      this.addClass(cls);
-    }
-  }
-
   html(html) {
     try {
-      if (typeof html == 'string') {
+      if (typeof html === 'string') {
         this.el.innerHTML = html;
       } else {
         this.empty().append(html);
       }
-    } catch (e) {
-      // TODO: 개발자 모드일때 출력되도록 조취를 취해야함.
-      // console.log(html);
-    }
+    } catch(e) {}
 
     return this;
   }
@@ -113,13 +62,12 @@ export default class Dom {
     return [...this.findAll(selector)].map(el => new Dom(el))
   }
 
-
-  empty () {
+  empty() {
     return this.html('');
   }
 
   append(el) {
-    if (typeof el == 'string') {
+    if (typeof el === 'string') {
       this.el.appendChild(document.createTextNode(el));
     } else {
       this.el.appendChild(el.el || el);
@@ -128,30 +76,19 @@ export default class Dom {
   }
 
   appendTo(target) {
-    var t = target.el ? target.el : target;
+    const t = target.el ? target.el : target;
     t.appendChild(this.el);
     return this;
-  }
-
-  remove() {
-    if (this.el.parentNode) {
-      this.el.parentNode.removeChild(this.el);
-    }
-    return this;
-  }
-
-  text() {
-    return this.el.textContent;
   }
 
   css(key, value) {
     if (arguments.length === 2) {
       this.el.style[key] = value;
     } else if (arguments.length === 1) {
-      if (typeof key == 'string') {
+      if (typeof key === 'string') {
         return getComputedStyle(this.el)[key];
       } else {
-        var keys = key || {};
+        const keys = key || {};
         Object.keys(keys).forEach(k => {
           this.el.style[k] = keys[k];
         })
@@ -160,35 +97,19 @@ export default class Dom {
     return this;
   }
 
-  cssFloat(key) {
-    return parseFloat(this.css(key));
-  }
-
-  cssInt(key) {
-    return parseInt(this.css(key));
-  }
-
-  px(key, value) {
-    return this.css(key, value + 'px');
-  }
-
   offset() {
-    var rect = this.el.getBoundingClientRect();
+    const rect = this.el.getBoundingClientRect();
     return {
       top: rect.top + Dom.getScrollTop(),
-      left: rect.left + Dom.getScrollLeft()
+      left: rect.left + Dom.getScrollLeft(),
     };
-  }
-
-  rect() {
-    return this.el.getBoundingClientRect()
   }
 
   position() {
     if (this.el.style.top) {
       return {
         top: parseFloat(this.css('top')),
-        left: parseFloat(this.css('left'))
+        left: parseFloat(this.css('left')),
       };
     } else {
       return this.el.getBoundingClientRect();
@@ -203,16 +124,8 @@ export default class Dom {
     return this.el.offsetWidth || this.el.getBoundingClientRect().width;
   }
 
-  contentWidth() {
-    return this.width() - this.cssFloat('padding-left') - this.cssFloat('padding-right');
-  }
-
   height() {
     return this.el.offsetHeight || this.el.getBoundingClientRect().height;
-  }
-
-  contentHeight() {
-    return this.height() - this.cssFloat('padding-top') - this.cssFloat('padding-bottom');
   }
 
   dataKey(key) {
@@ -225,8 +138,8 @@ export default class Dom {
     } else if (arguments.length === 1) {
       return cached[this.dataKey(key)];
     } else {
-      var keys = Object.keys(cached);
-      var uniqId = this.uniqId + '.';
+      const keys = Object.keys(cached);
+      const uniqId = this.uniqId + '.';
       return keys.filter(function (key) {
         return key.indexOf(uniqId) === 0;
       }).map(function (value) {
@@ -251,22 +164,6 @@ export default class Dom {
 
   float() {
     return parseFloat(this.val());
-  }
-
-  show() {
-    return this.css('display', 'block');
-  }
-
-  hide() {
-    return this.css('display', 'none');
-  }
-
-  toggle() {
-    if (this.css('display') === 'none') {
-      return this.show();
-    } else {
-      return this.hide();
-    }
   }
 
   scrollTop() {
@@ -312,4 +209,5 @@ export default class Dom {
     this.el.replaceChild(newElement, oldElement);
     return this;
   }
+
 }

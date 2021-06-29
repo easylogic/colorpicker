@@ -75,9 +75,9 @@ export default class ColorInformation extends UIElement {
   initFormat() {
     const current_format = this.format || 'hex';
     ['hex', 'rgb', 'hsl'].filter(it => it !== current_format).forEach(formatString => {
-      this.$el.removeClass(formatString);
+      this.$el.el.classList.remove(formatString);
     });
-    this.$el.addClass(current_format);
+    this.$el.el.classList.add(current_format);
   }
   goToFormat(to_format) {
     this.format = to_format;
@@ -119,29 +119,30 @@ export default class ColorInformation extends UIElement {
     this.$store.emit('lastUpdateColor');
   }
 
-  '@changeColor'() {
+  ['@changeColor']() {
     this.refresh()
   }
-  '@initColor'() {
+  ['@initColor']() {
     this.refresh();
   }
 
-  'input $rgb_r'() { this.changeRgbColor(); }
-  'input $rgb_g'() { this.changeRgbColor(); }
-  'input $rgb_b'() { this.changeRgbColor(); }
-  'input $rgb_a'() { this.changeRgbColor(); }
-  'input $hsl_h'() { this.changeHslColor(); }
-  'input $hsl_s'() { this.changeHslColor(); }
-  'input $hsl_l'() { this.changeHslColor(); }
-  'input $hsl_a'() { this.changeHslColor(); }
-  'keyup $hexCode'() {
+  ['input $rgb_r']() { this.changeRgbColor(); }
+  ['input $rgb_g']() { this.changeRgbColor(); }
+  ['input $rgb_b']() { this.changeRgbColor(); }
+  ['input $rgb_a']() { this.changeRgbColor(); }
+  ['input $hsl_h']() { this.changeHslColor(); }
+  ['input $hsl_s']() { this.changeHslColor(); }
+  ['input $hsl_l']() { this.changeHslColor(); }
+  ['input $hsl_a']() { this.changeHslColor(); }
+  ['keyup $hexCode']() {
     const code = this.refs.$hexCode.val();
-    if(code.charAt(0) === '#' && (code.length === 7 || code.length === 9)) {
-      this.$store.dispatch('/changeColor', code)
-      this.$store.emit('lastUpdateColor')
+    if (code.charAt(0) === '#' && (code.length === 7 || code.length === 9)) {
+      this.$store.dispatch('/changeColor', code);
+      this.$store.emit('lastUpdateColor');
     }
   }
-  'change $changeColorModel'(e) {
+
+  ['change $changeColorModel'](e) {
     switch (e.target.value) {
       case 'hex':
       case 'rgb':
@@ -163,12 +164,14 @@ export default class ColorInformation extends UIElement {
     this.refs.$rgb_b.val(this.$store.rgb.b);
     this.refs.$rgb_a.val(this.$store.alpha);
   }
+
   setHSLInput() {
     this.refs.$hsl_h.val(this.$store.hsl.h);
     this.refs.$hsl_s.val(this.$store.hsl.s);
     this.refs.$hsl_l.val(this.$store.hsl.l);
     this.refs.$hsl_a.val(this.$store.alpha);
   }
+
   setHexInput() {
     this.refs.$hexCode.val(this.$store.dispatch('/toHEX'));
   }

@@ -1,8 +1,8 @@
-import Color from '@easylogic/color/src';
+import Color from '@easylogic/color';
 import UIElement from '~/colorpicker/UIElement';
 import Dom from '~/util/Dom';
 import Event from '~/util/Event';
-import { getXYInCircle, caculateAngle } from '~/util/functions/math';
+import { getXYInCircle, calculateAngle } from '~/util/functions/math';
 import './PaletteWheel.scss';
 
 export default class PaletteWheel extends UIElement {
@@ -66,7 +66,7 @@ export default class PaletteWheel extends UIElement {
         const rx = x - cx + 1;
         const ry = y - cy + 1;
         const d = rx * rx + ry * ry;
-        const hue = caculateAngle(rx, ry);
+        const hue = calculateAngle(rx, ry);
         const rgb = Color.HSVtoRGB(
           hue, // 0~360 hue
           Math.min(Math.sqrt(d) / radius, 1), // 0..1 Saturation
@@ -105,37 +105,39 @@ export default class PaletteWheel extends UIElement {
     context.drawImage($wheelCanvas.el, 0, 0);
     this.$store.createdWheelCanvas = true;
   }
+
   getDefaultValue() {
     return this.$store.hsv.h;
   }
+
   getDefaultSaturation() {
     return this.$store.hsv.s;
   }
+
   getCurrentXY(e, angle, radius, centerX, centerY) {
     return e ? Event.posXY(e) : getXYInCircle(angle, radius, centerX, centerY);
   }
+
   getRectangle() {
     const width = this.state.get('$wrap.width');
     const height = this.state.get('$wrap.height');
     const radius = this.state.get('$colorwheel.width') / 2;
-
     const minX = this.refs.$wrap.offset().left;
-    const centerX = minX + width / 2;
     const minY = this.refs.$wrap.offset().top;
-    const centerY = minY + height / 2;
-
     return {
       minX,
       minY,
       width,
       height,
       radius,
-      centerX,
-      centerY,
+      centerX: minX + width / 2,
+      centerY: minY + height / 2,
     };
   }
+
   setHueColor(e, isEvent) {
     if (!this.state.get('$wrap.width')) return;
+
     const { minX, minY, radius, centerX, centerY, width, height } = this.getRectangle();
     let { x , y } = this.getCurrentXY(
       e,
@@ -144,11 +146,10 @@ export default class PaletteWheel extends UIElement {
       centerX,
       centerY
     );
-
     const rx = x - centerX;
     const ry = y - centerY;
     const d = rx * rx + ry * ry;
-    const hue = caculateAngle(rx, ry);
+    const hue = calculateAngle(rx, ry);
 
     if (d > radius * radius) {
       const pos = this.getCurrentXY(null, hue, radius, centerX, centerY);
@@ -168,59 +169,65 @@ export default class PaletteWheel extends UIElement {
     });
 
     if (!isEvent) {
-      this.changeColor({
-        type: 'hsv',
-        h: hue,
-        s: saturation,
-      });
+      this.changeColor({ type: 'hsv', h: hue, s: saturation });
     }
   }
+
   changeColor(opt) {
     this.$store.dispatch('/changeColor', opt);
   }
 
-  '@changeColor'() {
-    this.refresh(true);
-  }
-  '@initColor'() {
+  ['@changeColor']() {
     this.refresh(true);
   }
 
-  'mouseup document'() {
-    if (!this.isDown) return;
-    this.isDown = false ;
-    this.$store.emit('lastUpdateColor');
+  ['@initColor']() {
+    this.refresh(true);
   }
-  'mousemove document'(e) {
-    if (!this.isDown) return;
-    this.setHueColor(e);
-  }
-  'mousedown $drag_pointer'(e) {
-    e.preventDefault();
-    this.isDown = true;
-  }
-  'mousedown $wrap'(e) {
-    this.isDown = true;
-    this.setHueColor(e);
-  }
-  'touchend document'() {
+
+  ['mouseup document']() {
     if (!this.isDown) return;
     this.isDown = false;
     this.$store.emit('lastUpdateColor');
   }
-  'touchmove document'(e) {
+
+  ['mousemove document'](e) {
     if (!this.isDown) return;
     this.setHueColor(e);
   }
-  'touchstart $drag_pointer'(e) {
+
+  ['mousedown $drag_pointer'](e) {
     e.preventDefault();
     this.isDown = true;
   }
-  'touchstart $wrap'(e) {
+
+  ['mousedown $wrap'](e) {
+    this.isDown = true;
+    this.setHueColor(e);
+  }
+
+  ['touchend document']() {
+    if (!this.isDown) return;
+    this.isDown = false;
+    this.$store.emit('lastUpdateColor');
+  }
+
+  ['touchmove document'](e) {
+    if (!this.isDown) return;
+    this.setHueColor(e);
+  }
+
+  ['touchstart $drag_pointer'](e) {
+    e.preventDefault();
+    this.isDown = true;
+  }
+
+  ['touchstart $wrap'](e) {
     e.preventDefault()
     this.isDown = true;
     this.setHueColor(e);
   }
+
   contextmenu() {
     this['mouseup document']();
   }

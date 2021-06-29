@@ -10,7 +10,7 @@ export default class Brightness extends BaseSlider {
   }
 
   template() {
-    return /*html*/`
+    return `
       <nav class="el-cp-slider el-cp-slider--brightness">
         <p ref="$container" class="el-cp-slider__body">
           <i ref="$bar" class="el-cp-slider__circle"></i>
@@ -24,7 +24,7 @@ export default class Brightness extends BaseSlider {
   }
 
   refreshColorUI(e) {
-    const dist = this.getCaculatedDist(e);
+    const dist = this.getCalculatedDist(e);
     this.setColorUI(dist / 100 * this.maxValue);
     this.changeColor({
       type: 'hsv',

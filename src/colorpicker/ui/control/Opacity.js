@@ -37,7 +37,7 @@ export default class Opacity extends BaseSlider {
   }
 
   refreshColorUI(e) {
-    const dist = this.getCaculatedDist(e);
+    const dist = this.getCalculatedDist(e);
     this.setColorUI((dist / 100) * this.maxValue);
     this.changeColor({
       a: (Math.floor(dist) / 100) * this.maxValue,

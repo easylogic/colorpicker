@@ -55,7 +55,7 @@ export default class BaseColorPicker extends UIElement {
         theme = 'default';
         break;
     }
-    this.$root.addClass(`el-colorpicker--${theme}`);
+    this.$root.el.classList.add(`el-colorpicker--${theme}`);
 
     // set swatchColors
     this.$store.dispatch('/swatch.set', this.opt.swatchColors);
@@ -66,9 +66,6 @@ export default class BaseColorPicker extends UIElement {
     // set color
     this.$store.dispatch('/changeFormat', this.opt.format);
     this.$store.dispatch('/initColor', this.opt.color);
-
-    // // append element
-    // this.$root.append(this.$el);
 
     // initial events
     this.initializeEvent();

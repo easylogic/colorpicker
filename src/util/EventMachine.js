@@ -1,18 +1,17 @@
-import Event from './Event'
-import Dom from './Dom'
-import State from './State'
+import Event from './Event';
+import Dom from './Dom';
+import State from './State';
 
 const CHECK_EVENT_PATTERN = /^(click|mouse(down|up|move|enter|leave)|touch(start|move|end)|key(down|up|press)|contextmenu|change|input)/ig;
 const CHECK_LOAD_PATTERN = /^load (.*)/ig;
 const EVENT_SAPARATOR = ' '
 const META_KEYS = ['Control', 'Shift', 'Alt', 'Meta'];
 
-export default class EventMachin {
+export default class EventMachine {
 
   constructor() {
     this.state = new State(this);
     this.refs = {}
-
     this.childComponents = this.components();
   }
 
@@ -21,7 +20,7 @@ export default class EventMachin {
    * 생성 시점에 $store 객체가 자동으로 공유된다.
    * 모든 데이타는 $store 기준으로 작성한다.
    */
-  newChildComponents () {
+  newChildComponents() {
     const childKeys = Object.keys(this.childComponents);
     childKeys.forEach(key => {
       const Component = this.childComponents[key];
@@ -59,7 +58,7 @@ export default class EventMachin {
   /**
    * 자식 컴포넌트로 사용될 객체 정의
    */
-  components () {
+  components() {
     return {}
   }
 
@@ -67,9 +66,9 @@ export default class EventMachin {
    * Class 기반으로 $el 을 생성하기 위해서
    * 선언형으로 html 템플릿을 정의한다.
    *
-   * @param {*} html
+   * @param {any} html
    */
-  parseTemplate (html) {
+  parseTemplate(html) {
     const $el = new Dom('div').html(html).firstChild();
 
     // ref element 정리
@@ -109,7 +108,7 @@ export default class EventMachin {
     })
   }
 
-  // load function이 정의된 객체는 load 를 실행해준다.
+  // `load function`이 정의된 객체는 load 를 실행해준다.
   load() {
     this.filterProps(CHECK_LOAD_PATTERN).forEach(callbackName => {
       const elName = callbackName.split('load ')[1]
@@ -130,7 +129,7 @@ export default class EventMachin {
    * 이벤트를 초기화한다.
    */
   initializeEvent () {
-    this.initializeEventMachin();
+    this.initializeEventMachine();
     // 자식 이벤트도 같이 초기화 한다.
     // 그래서 이 메소드는 부모에서 한번만 불려도 된다.
     Object.keys(this.childComponents).forEach(key => {
@@ -143,7 +142,7 @@ export default class EventMachin {
    * 이것도 역시 자식 컴포넌트까지 제어하기 때문에 가장 최상위 부모에서 한번만 호출되도 된다.
    */
   destroy() {
-    this.destroyEventMachin();
+    this.destroyEventMachine();
     // this.refs = {}
 
     Object.keys(this.childComponents).forEach(key => {
@@ -152,11 +151,11 @@ export default class EventMachin {
 
   }
 
-  destroyEventMachin () {
+  destroyEventMachine () {
     this.removeEventAll();
   }
 
-  initializeEventMachin () {
+  initializeEventMachine () {
     this.filterProps(CHECK_EVENT_PATTERN).forEach(this.parseEvent.bind(this));
   }
 

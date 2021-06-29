@@ -1,8 +1,8 @@
-import EventMachin from '~/util/EventMachin';
+import EventMachine from '~/util/EventMachine';
 
 const CHECK_STORE_EVENT_PATTERN = /^@/;
 
-class UIElement extends EventMachin {
+class UIElement extends EventMachine {
 
   constructor(opt) {
     super(opt);

@@ -1,10 +1,10 @@
 import PaletteWheel from './PaletteWheel';
-import { caculateAngle } from '~/util/functions/math';
+import { calculateAngle } from '~/util/functions/math';
 import './PaletteRing.scss';
 
 export default class PaletteRing extends PaletteWheel {
 
-  constructor (opt) {
+  constructor(opt) {
     super(opt);
     this.width = this.opt.paletteWidth || 200;
     this.height = this.opt.paletteWidth || 200;
@@ -35,19 +35,14 @@ export default class PaletteRing extends PaletteWheel {
     if (!this.state.get('$el.width')) return;
     const { minX, minY, width, height, radius, centerX, centerY } = this.getRectangle();
     const position = this.getCurrentXY(e, this.getDefaultValue(), radius, centerX, centerY);
-    const hue = caculateAngle(position.x - centerX, position.y - centerY);
+    const hue = calculateAngle(position.x - centerX, position.y - centerY);
     const positionForHalf = this.getCurrentXY(null, hue, radius - (this.thickness * .5), centerX, centerY);
     // set drag pointer position
     this.refs.$drag_pointer.css({
       left: `${(positionForHalf.x - minX) / width * 100}%`,
       top: `${(positionForHalf.y - minY) / height * 100}%`,
     });
-    if (!isEvent) {
-      this.changeColor({
-        type: 'hsv',
-        h: hue,
-      });
-    }
+    if (!isEvent) this.changeColor({ type: 'hsv', h: hue });
   }
 
 }

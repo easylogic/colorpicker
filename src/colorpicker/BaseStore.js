@@ -1,4 +1,4 @@
-export default class BaseStore {
+class BaseStore {
 
   constructor(opt) {
     this.callbacks = [];
@@ -25,17 +25,15 @@ export default class BaseStore {
     const args = [...arguments];
     action = args.shift();
     const m = this.actions[action];
-    if (m) {
-      return m.callback.apply(m.context, [this, ...args]);
-    }
+    if (m) return m.callback.apply(m.context, [this, ...args]);
   }
 
   module(ModuleObject) {
-    // this.action()
+    // this.action();
   }
 
   on(event, callback) {
-    this.callbacks.push({ event, callback })
+    this.callbacks.push({ event, callback });
   }
 
   off(event, callback) {
@@ -60,12 +58,12 @@ export default class BaseStore {
     const args = [...arguments];
     const event = args.shift();
     this.callbacks
-      .filter(f => {
-        return (f.event === event);
-      })
+      .filter(f => (f.event === event))
       .forEach(f => {
         if (f && typeof f.callback == 'function') f.callback(...args);
       });
   }
 
 }
+
+export default BaseStore;

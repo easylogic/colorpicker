@@ -1,4 +1,4 @@
-import Color from '@easylogic/color/src';
+import Color from '@easylogic/color';
 import BaseModule from '~/colorpicker/BaseModule';
 
 export default class ColorManager extends BaseModule {
@@ -12,17 +12,17 @@ export default class ColorManager extends BaseModule {
     this.$store.format = 'hex';
   }
 
-  '/changeFormat' ($store, format) {
+  ['/changeFormat']($store, format) {
     $store.format = format;
     $store.emit('changeFormat');
   }
 
-  '/initColor'($store, colorObj) {
-    $store.dispatch('/changeColor', colorObj, true);
+  ['/initColor']($store, obj) {
+    $store.dispatch('/changeColor', obj, true);
     $store.emit('initColor');
   }
 
-  '/changeColor'($store, colorObj, isInit) {
+  ['/changeColor']($store, colorObj, isInit) {
     colorObj = colorObj || '#ffffff';
     if (typeof colorObj === 'string') colorObj = Color.parse(colorObj);
 
@@ -57,20 +57,20 @@ export default class ColorManager extends BaseModule {
     if (!isInit) $store.emit('changeColor', colorObj);
   }
 
-  '/getHueColor'($store) {
+  ['/getHueColor']($store) {
     return Color.checkHueColor($store.hsv.h / 360);
   }
 
-  '/toString'($store, type) {
+  ['/toString']($store, type) {
     type = type || $store.format
-    var colorObj = $store[type] || $store.rgb
+    const obj = $store[type] || $store.rgb
     return Color.format({
-      ...colorObj,
-      a: $store.alpha
+      ...obj,
+      a: $store.alpha,
     }, type);
   }
 
-  '/toColor'($store, type) {
+  ['/toColor']($store, type) {
     type = type || $store.format;
     switch (type) {
       case 'rgb':
@@ -84,15 +84,15 @@ export default class ColorManager extends BaseModule {
     }
   }
 
-  '/toRGB'($store) {
+  ['/toRGB']($store) {
     return $store.dispatch('/toString', 'rgb');
   }
 
-  '/toHSL'($store) {
+  ['/toHSL']($store) {
     return $store.dispatch('/toString', 'hsl');
   }
 
-  '/toHEX'($store) {
+  ['/toHEX']($store) {
     return $store.dispatch('/toString', 'hex').toUpperCase();
   }
 

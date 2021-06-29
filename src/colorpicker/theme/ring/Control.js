@@ -28,11 +28,11 @@ export default class Control extends UIElement {
     this.Opacity.setColorUI();
   }
 
-  '@changeColor'() {
+  ['@changeColor']() {
     this.refresh();
   }
 
-  '@initColor'() {
+  ['@initColor']() {
     this.refresh();
   }
 

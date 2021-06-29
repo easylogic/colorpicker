@@ -25,6 +25,7 @@ export default class RingColorPicker extends BaseColorPicker {
       paletteWidth && `--height: ${paletteWidth}px;`,
       `--thickness: ${paletteThickness || 16}px;`,
     ].filter(Boolean).join('');
+
     return `
       <div class="el-colorpicker__wrap">
         <div class="el-colorpicker__body" style="${styles}">
