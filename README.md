@@ -33,12 +33,22 @@ const picker = new ColorPicker({
 
 ### browser
 
-// TODO: 점검예정
-
 ```html
 <link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.css" />
+
+<div id="picker"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.min.js"></script>
+
+<script>
+window.picker = new EasyLogicColorPicker({
+  container: document.getElementById('picker'),
+})
+</script>
 ```
+
+// TODO: jsdelivr 서비스에서 업그레이드 예정입니다.  
+// TODO: codepen 데모 추가예정
 
 
 ## Developments
