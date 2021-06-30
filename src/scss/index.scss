@@ -5,33 +5,41 @@
   // color
   --cp-color-bg: #fff;
   --cp-color-fill: #222;
-  --cp-color-fill-invert: #fff;
   --cp-color-key: #30A2FF;
   --cp-color-blur: #888;
-  --cp-color-light: #ddd;
-  --cp-color-active: rgba(0,0,0,.075);
+  --cp-color-pointer-fill: #fff;
   // size
   --cp-size-width: 240px;
   --cp-size-radius: 2px;
   --cp-size-side-padding: 16px;
-  // etc
-  --cp-outer-shadow: 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15);
-  --cp-speed-focus: 200ms;
+  --cp-size-pointer: 12px;
+  --cp-size-pointer-stroke: 3px;
   // palette
   --cp-palette-width: 100%;
   --cp-palette-height: 150px;
   // slider
   --cp-slider-height: 8px;
   --cp-slider-radius: 4px;
-  --cp-slider-pointer-size: 12px;
-  --cp-slider-pointer-stroke: 3px;
-  --cp-slider-pointer-color: #fff;
-  --cp-slider-pointer-shadow: 0 0 2px 1px rgba(0,0,0,.4), inset 0 0 3px 0 rgba(0,0,0,.5);
+  --cp-slider-stroke-color: rgba(0,0,0,.15);
+  // preview
+  --cp-preview-size: 36px;
+  --cp-preview-radius: 50%;
+  --cp-preview-stroke-color: rgba(0,0,0,.15);
+  // form
+  --cp-form-bg: #fff;
+  --cp-form-border-color: #ddd;
   // swatches
   --cp-swatch-column: 7;
   --cp-swatch-gap: 8px;
   --cp-swatch-item-size: 22px;
-  --cp-swatch-item-stroke: 50%;
+  --cp-swatch-item-stroke-radius: 50%;
+  --cp-swatch-item-stroke-color: rgba(0,0,0,.15);
+  --cp-swatch-border-color: #ddd;
+  // etc
+  --cp-shadow-outer: 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15);
+  --cp-shadow-pointer: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
+  --cp-shadow-pointer-active: inset 0 0 0 1px var(--cp-color-key), 0 0 3px 1px var(--cp-color-key);
+  --cp-speed-focus: 200ms;
 
   position: relative;
   width: var(--cp-size-width);
@@ -49,7 +57,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    box-shadow: var(--cp-outer-shadow);
+    box-shadow: var(--cp-shadow-outer);
     pointer-events: none;
     border-radius: var(--cp-size-radius);
   }

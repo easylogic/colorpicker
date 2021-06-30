@@ -35,9 +35,7 @@ const picker = new ColorPicker({
 
 ```html
 <link href="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.css" />
-
 <div id="picker"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@easylogic/colorpicker@1.10.5/dist/colorpicker.min.js"></script>
 
 <script>
@@ -47,8 +45,13 @@ window.picker = new EasyLogicColorPicker({
 </script>
 ```
 
-// TODO: jsdelivr 서비스에서 업그레이드 예정입니다.  
-// TODO: codepen 데모 추가예정
+### component options
+
+[colorpicker javascript](https://github.com/easylogic/colorpicker/tree/main/src/colorpicker) 페이지에서 컴포넌트에서 사용하는 옵션에 대한 가이드를 열람하여 참고할 수 있습니다.
+
+### stylesheet
+
+[colorpicker stylesheet](https://github.com/easylogic/colorpicker/tree/main/src/scss) 페이지를 참고하여 컬러피커 스타일을 직접 편집할 수 있습니다.
 
 
 ## Developments
@@ -78,6 +81,12 @@ npm run build
 
 [.env](https://github.com/easylogic/colorpicker/blob/main/resources/.env) 파일은 로컬서버 옵션의 일부분을 고쳐 사용할 수 있습니다.  
 포트번호나 서버상태표시같은 것들을 `.env`파일을 고쳐 조정할 수 있습니다.
+
+
+## TODO
+
+- jsdelivr 서비스에서 업그레이드 예정입니다.  
+- codepen 데모 추가예정
 
 
 ## License : MIT

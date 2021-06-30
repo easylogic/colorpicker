@@ -1,8 +1,4 @@
 .el-cp-palette-circle {
-  --pointer-size: 10px;
-  --pointer-color: #fff;
-  --pointer-stroke: 2px;
-  --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -31,12 +27,19 @@
     z-index: 2;
     left: 50%;
     top: 50%;
-    width: var(--pointer-size);
-    height: var(--pointer-size);
-    border: var(--pointer-stroke) solid var(--pointer-color);
+    width: var(--cp-size-pointer);
+    height: var(--cp-size-pointer);
+    border: var(--cp-size-pointer-stroke) solid var(--cp-color-pointer-fill);
     border-radius: 50%;
     transform: translateX(-50%) translateY(-50%);
-    box-shadow: var(--pointer-shadow);
+    box-shadow: var(--cp-shadow-pointer);
     box-sizing: border-box;
+  }
+  &:active {
+    .el-cp-palette-circle {
+      &__pointer {
+        box-shadow: var(--cp-shadow-pointer-active);
+      }
+    }
   }
 }

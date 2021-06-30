@@ -30,7 +30,7 @@
       height: var(--cp-swatch-item-size, 20px);
       font-size: 0;
       border: none;
-      border-radius: var(--cp-swatch-item-stroke);
+      border-radius: var(--cp-swatch-item-stroke-radius);
       margin: 0 auto;
       padding: 0;
       cursor: pointer;
@@ -54,31 +54,16 @@
       right: 0;
       top: 0;
       bottom: 0;
-      border-radius: var(--cp-swatch-item-stroke);
+      border-radius: var(--cp-swatch-item-stroke-radius);
     }
     &:before {
       background-color: var(--color);
     }
     &:after {
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+      box-shadow: inset 0 0 0 1px var(--cp-swatch-item-stroke-color);
     }
     &:focus,
     &:disabled {
-      box-shadow: 0 0 0 2px var(--cp-color-key);
-    }
-  }
-  &__add {
-    background: none;
-    border-radius: var(--cp-swatch-item-stroke);
-    svg {
-      display: block;
-      margin: 0 auto;
-      width: 16px;
-      height: 16px;
-      stroke-width: 2px;
-      color: var(--cp-color-fill);
-    }
-    &:focus {
       box-shadow: 0 0 0 2px var(--cp-color-key);
     }
   }

@@ -7,7 +7,7 @@
   &:active {
     .el-cp-slider {
       &__circle {
-        box-shadow: var(--cp-slider-pointer-shadow), 0 0 0 1px var(--cp-color-key);
+        box-shadow: var(--cp-shadow-pointer-active);
       }
     }
   }
@@ -29,7 +29,7 @@
       top: 0;
       bottom: 0;
       pointer-events: none;
-      box-shadow: inset 0 0 0 1px rgba(0,0,0,.15);
+      box-shadow: inset 0 0 0 1px var(--cp-slider-stroke-color);
       border-radius: var(--cp-slider-radius, 4px);
     }
   }
@@ -43,12 +43,12 @@
     z-index: 2;
     top: 50%;
     left: 0;
-    width: var(--cp-slider-pointer-size, 12px);
-    height: var(--cp-slider-pointer-size, 12px);
+    width: var(--cp-size-pointer, 12px);
+    height: var(--cp-size-pointer, 12px);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    border: var(--cp-slider-pointer-stroke, 3px) solid var(--cp-slider-pointer-color, #fff);
-    box-shadow: var(--cp-slider-pointer-shadow);
+    border: var(--cp-size-pointer-stroke, 3px) solid var(--cp-color-pointer-fill, #fff);
+    box-shadow: var(--cp-shadow-pointer);
     box-sizing: border-box;
     transition: box-shadow var(--cp-speed-focus) ease-out;
   }
@@ -57,11 +57,11 @@
     z-index: 2;
     top: 50%;
     left: 0;
-    width: var(--cp-slider-pointer-size, 12px);
-    height: var(--cp-slider-pointer-size, 12px);
-    border: var(--cp-slider-pointer-stroke, 3px) solid var(--cp-slider-pointer-color, #fff);
+    width: var(--cp-size-pointer, 12px);
+    height: var(--cp-size-pointer, 12px);
+    border: var(--cp-size-pointer-stroke, 3px) solid var(--cp-color-pointer-fill, #fff);
     transform: translate(-50%, -50%);
-    box-shadow: var(--cp-slider-pointer-shadow);
+    box-shadow: var(--cp-shadow-pointer);
     box-sizing: border-box;
     transition: box-shadow var(--cp-speed-focus) ease-out;
     border-radius: 2px;

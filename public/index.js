@@ -52,7 +52,6 @@ function changeRoute(name) {
         ...options.basic,
       });
       controller.initEvent(picker);
-      // TODO: 이벤트 테스트를 위하여 스토리지 저장기능을 넣어볼 예정
       break;
     case 'themes':
       picker = [];

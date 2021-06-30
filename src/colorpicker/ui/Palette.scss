@@ -1,8 +1,4 @@
 .el-cp-palette {
-  --pointer-size: 10px;
-  --pointer-color: #fff;
-  --pointer-stroke: 2px;
-  --pointer-shadow: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
   position: relative;
   width: var(--cp-palette-width, 100%);
   height: var(--cp-palette-height, 150px);
@@ -31,7 +27,7 @@
   &:active {
     .el-cp-palette {
       &__pointer {
-        box-shadow: var(--pointer-shadow), 0 0 0 1px var(--cp-color-key);
+        box-shadow: var(--cp-shadow-pointer-active);
       }
     }
   }
@@ -40,12 +36,12 @@
     display: block;
     position: absolute;
     z-index: 2;
-    width: var(--pointer-size);
-    height: var(--pointer-size);
+    width: var(--cp-size-pointer);
+    height: var(--cp-size-pointer);
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    border: var(--pointer-stroke) solid var(--pointer-color);
-    box-shadow: var(--pointer-shadow);
+    border: var(--cp-size-pointer-stroke) solid var(--cp-color-pointer-fill);
+    box-shadow: var(--cp-shadow-pointer);
     box-sizing: border-box;
   }
 }
