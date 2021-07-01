@@ -83,10 +83,4 @@ npm run build
 포트번호나 서버상태표시같은 것들을 `.env`파일을 고쳐 조정할 수 있습니다.
 
 
-## TODO
-
-- jsdelivr 서비스에서 업그레이드 예정입니다.  
-- codepen 데모 추가예정
-
-
 ## License : MIT
