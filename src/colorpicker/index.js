@@ -16,23 +16,46 @@ function ColorPicker(options) {
   // merge options
   options = Object.assign({}, defaults, options);
 
-  // switch theme
-  switch (options.type) {
-    case 'circle':
-      core = new CircleColorPicker(options);
-      break;
-    case 'ring':
-      core = new RingColorPicker(options);
-      break;
-    case 'mini':
-      core = new MiniColorPicker(options);
-      break;
-    case 'none':
-      core = new NoneColorPicker(options);
-      break;
-    default:
-      core = new Default(options);
-      break;
+  /**
+   * switch type
+   *
+   * @param {string} type
+   */
+  function switchType(type) {
+    switch (type) {
+      case 'circle':
+        core = new CircleColorPicker(options);
+        break;
+      case 'ring':
+        core = new RingColorPicker(options);
+        break;
+      case 'mini':
+        core = new MiniColorPicker(options);
+        break;
+      case 'none':
+        core = new NoneColorPicker(options);
+        break;
+      default:
+        core = new Default(options);
+        break;
+    }
+  }
+
+  // set type
+  switchType(options.type);
+
+  /**
+   * set type
+   *
+   * @param {string} type
+   */
+  core.setType = function(type) {
+    options = Object.assign({}, core.opt, {
+      type,
+      color: core.getColor(),
+    });
+    core.destroy();
+    switchType(type);
   }
 
   return core;

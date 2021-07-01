@@ -2,18 +2,19 @@ import * as storage from './storage';
 
 let picker;
 
-function colorMode(mode) {
+function changeType(mode) {
+  if (picker.opt.type === mode) return;
   const $html = document.querySelector('html');
   switch (mode) {
-    case 'system':
-    case 'dark':
-    case 'light':
-      $html.dataset.colorMode = mode;
-      storage.set('colorMode', mode);
+    case 'default':
+    case 'circle':
+    case 'ring':
+    case 'mini':
+    case 'none':
+      picker.setType(mode);
       break;
     default:
-      $html.dataset.colorMode = '';
-      storage.set('colorMode', null);
+      picker.setType('default');
       break;
   }
 }
@@ -49,8 +50,8 @@ export function initEvent(getPicker) {
   for (let i=0; i<$selects.length; i++) {
     $selects[i].addEventListener('change', e => {
       switch (e.target.dataset.type) {
-        case 'color-mode':
-          colorMode(e.target.value);
+        case 'change-type':
+          changeType(e.target.value);
           break;
       }
     });

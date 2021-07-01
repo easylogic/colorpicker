@@ -174,7 +174,7 @@ let color = picker.getColor();
 ### setColor
 
 ```javascript
-picker.getColor('lime');
+picker.setColor('#A6341B');
 ```
 
 색을 변경합니다.
@@ -189,6 +189,14 @@ picker.setOption({
 ```
 
 옵션을 변경합니다. 변경할때 컬러피커를 재시작합니다.
+
+### setType
+
+```javascript
+picker.setType('circle');
+```
+
+컬러피커 디자인 타입을 변경합니다. 타입의 값은 [type](#type) 섹션을 참고해주세요. (일부 설정된 값은 사라질 수 있습니다.)
 
 ### destroy
 
