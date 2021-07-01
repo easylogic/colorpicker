@@ -1,4 +1,4 @@
-# Colorpicker With EasyLogic
+# @easylogic/colorpicker
 
 This project was created to implement a color picker. It implemented basic functions for color and implemented image filters.
 
@@ -9,6 +9,11 @@ This project was created to implement a color picker. It implemented basic funct
 [![NPM](https://nodei.co/npm/@easylogic/colorpicker.png)](https://npmjs.org/package/@easylogic/colorpicker)
 
 Document Site: https://colorpicker.easylogic.studio/#colorpicker-for-standalone
+
+
+## Demo
+
+https://codepen.io/redgoose/pen/BaRaqEd
 
 
 ## Install
