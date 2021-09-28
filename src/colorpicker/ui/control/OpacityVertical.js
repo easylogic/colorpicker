@@ -26,7 +26,7 @@ export default class Opacity extends VerticalSlider {
   setOpacityColorBar() {
     const start = Color.format({ ...this.$store.rgb, a: 0 }, 'rgb');
     const end = Color.format({ ...this.$store.rgb, a: 1 }, 'rgb');
-    this.refs.$colorbar.css('background', `linear-gradient(to top, ${start}, ${end})`);
+    this.refs.$colorbar.css('background', `linear-gradient(to top, ${end}, ${start})`);
   }
 
   getDefaultValue() {

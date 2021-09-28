@@ -1,5 +1,3 @@
-import * as storage from './storage';
-
 let picker;
 
 function changeType(mode) {

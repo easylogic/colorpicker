@@ -71,9 +71,7 @@ const config = (env, options) => {
       hot: true,
       host: process.env.HOST ? process.env.HOST : '0.0.0.0',
       port: process.env.PORT ? Number(process.env.PORT) : (options.port || 3000),
-      stats: 'minimal',
       historyApiFallback: true,
-      noInfo: process.env.SHOW_INFO !== 'true',
       open: process.env.OPEN_BROWSER === 'true',
     };
     out.module.rules.push({
