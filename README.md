@@ -1,6 +1,6 @@
-# @easylogic/colorpicker
+# EasyLogic ColorPicker
 
-This project was created to implement a color picker. It implemented basic functions for color and implemented image filters.
+EasyLogic ColorPicker is vanila-js colorpicker. 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -50,18 +50,217 @@ window.picker = new EasyLogicColorPicker({
 </script>
 ```
 
-### component options
 
-[colorpicker javascript](https://github.com/easylogic/colorpicker/tree/main/src/colorpicker) 페이지에서 컴포넌트에서 사용하는 옵션에 대한 가이드를 열람하여 참고할 수 있습니다.
+#### Initialize 
 
-### stylesheet
+```javascript
+import ColorPicker from '@easylogic/colorpicker';
+const picker = new ColorPicker({
+  container: document.getElementById('picker'),
+  onInit: function(self) { console.log('initial colorpicker'); },
+});
+```
 
-[colorpicker stylesheet](https://github.com/easylogic/colorpicker/tree/main/src/scss) 페이지를 참고하여 컬러피커 스타일을 직접 편집할 수 있습니다.
 
+## Component Options
+
+refer to [colorpicker javascript](https://github.com/easylogic/colorpicker/tree/main/src/colorpicker) for detail 
+
+
+
+```javascript
+new ColorPicker({
+  container,
+  type: 'circle',
+  color: 'lime',
+  onChange: function(color) {
+    console.log('change color', color);
+  },
+})
+```
+
+### container
+
+- required
+- type: `Element`
+- default: `undefined`
+
+The element where the color picker is inserted is determined by the selector.
+
+ex) `document.querySelector('#picker')`, `document.getElementById('picker')`
+
+### type
+
+- type: `string`
+- default: `null`
+- value: `default,circle,ring,mini,none`
+
+color picker theme design
+
+### color
+
+- type: `string`
+- default: `#ffffff`
+
+Color code used for initialization
+
+### format
+
+- type: `string`
+- default: `hex`
+- value: `hex,rgb,hsl`
+
+The color format used when initializing
+
+### outputFormat
+
+- type: `string`
+- default: `undefined`
+- value: `hex,rgb,hsl`
+
+Color format output by callback function
+
+### useInformation
+
+- type: `boolean`
+- default: `true`
+
+Whether to use the form area where the color code is displayed
+
+### paletteWidth
+
+- type: `number`
+- default: `200`
+
+Pallet width.
+It may not be available depending on the design type.
+
+### paletteHeight
+
+- type: `number`
+- default: `undefined`
+
+palette vertical.
+It may not be available depending on the design type.
+
+### paletteThickness
+
+- type: `number`
+- default: `16`
+
+Thickness of circular pallet in design `ring` type
+
+### swatchTitle
+
+- type: `string`
+- default: `Color palette`
+
+title of color swatch
+
+### swatchColors,
+
+- type: `array`
+- default: `[]`
+- value: `['#ff0000', '#00ff00', '#0000ff']`
+
+Color list in color swatches
+
+### onInit
+
+- type: `function`
+- params: `this: EasylogicColorPickere`
+
+Executed when the color picker is initialized.
+
+### onChange
+
+- type: `function`
+- params: `color: string`
+
+Executes when the color changes. ex) `mousemove, touchmove`
+
+### onChanged
+
+- type: `function`
+- params: `color: string`
+
+Executes when the color change ends. ex) `mouseup, touchend`
+
+### onChangeFormat
+
+- type: `function`
+- params: `format: string`
+
+It is executed when the color format is changed.
+
+### onDestroy
+
+- type: `function`
+
+Executed when the color picker object disappears.
+
+## Methods
+
+You can use the color picker instance object to perform specific actions.
+### initialize
+
+```javascript
+picker.initialize();
+```
+
+Initialize the instance. You can use it after executing `destroy()`.
+
+### getColor
+
+```javascript
+let color = picker.getColor();
+```
+
+Gets the selected color.
+
+### setColor
+
+```javascript
+picker.setColor('#A6341B');
+```
+
+Change color.
+
+### setOption
+
+```javascript
+picker.setOption({
+  type: 'ring',
+  color: '#00ff00',
+});
+```
+
+Change options. Restart the color picker when making changes.
+
+### setType
+
+```javascript
+picker.setType('circle');
+```
+
+Change the color picker design type. For the type value, refer to the [type](#type) section. (Some set values ​​may disappear.)
+
+### destroy
+
+```javascript
+picker.destroy();
+```
+
+Destroy the instance object.
+
+
+## Stylesheet
+
+You can edit the color picker style directly by referring to the [colorpicker stylesheet](https://github.com/easylogic/colorpicker/tree/main/src/scss) page.
 
 ## Developments
 
-다음과 같은 과정으로 개발환경을 준비합니다.
+Prepare the development environment with the following process.
 
 ```shell
 git clone https://github.com/easylogic/easylogic-colorpicker
@@ -84,8 +283,11 @@ npm run build
 
 ### .env
 
-[.env](https://github.com/easylogic/colorpicker/blob/main/resources/.env) 파일은 로컬서버 옵션의 일부분을 고쳐 사용할 수 있습니다.  
-포트번호나 서버상태표시같은 것들을 `.env`파일을 고쳐 조정할 수 있습니다.
+[.env](https://github.com/easylogic/colorpicker/blob/main/resources/.env) file can be used by modifying some of the local server options.
+You can tweak things like port numbers and server status by editing the `.env` file.
 
+## Contributors
+* easylogic
+* redgoose 
 
 ## License : MIT
