@@ -3,6 +3,7 @@ import Hue from '~/colorpicker/ui/control/Hue';
 import Opacity from '~/colorpicker/ui/control/Opacity';
 import ColorPreview from '~/colorpicker/ui/ColorPreview';
 import Eyedropper from '~/colorpicker/ui/Eyedropper';
+import { enableEyeDropper } from '~/util/functions/support';
 
 export default class Control extends UIElement {
 
@@ -16,8 +17,7 @@ export default class Control extends UIElement {
   }
 
   template() {
-    // TODO: 아이드로퍼가 지원되는지 검사하고 사용할지에 대한 여부를 결정합니다.
-    let $eyedropper = !!true ? `
+    let $eyedropper = !!enableEyeDropper ? `
       <div class="el-cp-color-control__left">
         <template target="Eyedropper"></template>
       </div>

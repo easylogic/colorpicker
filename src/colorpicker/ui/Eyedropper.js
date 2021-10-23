@@ -1,10 +1,11 @@
 import UIElement from '~/colorpicker/UIElement';
+import { enableEyeDropper } from '~/util/functions/support';
 import './Eyedropper.scss';
 
-export default class ColorPreview extends UIElement {
+export default class Eyedropper extends UIElement {
 
   template() {
-    return `
+    return /*html*/`
       <nav class="el-cp-color-eyedropper">
         <button type="button" title="Eyedropper">
           <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -15,9 +16,14 @@ export default class ColorPreview extends UIElement {
     `;
   }
 
-  // TODO: 클릭할때 아이드로퍼 실행하고 컬러를 찍을때 색을 업데이트 합니다.
-  // ['click'](e) {
-  //   console.log('call onClickEyedropper()', e.currentTarget);
-  // }
+  async ['click'](e) {
+    if (enableEyeDropper) {
+      const eyeDropper = new EyeDropper();
+      const result = await eyeDropper.open();
+
+      this.$store.dispatch('/changeColor', result.sRGBHex);
+      this.$store.emit('lastUpdateColor');      
+    }
+  }
 
 }
