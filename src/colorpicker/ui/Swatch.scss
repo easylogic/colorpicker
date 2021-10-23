@@ -1,4 +1,4 @@
-@import "../../scss/mixins";
+@use "../../scss/mixins";
 
 .el-cp-swatches {
   &__header {
@@ -44,7 +44,7 @@
   }
   &__item {
     position: relative;
-    @include transparent-background(12px);
+    @include mixins.transparent-background(12px);
     &:before,
     &:after {
       content: '';

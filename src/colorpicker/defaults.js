@@ -6,6 +6,7 @@ export default {
   format: 'hex', // hex,rgb,hsl
   outputFormat: undefined, // hex,rgb,hsl
   useInformation: true,
+  useOpacity: false,
   paletteWidth: 200,
   paletteHeight: undefined,
   paletteThickness: 16,

@@ -14,13 +14,16 @@
     user-select: none;
     margin: 0;
     padding: 0 var(--cp-size-side-padding);
+    &__left {
+      margin-right: var(--cp-size-inner-padding, 16px);
+    }
     &__body {
       flex: 1;
       > *:nth-child(n+2) {
         margin-top: 8px;
       }
     }
-    &__preview {
+    &__right {
       margin-left: var(--cp-size-side-padding, 16px);
     }
   }

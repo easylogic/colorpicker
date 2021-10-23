@@ -2,7 +2,6 @@ let picker;
 
 function changeType(mode) {
   if (picker.opt.type === mode) return;
-  const $html = document.querySelector('html');
   switch (mode) {
     case 'default':
     case 'circle':
@@ -15,6 +14,7 @@ function changeType(mode) {
       picker.setType('default');
       break;
   }
+  picker.opt.type = mode;
 }
 
 export function initEvent(getPicker) {

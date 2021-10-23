@@ -38,6 +38,7 @@ let picker = new EasyLogicColorPicker({
 - `--cp-size-width`: body width
 - `--cp-size-radius`: body radius
 - `--cp-size-side-padding`: side padding
+- `--cp-size-inner-padding`: inner padding in component
 - `--cp-size-pointer`: palette, slider pointer size
 - `--cp-size-pointer-stroke`: palette, slider pointer stroke size
 

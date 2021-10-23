@@ -29,11 +29,10 @@
 .el-cp-color-field {
   flex: 1;
   display: none;
-  margin: 0 -4px;
+  gap: 4px;
   label {
     flex: 1;
     display: block;
-    padding: 0 4px;
     text-align: center;
   }
   input {
@@ -72,12 +71,12 @@
 }
 
 .el-cp-color-nav {
-  margin-left: var(--cp-size-side-padding);
+  margin-left: var(--cp-size-inner-padding);
   &__label {
     position: relative;
     display: block;
     box-sizing: border-box;
-    width: 32px;
+    width: 36px;
     height: 24px;
     margin: 0;
     padding: 0;

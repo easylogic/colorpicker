@@ -1,4 +1,4 @@
-@import "../../../scss/mixins";
+@use "../../../scss/mixins";
 
 .el-cp-slider {
   position: relative;
@@ -86,7 +86,7 @@
   &--alpha {
     .el-cp-slider {
       &__body {
-        @include transparent-background();
+        @include mixins.transparent-background();
       }
     }
   }

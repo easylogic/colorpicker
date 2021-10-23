@@ -1,5 +1,5 @@
-@import "./normalize";
-@import "../../src/scss/mixins";
+@use "./normalize";
+@use "../../src/scss/mixins";
 
 :root {
   --layout-side-padding: 30px;
@@ -280,7 +280,7 @@ body, button, input, textarea, select {
     height: 70px;
     border-radius: 50%;
     overflow: hidden;
-    @include transparent-background(16px);
+    @include mixins.transparent-background(16px);
     &:before,
     &:after {
       content: '';

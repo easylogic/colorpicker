@@ -12,17 +12,19 @@ export default class Control extends UIElement {
   }
 
   template() {
+    let $opacity = this.opt.useOpacity ? `<template target="OpacityVertical"></template>` : '';
+
     return `
       <div class="el-cp-color-control">
         <template target="HueVertical"></template>
-        <template target="OpacityVertical"></template>
+        ${$opacity}
       </div>
     `;
   }
 
   refresh() {
     this.HueVertical.setColorUI();
-    this.OpacityVertical.setColorUI();
+    if (!!this.opt.useOpacity) this.OpacityVertical.setColorUI();
   }
 
   ['@changeColor']() {

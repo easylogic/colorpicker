@@ -127,6 +127,13 @@ Color format output by callback function
 
 Whether to use the form area where the color code is displayed
 
+### useOpacity
+
+- type: `boolean`
+- default: `true`
+
+투명도를 조절하는 슬라이더를 사용할지에 대한 여부를 정합니다.
+
 ### paletteWidth
 
 - type: `number`
