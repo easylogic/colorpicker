@@ -1,0 +1,16 @@
+
+@use "./scss/gradient-editor";
+@use "./scss/gradient-picker";
+
+.el-gradientpicker--default {
+    display: inline-block;
+
+    > .box {
+        display: inline-block;
+        vertical-align: top;
+
+        &:first-child {
+            border-right: 1px solid var(--cp-gradientpicker-border-color);
+        }
+    }
+}

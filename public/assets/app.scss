@@ -266,7 +266,14 @@ body, button, input, textarea, select {
   justify-content: center;
 }
 
-.color-sample {
+.section-gradientpicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-sample,
+.gradient-sample {
   margin-left: 50px;
   padding: 30px 0;
   border: 1px dashed var(--layout-color-blur);

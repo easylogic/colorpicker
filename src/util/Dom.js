@@ -98,7 +98,7 @@ export default class Dom {
   }
 
   offset() {
-    const rect = this.el.getBoundingClientRect();
+    const rect = this.rect();
     return {
       top: rect.top + Dom.getScrollTop(),
       left: rect.left + Dom.getScrollLeft(),
@@ -112,7 +112,7 @@ export default class Dom {
         left: parseFloat(this.css('left')),
       };
     } else {
-      return this.el.getBoundingClientRect();
+      return this.rect();
     }
   }
 
@@ -120,12 +120,16 @@ export default class Dom {
     return [ this.width(), this.height() ];
   }
 
+  rect () {
+    return this.el.getBoundingClientRect();
+  }
+
   width() {
-    return this.el.offsetWidth || this.el.getBoundingClientRect().width;
+    return this.el.offsetWidth || this.rect().width;
   }
 
   height() {
-    return this.el.offsetHeight || this.el.getBoundingClientRect().height;
+    return this.el.offsetHeight || this.rect().height;
   }
 
   dataKey(key) {
@@ -156,6 +160,10 @@ export default class Dom {
       this.el.value = value;
     }
     return this;
+  }
+
+  checked () {
+    return this.el.checked;
   }
 
   int() {
