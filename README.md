@@ -87,6 +87,9 @@ new ColorPicker({
 new GradientPicker({
   container,
   gradient: "linear-gradient(to right, white 0%, black 100%)",
+  colorpicker: {
+    type: "circle",
+  },
   onChange: function(gradient) {
     console.log('change gradient', gradient);
   },
