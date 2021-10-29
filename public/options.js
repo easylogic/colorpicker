@@ -35,7 +35,8 @@ export default {
       custom = {};
     },
   },
-  gradientpicker: {
+  // gradient picker
+  gradientPicker: {
     onInit: (self) => {
       custom = {
         $color: document.querySelector('#gradientSample > i'),
@@ -43,11 +44,10 @@ export default {
       };
     },
     onChange: (gradient) => {
-      custom.$color.style.background = gradient;
+      custom.$color.style.setProperty('--color', gradient);
       custom.$code.textContent = gradient;
-    } 
+    }
   },
-
   // themes
   themes: {
     default: {

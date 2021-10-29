@@ -13,7 +13,7 @@
     <nav class="layout-header__nav">
       <button type="button" data-route="basic">Basic</button>
       <button type="button" data-route="themes">Themes</button>
-      <button type="button" data-route="gradientpicker">GradientPicker</button>
+      <button type="button" data-route="gradientPicker">GradientPicker</button>
     </nav>
   </header>
   <div class="container">
@@ -85,38 +85,20 @@
     </section>
     <!-- // themes -->
     <!-- // gradient picker -->
-    <section data-route="gradientpicker" class="layout-section">
+    <section data-route="gradientPicker" class="layout-section">
       <h2 class="layout-section__title">
-        gradientpicker component
+        GradientPicker component
       </h2>
       <p class="layout-section__description">
         기본적으로 표현하는 컴포넌트의 모습입니다.
       </p>
-      <div class="layout-section__body section-gradientpicker">
-        <div id="gradientpicker"></div>
-        <div id="gradientSample" class="gradient-sample">
+      <div class="layout-section__body section-gradient-picker">
+        <div id="gradientPicker" class="section-gradient-picker__body"></div>
+        <div id="gradientSample" class="color-sample section-gradient-picker__sample">
           <i class="color-sample__color"></i>
           <em class="color-sample__code"></em>
         </div>
       </div>
-      <nav class="layout-controller">
-        <h2 class="layout-controller__title">Controller</h2>
-        <div id="controller" class="layout-controller__body">
-          <label>
-            <span>type</span>
-            <select data-type="change-type">
-              <option value="default">default</option>
-              <option value="circle">circle</option>
-              <option value="ring">ring</option>
-              <option value="mini">mini</option>
-              <option value="none">none</option>
-            </select>
-          </label>
-          <button type="button" data-type="init">init</button>
-          <button type="button" data-type="destroy">destroy</button>
-          <button type="button" data-type="change-option">change option</button>
-        </div>
-      </nav>
     </section>
     <!-- gradient picker -->
     <section class="empty">

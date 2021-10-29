@@ -1,7 +1,8 @@
 let picker;
 
 function changeType(mode) {
-  if (picker.opt.type === mode) return;
+  if (picker.opt?.type === mode) return;
+  if (!picker.opt) picker.initialize();
   switch (mode) {
     case 'default':
     case 'circle':
