@@ -11,7 +11,7 @@ export default class BaseColorPicker extends UIElement {
   }
 
   initialize() {
-    if (this.$store) return;
+    if (this.$store) this.destroy();
 
     // set store
     this.$store = new BaseStore({
@@ -112,6 +112,7 @@ export default class BaseColorPicker extends UIElement {
    * destroy colorpicker
    */
   destroy() {
+    if (!this.$store) return;
     super.destroy();
     this.$store.off('changeColor');
     this.$store.off('lastUpdateColor');

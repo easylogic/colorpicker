@@ -1,0 +1,12 @@
+
+@use "./scss/gradient-editor";
+@use "./scss/gradient-picker";
+
+.el-gradientpicker--default {
+  display: flex;
+  > .box {
+    &:nth-child(n+2) {
+      border-left: 1px solid var(--cp-gradientpicker-border-color);
+    }
+  }
+}

@@ -1,10 +1,11 @@
-import ColorPicker from '~/index';
+import ColorPicker, { GradientPicker } from '~/index';
 import options from './options';
 import * as controller from './controller';
 import * as storage from './storage';
 import './assets/app.scss';
 
-const initialRoute = 'basic'; // basic,themes
+// initial route
+const initialRoute = 'gradientPicker'; // basic,themes,gradientPicker
 
 window.picker = null;
 const $buttonsRoute = document.querySelectorAll('.layout-header__nav > button');
@@ -20,12 +21,10 @@ function changeRoute(name) {
     if (Array.isArray(picker)) {
       picker.forEach((o,k) => {
         o.destroy();
-        o.$body.el.innerHTML = '';
         picker[k] = null;
       });
     } else {
       picker.destroy();
-      picker.$body.el.innerHTML = '';
       picker = null;
     }
   }
@@ -61,6 +60,13 @@ function changeRoute(name) {
           ...options.themes[key],
         }));
       });
+      break;
+    case 'gradientPicker':
+      picker = new GradientPicker({
+        container: document.getElementById(`gradientPicker`),
+        ...options.gradientPicker,
+      })
+      controller.initEvent(picker.EmbedColorPicker.colorPicker);
       break;
   }
 }

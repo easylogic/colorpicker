@@ -11,6 +11,7 @@ import defaults from './defaults';
  * @param {object} options
  */
 function ColorPicker(options) {
+
   let core;
 
   // merge options
@@ -20,8 +21,9 @@ function ColorPicker(options) {
    * switch type
    *
    * @param {string} type
+   * @param {ColorPicker} self
    */
-  function switchType(type) {
+  const switchType = (type, self = undefined) => {
     switch (type) {
       case 'circle':
         core = new CircleColorPicker(options);
@@ -39,9 +41,10 @@ function ColorPicker(options) {
         core = new Default(options);
         break;
     }
+    this.opt = core.opt;
+    this.$el = core.$root.el;
   }
 
-  // set type
   switchType(options.type);
 
   /**
@@ -49,16 +52,27 @@ function ColorPicker(options) {
    *
    * @param {string} type
    */
-  core.setType = function(type) {
-    options = Object.assign({}, core.opt, {
+  this.setType = function(type) {
+    options = Object.assign({}, this.opt, {
       type,
       color: core.getColor(),
     });
     core.destroy();
-    switchType(type);
+    switchType(type, this);
   }
-
-  return core;
+  this.initialize = () => {
+    core.initialize();
+    this.opt = core.opt;
+    this.$el = core.$root.el;
+  };
+  this.destroy = () => {
+    core.destroy();
+    this.opt = null;
+    this.$el = null;
+  };
+  this.getColor = (format) => core.getColor(format);
+  this.setColor = (color, format) => core.setColor(color, format);
+  this.setOption = (options) => core.setOption(options);
 }
 
 export default ColorPicker;

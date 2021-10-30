@@ -28,12 +28,16 @@ npm install @easylogic/colorpicker
 ### module
 
 ```javascript
-import ColorPicker from '@easylogic/colorpicker';
+import ColorPicker, {GradientPicker} from '@easylogic/colorpicker';
 import '@easylogic/colorpicker/dist/EasyLogicColorPicker.css';
 
 const picker = new ColorPicker({
   container: document.getElementById('basic'),
 });
+
+const gradientPicker = new GradientPicker({
+  container: document.getElementById('gradient-picker'),
+})
 ```
 
 ### browser
@@ -75,6 +79,19 @@ new ColorPicker({
   color: 'lime',
   onChange: function(color) {
     console.log('change color', color);
+  },
+})
+```
+
+```javascript
+new GradientPicker({
+  container,
+  gradient: "linear-gradient(to right, white 0%, black 100%)",
+  colorpicker: {
+    type: "circle",
+  },
+  onChange: function(gradient) {
+    console.log('change gradient', gradient);
   },
 })
 ```

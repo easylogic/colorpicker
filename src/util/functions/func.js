@@ -1,4 +1,5 @@
 export function get(obj, key, callback) {
+
   const returnValue = defaultValue(obj[key], key);
   if (isFunction(callback)) return callback(returnValue);
   return returnValue;
@@ -10,6 +11,10 @@ export function defaultValue(value, defaultValue) {
 
 export function isUndefined(value) {
   return typeof value == 'undefined' || value === null;
+}
+
+export function isNotUndefined(value) {
+  return !isUndefined(value);
 }
 
 export function isArray(value) {
