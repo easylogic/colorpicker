@@ -4,8 +4,10 @@ import * as controller from './controller';
 import * as storage from './storage';
 import './assets/app.scss';
 
+/** @var {string} ROUTE */
+
 // initial route
-const initialRoute = 'gradientPicker'; // basic,themes,gradientPicker
+const initialRoute = ROUTE || 'basic'; // basic,themes,gradientPicker
 
 window.picker = null;
 const $buttonsRoute = document.querySelectorAll('.layout-header__nav > button');

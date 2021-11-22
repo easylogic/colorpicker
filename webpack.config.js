@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -85,6 +86,11 @@ const config = (env, options) => {
     });
     out.plugins.push(
       new HtmlWebpackPlugin({ template: './public/index.html' })
+    );
+    out.plugins.push(
+      new webpack.DefinePlugin({
+        ROUTE: JSON.stringify(process.env.ROUTE),
+      })
     );
   }
 

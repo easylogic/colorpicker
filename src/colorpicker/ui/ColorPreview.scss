@@ -3,9 +3,9 @@
 .el-cp-color-preview {
   position: relative;
   display: block;
-  width: var(--cp-preview-size);
-  height: var(--cp-preview-size);
-  border-radius: var(--cp-preview-radius);
+  width: var(--preview-size);
+  height: var(--preview-size);
+  border-radius: var(--preview-radius);
   box-sizing: border-box;
   overflow: hidden;
   @include mixins.transparent-background(16px);
@@ -17,8 +17,8 @@
     right: 0;
     top: 0;
     bottom: 0;
-    box-shadow: inset 0 0 0 1px var(--cp-preview-stroke-color);
-    border-radius: var(--cp-preview-radius);
+    box-shadow: inset 0 0 0 1px var(--preview-stroke-color);
+    border-radius: var(--preview-radius);
     pointer-events: none;
   }
   em {

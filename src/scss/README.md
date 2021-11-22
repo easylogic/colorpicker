@@ -15,10 +15,11 @@ let picker = new EasyLogicColorPicker({
 
 ## variables
 
-다음과 같은 모습으로 스타일시트의 일부 값들을 변경할 수 있습니다.
+다음과 같은 모습으로 스타일시트의 일부 값들을 변경할 수 있습니다.  
+자세한 변수의 모습은 [index.scss](https://github.com/easylogic/colorpicker/blob/main/src/scss/index.scss) 소스를 참고해주세요.
 
 ```css
-.picker .el-colorpicker {
+.picker {
   --cp-color-bg: '#eee';
   --cp-color-fill: #111;
   --cp-color-key: lime;
@@ -95,7 +96,6 @@ let picker = new EasyLogicColorPicker({
     --cp-color-fill: #fff;
     --cp-color-blur: #888;
     --cp-shadow-outer: 0 0 16px 2px rgba(0,0,0,.25), inset 0 0 0 1px rgba(0,0,0,.25);
-    --cp-color-border: #666;
     --cp-slider-stroke-color: #444;
     --cp-swatch-item-stroke-color: #444;
     --cp-preview-stroke-color: #444;

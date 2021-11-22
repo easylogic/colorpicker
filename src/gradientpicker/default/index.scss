@@ -6,7 +6,7 @@
   display: flex;
   > .box {
     &:nth-child(n+2) {
-      border-left: 1px solid var(--cp-gradientpicker-border-color);
+      border-left: 1px solid var(--gradientpicker-border-color);
     }
   }
 }

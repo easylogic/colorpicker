@@ -18,18 +18,18 @@
     z-index: 2;
     left: 50%;
     top: 50%;
-    width: var(--cp-size-pointer);
-    height: var(--cp-size-pointer);
-    border: var(--cp-size-pointer-stroke) solid var(--cp-color-pointer-fill);
+    width: var(--size-pointer);
+    height: var(--size-pointer);
+    border: var(--size-pointer-stroke) solid var(--color-pointer-fill);
     border-radius: 50%;
     transform: translateX(-50%) translateY(-50%);
-    box-shadow: var(--cp-shadow-pointer);
+    box-shadow: var(--shadow-pointer);
     box-sizing: border-box;
   }
   &:active {
     .el-cp-palette-ring {
       &__pointer {
-        box-shadow: var(--cp-shadow-pointer-active);
+        box-shadow: var(--shadow-pointer-active);
       }
     }
   }

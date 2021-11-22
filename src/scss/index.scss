@@ -1,55 +1,53 @@
 .el-colorpicker {
   // color
-  --cp-color-bg: #fff;
-  --cp-color-fill: #222;
-  --cp-color-key: #30A2FF;
-  --cp-color-blur: #888;
-  --cp-color-pointer-fill: #fff;
+  --color-bg: var(--cp-color-bg, #fff);
+  --color-fill: var(--cp-color-fill, #222);
+  --color-key: var(--cp-color-key, #30A2FF);
+  --color-blur: var(--cp-color-blur, #888);
+  --color-pointer-fill: var(--cp-color-pointer-fill, #fff);
   // size
-  --cp-size-width: 240px;
-  --cp-size-radius: 2px;
-  --cp-size-side-padding: 16px;
-  --cp-size-inner-padding: 10px;
-  --cp-size-pointer: 12px;
-  --cp-size-pointer-stroke: 3px;
+  --size-width: var(--cp-size-width, 240px);
+  --size-radius: var(--cp-size-radius, 2px);
+  --size-side-padding: var(--cp-size-side-padding, 16px);
+  --size-inner-padding: var(--cp-size-inner-padding, 10px);
+  --size-pointer: var(--cp-size-pointer, 12px);
+  --size-pointer-stroke: var(--cp-size-pointer-stroke, 3px);
   // palette
-  --cp-palette-width: 100%;
-  --cp-palette-height: 150px;
+  --palette-width: var(--cp-palette-width, 100%);
+  --palette-height: var(--cp-palette-height, 150px);
   // slider
-  --cp-slider-height: 8px;
-  --cp-slider-radius: 4px;
-  --cp-slider-stroke-color: rgba(0,0,0,.15);
+  --slider-height: var(--cp-slider-height, 8px);
+  --slider-radius: var(--cp-slider-radius, 4px);
+  --slider-stroke-color: var(--cp-slider-stroke-color, rgba(0,0,0,.15));
   // preview
-  --cp-preview-size: 36px;
-  --cp-preview-radius: 50%;
-  --cp-preview-stroke-color: rgba(0,0,0,.15);
+  --preview-size: var(--cp-preview-size, 36px);
+  --preview-radius: var(--cp-preview-radius, 50%);
+  --preview-stroke-color: var(--cp-preview-stroke-color, rgba(0,0,0,.15));
   // form
-  --cp-form-bg: #fff;
-  --cp-form-border-color: #ddd;
+  --form-bg: var(--cp-form-bg, #fff);
+  --form-border-color: var(--cp-form-border-color, #ddd);
   // swatches
-  --cp-swatch-column: 7;
-  --cp-swatch-gap: 8px;
-  --cp-swatch-item-size: 22px;
-  --cp-swatch-item-stroke-radius: 50%;
-  --cp-swatch-item-stroke-color: rgba(0,0,0,.15);
-  --cp-swatch-border-color: #ddd;
-
+  --swatch-column: var(--cp-swatch-column, 7);
+  --swatch-gap: var(--cp-swatch-gap, 8px);
+  --swatch-item-size: var(--cp-swatch-item-size, 22px);
+  --swatch-item-stroke-radius: var(--cp-swatch-item-stroke-radius, 50%);
+  --swatch-item-stroke-color: var(--cp-swatch-item-stroke-color, rgba(0,0,0,.15));
+  --swatch-border-color: var(--cp-swatch-border-color, #ddd);
 
   // etc
-  --cp-shadow-outer: 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15);
-  --cp-shadow-pointer: 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5);
-  --cp-shadow-pointer-active: inset 0 0 0 1px var(--cp-color-key), 0 0 3px 1px var(--cp-color-key);
-  --cp-speed-focus: 200ms;
-
+  --shadow-outer: var(--cp-shadow-outer, 0 0 10px 2px rgba(0,0,0,.12), inset 0 0 0 1px rgba(0,0,0,.15));
+  --shadow-pointer: var(--cp-shadow-pointer, 0 0 2px 1px rgba(0,0,0,.5), inset 0 0 3px 0 rgba(0,0,0,.5));
+  --shadow-pointer-active: var(--cp-shadow-pointer-active, inset 0 0 0 1px var(--color-key), 0 0 3px 1px var(--color-key));
+  --speed-focus: var(--cp-speed-focus, 200ms);
 
   position: relative;
-  width: var(--cp-size-width);
-  background-color: var(--cp-color-bg);
-  border-radius: var(--cp-size-radius);
+  width: var(--size-width);
+  background-color: var(--color-bg);
+  border-radius: var(--size-radius);
   box-sizing: border-box;
   user-select: none;
   -webkit-user-select : none;
-  color: var(--cp-color-fill);
+  color: var(--color-fill);
 
   &:after {
     content: '';
@@ -59,9 +57,9 @@
     right: 0;
     top: 0;
     bottom: 0;
-    box-shadow: var(--cp-shadow-outer);
+    box-shadow: var(--shadow-outer);
     pointer-events: none;
-    border-radius: var(--cp-size-radius);
+    border-radius: var(--size-radius);
   }
 
   &, button, input {
@@ -70,12 +68,10 @@
   }
 }
 
-
+// gradient
 .el-gradientpicker {
-    // gradientpicker 
-    --cp-gradientpicker-border-color: #ddd;  
-    // input[type=range]
-    --cp-range-thumb-width: 10px;
-    --cp-range-thumb-height: 10px;
-    --cp-range-thumb-color:  #556375;
+  --gradientpicker-border-color: var(--cp-gradientpicker-border-color, #ddd);
+  --range-thumb-width: var(--cp-range-thumb-width, 10px);
+  --range-thumb-height: var(--cp-range-thumb-height, 10px);
+  --range-thumb-color: var(--cp-range-thumb-color, #556375);
 }

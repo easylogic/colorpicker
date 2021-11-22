@@ -7,7 +7,7 @@ export default class Palette extends UIElement {
 
   template() {
     const styles = [
-      this.opt.paletteHeight && `--cp-palette-height: ${this.opt.paletteHeight}px;`,
+      this.opt.paletteHeight && `--palette-height: ${this.opt.paletteHeight}px;`,
     ].filter(Boolean).join('');
     return `
       <nav class="el-cp-palette" style="${styles}">

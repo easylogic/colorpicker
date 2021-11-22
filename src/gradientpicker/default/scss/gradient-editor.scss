@@ -37,20 +37,20 @@
         }
     }
 
-    &[data-selected-editor='linear-gradient'], 
-    &[data-selected-editor='repeating-linear-gradient'], 
-    &[data-selected-editor='conic-gradient'], 
+    &[data-selected-editor='linear-gradient'],
+    &[data-selected-editor='repeating-linear-gradient'],
+    &[data-selected-editor='conic-gradient'],
     &[data-selected-editor='repeating-conic-gradient']
     {
         [data-editor='angle']
         {
             display: grid;
         }
-    }        
+    }
 
-    &[data-selected-editor='radial-gradient'], 
-    &[data-selected-editor='repeating-radial-gradient'], 
-    &[data-selected-editor='conic-gradient'], 
+    &[data-selected-editor='radial-gradient'],
+    &[data-selected-editor='repeating-radial-gradient'],
+    &[data-selected-editor='conic-gradient'],
     &[data-selected-editor='repeating-conic-gradient']
     {
         [data-editor='centerX'],
@@ -58,27 +58,27 @@
         {
             display: grid;
         }
-    }             
-    
-    
-    &[data-selected-editor='radial-gradient'], 
+    }
+
+
+    &[data-selected-editor='radial-gradient'],
     &[data-selected-editor='repeating-radial-gradient'],
-    &[data-selected-editor='conic-gradient'], 
-    &[data-selected-editor='repeating-conic-gradient']    
+    &[data-selected-editor='conic-gradient'],
+    &[data-selected-editor='repeating-conic-gradient']
     {
         [data-editor='radialType']
         {
             margin-top: 5px;
             display: grid;
-            grid-template-columns: 50px 80px; 
-            grid-column-gap: 2px; 
+            grid-template-columns: 50px 80px;
+            grid-column-gap: 2px;
 
             select {
                 width: 100%;
                 font-size: 12px;
             }
-        }        
-    }          
+        }
+    }
 
     .sub-editor {
         padding: 0px 8px;
@@ -103,7 +103,7 @@
         top: 4px;
         height: 14px;
         border-radius: 10px;
-        border:1px solid var(--cp-gradientpicker-border-color);
+        border:1px solid var(--gradientpicker-border-color);
         box-sizing: border-box;
         @include mixins.transparent-background();
         pointer-events: all;
@@ -118,8 +118,8 @@
             top: 0px;
             left:0px;
             border-radius: 10px;
-            pointer-events: none;   
-            
+            pointer-events: none;
+
             @for $selectValue from 0 to 20 {
                 &[data-selected-index="#{$selectValue}"] {
                     [data-index="#{$selectValue}"] {
@@ -127,7 +127,7 @@
                         transform: translateX(-50%) translateY(calc(100%));
 
                         .arrow {
-                            display: block; 
+                            display: block;
                         }
                     }
                 }
@@ -137,14 +137,14 @@
             .step {
                 pointer-events: all;
                 width: 10px;
-                height: 10px; 
+                height: 10px;
                 border: 1px solid white;
                 box-sizing: border-box;
                 display: inline-block;
                 position: absolute;
                 top: 50%;
                 border-radius: 100%;
-                box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.5);                
+                box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.5);
 
                 &[data-cut='true'] {
                     border-radius: 0%;
@@ -164,7 +164,7 @@
                     bottom:0px;
                     right:0px;
                     border-radius: 100%;
-                    pointer-events: none;                    
+                    pointer-events: none;
                 }
 
                 .arrow {
@@ -175,10 +175,10 @@
                     width:5px;
                     height:5px;
                     transform: translateX(-50%) translateY(-120%);
-                    pointer-events: none;        
-                    clip-path: polygon(40% 0%, 60% 0%, 60% 100%, 40% 100%);                    
+                    pointer-events: none;
+                    clip-path: polygon(40% 0%, 60% 0%, 60% 100%, 40% 100%);
                 }
-            }      
+            }
         }
     }
 
@@ -195,15 +195,15 @@
         width: 100%;
         height: 1px;
         cursor: pointer;
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         border-radius: 0px;
         border: 0px solid #010101;
     }
     input[type=range]::-webkit-slider-thumb {
-        height: var(--cp-range-thumb-width);
-        width: var(--cp-range-thumb-width);
+        height: var(--range-thumb-width);
+        width: var(--range-thumb-width);
         border-radius: 10px;
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         cursor: pointer;
         appearance: none;
         margin-top: -5px;
@@ -215,16 +215,16 @@
         width: 100%;
         height: 1px;
         cursor: pointer;
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         border-radius: 0px;
         border: 0px solid #010101;
     }
     input[type=range]::-moz-range-thumb {
         border: 1px solid #000000;
-        height: var(--cp-range-thumb-width);
-        width: var(--cp-range-thumb-height);
+        height: var(--range-thumb-width);
+        width: var(--range-thumb-height);
         border-radius: 9px;
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         cursor: pointer;
     }
     input[type=range]::-ms-track {
@@ -236,28 +236,28 @@
         color: transparent;
     }
     input[type=range]::-ms-fill-lower {
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         border: 0px solid #010101;
         border-radius: 0px;
         box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
     }
     input[type=range]::-ms-fill-upper {
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         border: 0px solid #010101;
         border-radius: 0px;
     }
     input[type=range]::-ms-thumb {
-        height: var(--cp-range-thumb-width);
-        width: var(--cp-range-thumb-height);
+        height: var(--range-thumb-width);
+        width: var(--range-thumb-height);
         border-radius: 9px;
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
         cursor: pointer;
     }
     input[type=range]:focus::-ms-fill-lower {
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
     }
     input[type=range]:focus::-ms-fill-upper {
-        background: var(--cp-range-thumb-color);
+        background: var(--range-thumb-color);
     }
-    
+
 }

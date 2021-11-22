@@ -1,4 +1,4 @@
-@use "./normalize";
+@use "./reset";
 @use "../../src/scss/mixins";
 
 :root {
@@ -279,25 +279,20 @@ body, button, input, textarea, select {
 }
 
 .color-picker-solo {
-  > .el-colorpicker {
-    margin: 0 auto;
-
-    // dark mode
-    //--cp-color-bg: #222;
-    //--cp-color-fill: #fff;
-    //--cp-color-light: #444;
-    //--cp-color-blur: #888;
-    //--cp-shadow-outer: 0 0 16px 2px rgba(0,0,0,.25), inset 0 0 0 1px rgba(0,0,0,.25);
-    //--cp-color-border: #666;
-    //--cp-slider-stroke-color: #444;
-    //--cp-swatch-item-stroke-color: #444;
-    //--cp-preview-stroke-color: #444;
-    //--cp-form-bg: #333;
-    //--cp-form-border-color: #444;
-    //--cp-swatch-border-color: #444;
-
-    //--cp-swatch-item-stroke-radius: 10px;
-  }
+  // dark mode
+  //--cp-color-bg: #222;
+  //--cp-color-fill: #fff;
+  //--cp-color-light: #444;
+  //--cp-color-blur: #888;
+  //--cp-shadow-outer: 0 0 16px 2px rgba(0,0,0,.25), inset 0 0 0 1px rgba(0,0,0,.25);
+  //--cp-color-border: #666;
+  //--cp-slider-stroke-color: #444;
+  //--cp-swatch-item-stroke-color: #444;
+  //--cp-preview-stroke-color: #444;
+  //--cp-form-bg: #333;
+  //--cp-form-border-color: #444;
+  //--cp-swatch-border-color: #444;
+  //--cp-swatch-item-stroke-radius: 10px;
 }
 
 .color-picker-theme {

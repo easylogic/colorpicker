@@ -1,15 +1,14 @@
 .el-colorpicker--ring {
-  --cp-ring-palette-inner-padding: 32px;
   .el-colorpicker {
     &__wrap {
-      padding: 0 0 16px;
+      padding: 20px 0 16px;
     }
     &__body {
       position: relative;
       width: var(--width);
       height: var(--height);
       padding: 20px;
-      margin: 0 auto;
+      margin: 0 auto 16px;
     }
   }
   .el-cp-palette-ring {
@@ -34,9 +33,9 @@
     align-items: center;
     user-select: none;
     margin: 0;
-    padding: 0 var(--cp-size-side-padding);
+    padding: 0 var(--size-side-padding);
     &__left {
-      margin-right: var(--cp-size-inner-padding, 16px);
+      margin-right: var(--size-inner-padding, 16px);
     }
     &__body {
       flex: 1;
@@ -45,16 +44,16 @@
       }
     }
     &__right {
-      margin-left: var(--cp-size-side-padding, 16px);
+      margin-left: var(--size-side-padding, 16px);
     }
   }
   .el-cp-color-form {
     margin: 16px 0 0;
-    padding: 0 var(--cp-size-side-padding);
+    padding: 0 var(--size-side-padding);
   }
   .el-cp-swatches {
     margin: 16px 0 0;
-    padding: 16px var(--cp-size-side-padding) 0;
-    border-top: 1px solid var(--cp-swatch-border-color);
+    padding: 16px var(--size-side-padding) 0;
+    border-top: 1px solid var(--swatch-border-color);
   }
 }
