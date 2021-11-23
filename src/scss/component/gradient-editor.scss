@@ -8,17 +8,13 @@
 
     .unit {
         display: grid;
-        grid-template-columns: 110px 35px 50px;
+        grid-template-columns: 1fr 50px 50px;
         grid-column-gap: 5px;
         font-size: 11px;
 
         input,select {
             width: 100%;
             box-sizing: border-box;
-        }
-
-        input {
-            width: 35px;
         }
     }
 
@@ -28,6 +24,11 @@
 
         > label {
             font-size: 11px;
+            vertical-align: middle;
+
+            > * {
+                vertical-align: middle;
+            }
         }
 
     }
@@ -70,7 +71,7 @@
         {
             margin-top: 5px;
             display: grid;
-            grid-template-columns: 110px 90px; 
+            grid-template-columns: 1fr 105px; 
             grid-column-gap: 2px; 
 
             select {
@@ -256,5 +257,17 @@
     input[type=range]:focus::-ms-fill-upper {
         background: $range-thumb-color;
     }
+
+    .right-menu {
+        display: inline-block;
+        float: right;
+
+        button {
+            font-size: 11px;
+            background-color: transparent;
+            border:0px;
+        }
+    }
+
     
 }

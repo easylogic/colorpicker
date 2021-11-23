@@ -35,6 +35,12 @@ export default class GradientEditor extends UIElement  {
     this.radialType = 'ellipse'
   }
 
+  '@changeRadialPosition' (posX, posY) {
+    this['@changeKeyValue'] ('radialPosition', [posX, posY]);
+
+    this.reloadInputValue();
+  }
+
   '@setGradientEditor' (str, index = 0, type = 'linear-gradient', angle, radialPosition, radialType) {
     var results = convertMatches(str);
     var colorsteps = results.str.split(',').map(it => it.trim()).map(it => {
@@ -92,7 +98,7 @@ export default class GradientEditor extends UIElement  {
                 </div>
             </div>
             <div class='tools' data-editor='tools'>
-              <label>Offset <input type='checkbox' ref='$cut' checked />  connected</label>
+              <label>Offset <input type='checkbox' ref='$cut' checked />  connected</label> <div class="right-menu" ><button type="button" ref="$remove" style="float:right;" title="Remove color stop">&times; Remove</button></div>
               <div class='unit'>
                 <div><input type='range' data-key='length' min='0' max="100" step='0.1' ref='$offset' /></div>
                 <div><input type='number' data-key='length' min='0' max="100" step='0.1' ref='$offsetNumber' /></div>              
@@ -198,11 +204,11 @@ export default class GradientEditor extends UIElement  {
   }  
 
   get radialPositionX () {
-    return new Length(this.refs.$centerX.val(), this.refs.$centerXSelect.val())
+    return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val())
   }
 
   get radialPositionY () {
-    return new Length(this.refs.$centerY.val(), this.refs.$centerYSelect.val())
+    return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val())
   }  
 
   'change $radialType' (e) {
@@ -305,9 +311,13 @@ export default class GradientEditor extends UIElement  {
     } 
   }
 
+  'click $remove' () {
+    this.removeStep(this.index)
+  }
+
 
   removeStep(index) {
-    if (this.colorsteps.length === 2) return; 
+    // if (this.colorsteps.length === 1) return; 
     this.colorsteps.splice(index, 1);
     var currentStep = this.colorsteps[index]
     var currentIndex = index; 
@@ -458,15 +468,23 @@ export default class GradientEditor extends UIElement  {
 
     this.refs.$angle.val(this.angle.value);
     this.refs.$angleNumber.val(this.angle.value);
+
+    const radialPosition = this.radialPosition.map(it => {
+      if (it === 'center') {
+        return Length.percent(50);
+      }
+
+      return it;
+    });
     
 
-    this.refs.$centerX.val(this.radialPosition[0].value);
-    this.refs.$centerXNumber.val(this.radialPosition[0].value);
-    this.refs.$centerXSelect.val(this.radialPosition[0].unit);
+    this.refs.$centerX.val(radialPosition[0].value);
+    this.refs.$centerXNumber.val(radialPosition[0].value);
+    this.refs.$centerXSelect.val(radialPosition[0].unit);
 
-    this.refs.$centerY.val(this.radialPosition[1].value);
-    this.refs.$centerYNumber.val(this.radialPosition[1].value);
-    this.refs.$centerYSelect.val(this.radialPosition[1].unit);    
+    this.refs.$centerY.val(radialPosition[1].value);
+    this.refs.$centerYNumber.val(radialPosition[1].value);
+    this.refs.$centerYSelect.val(radialPosition[1].unit);    
 
     this.refs.$radialType.val(this.radialType);
   }

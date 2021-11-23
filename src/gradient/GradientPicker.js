@@ -101,7 +101,7 @@ export default class GradientPicker extends BaseColorPicker {
   }
 
   template() {
-    return `
+    return /*html*/`
       <div class="gradient-body">
 
         <div class='box'>
@@ -275,6 +275,38 @@ export default class GradientPicker extends BaseColorPicker {
       this.updateData();      
     }
 
+  }
+
+  'mousedown $gradientView' (e) {
+    this.mouseDown = true;
+    this.mouseDownX = e.clientX;
+    this.mouseDownY = e.clientY;
+    this.rect = this.refs.$gradientView.rect();
+  }
+
+  'mousemove document' (e) {
+    if (this.mouseDown) {
+ 
+
+      var minX = this.rect.left;
+      var maxX = this.rect.right;
+      var minY = this.rect.top;
+      var maxY = this.rect.bottom;
+
+      var currentX = Math.min(Math.max(minX, e.clientX), maxX);
+      var currentY = Math.min(Math.max(minY, e.clientY), maxY);
+
+      var posX = Length.percent((currentX - minX) / (maxX - minX) * 100);
+      var posY = Length.percent((currentY - minY) / (maxY - minY) * 100);
+
+      this.$store.emit('changeRadialPosition', posX, posY);
+    }
+  }
+
+  'mouseup document' (e) {
+    if (this.mouseDown) {
+      this.mouseDown = false;
+    }
   }
 
   updateData() {

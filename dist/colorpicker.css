@@ -583,20 +583,21 @@
       padding: 4px 6px; }
     .easylogic-colorpicker .gradient-editor .unit {
       display: grid;
-      grid-template-columns: 110px 35px 50px;
+      grid-template-columns: 1fr 50px 50px;
       grid-column-gap: 5px;
       font-size: 11px; }
       .easylogic-colorpicker .gradient-editor .unit input, .easylogic-colorpicker .gradient-editor .unit select {
         width: 100%;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box; }
-      .easylogic-colorpicker .gradient-editor .unit input {
-        width: 35px; }
     .easylogic-colorpicker .gradient-editor [data-editor] {
       display: none;
       margin-top: 2px; }
       .easylogic-colorpicker .gradient-editor [data-editor] > label {
-        font-size: 11px; }
+        font-size: 11px;
+        vertical-align: middle; }
+        .easylogic-colorpicker .gradient-editor [data-editor] > label > * {
+          vertical-align: middle; }
     .easylogic-colorpicker .gradient-editor:not([data-selected-editor*='static-gradient']) [data-editor='gradient'],
     .easylogic-colorpicker .gradient-editor:not([data-selected-editor*='static-gradient']) [data-editor='tools'] {
       display: block; }
@@ -611,7 +612,7 @@
     .easylogic-colorpicker .gradient-editor[data-selected-editor='radial-gradient'] [data-editor='radialType'], .easylogic-colorpicker .gradient-editor[data-selected-editor='repeating-radial-gradient'] [data-editor='radialType'] {
       margin-top: 5px;
       display: grid;
-      grid-template-columns: 110px 90px;
+      grid-template-columns: 1fr 105px;
       grid-column-gap: 2px; }
       .easylogic-colorpicker .gradient-editor[data-selected-editor='radial-gradient'] [data-editor='radialType'] select, .easylogic-colorpicker .gradient-editor[data-selected-editor='repeating-radial-gradient'] [data-editor='radialType'] select {
         width: 100%; }
@@ -876,6 +877,13 @@
       background: #556375; }
     .easylogic-colorpicker .gradient-editor input[type=range]:focus::-ms-fill-upper {
       background: #556375; }
+    .easylogic-colorpicker .gradient-editor .right-menu {
+      display: inline-block;
+      float: right; }
+      .easylogic-colorpicker .gradient-editor .right-menu button {
+        font-size: 11px;
+        background-color: transparent;
+        border: 0px; }
   .easylogic-colorpicker.gradient-picker {
     width: 460px;
     -webkit-box-sizing: border-box;

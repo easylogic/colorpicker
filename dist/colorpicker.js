@@ -9947,6 +9947,13 @@ var GradientEditor = function (_UIElement) {
       this.radialType = 'ellipse';
     }
   }, {
+    key: '@changeRadialPosition',
+    value: function changeRadialPosition(posX, posY) {
+      this['@changeKeyValue']('radialPosition', [posX, posY]);
+
+      this.reloadInputValue();
+    }
+  }, {
     key: '@setGradientEditor',
     value: function setGradientEditor(str) {
       var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -10010,7 +10017,7 @@ var GradientEditor = function (_UIElement) {
     value: function template() {
       var _this2 = this;
 
-      return (/*html*/"\n        <div class='gradient-editor' data-selected-editor='" + this.type + "'>\n            <div class='gradient-steps' data-editor='gradient'>\n                <div class=\"hue-container\" ref=\"$back\"></div>            \n                <div class=\"hue\" ref=\"$steps\">\n                    <div class='step-list' ref=\"$stepList\" ></div>\n                </div>\n            </div>\n            <div class='tools' data-editor='tools'>\n              <label>Offset <input type='checkbox' ref='$cut' checked />  connected</label>\n              <div class='unit'>\n                <div><input type='range' data-key='length' min='0' max=\"100\" step='0.1' ref='$offset' /></div>\n                <div><input type='number' data-key='length' min='0' max=\"100\" step='0.1' ref='$offsetNumber' /></div>              \n                <div><select ref='$offsetSelect'>\n                  <option value='%'>%</option>\n                  <option value='px'>px</option>\n                  <option value='em'>em</option>\n                </select></div>\n              </div>\n            </div>\n            <div class='sub-editor' ref='$subEditor'> \n              <div data-editor='angle'>\n                <label>Angle</label>\n                <div class='unit'>                \n                  <div><input type='range' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angle' /> </div>\n                  <div><input type='number' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angleNumber' /></div> \n                  <span>deg</span>\n                </div>\n              </div>\n              <div data-editor='centerX'>\n                <label>Center X</label>\n                <div class='unit'>\n                  <div><input type='range' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerX' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerXNumber' /></div>\n                  <div><select ref='$centerXSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='centerY'>           \n                <label>Center Y</label>                 \n                <div class='unit'>\n                  <div><input type='range' data-key='centerY' min='-100' max=\"100\" step='0.1' ref='$centerY' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerYNumber' /></div>\n                  <div><select ref='$centerYSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='radialType'>       \n                <label>Radial Type</label>              \n                <div><select ref='$radialType'>\n                  " + radialTypeList.map(function (k) {
+      return (/*html*/"\n        <div class='gradient-editor' data-selected-editor='" + this.type + "'>\n            <div class='gradient-steps' data-editor='gradient'>\n                <div class=\"hue-container\" ref=\"$back\"></div>            \n                <div class=\"hue\" ref=\"$steps\">\n                    <div class='step-list' ref=\"$stepList\" ></div>\n                </div>\n            </div>\n            <div class='tools' data-editor='tools'>\n              <label>Offset <input type='checkbox' ref='$cut' checked />  connected</label> <div class=\"right-menu\" ><button type=\"button\" ref=\"$remove\" style=\"float:right;\" title=\"Remove color stop\">&times; Remove</button></div>\n              <div class='unit'>\n                <div><input type='range' data-key='length' min='0' max=\"100\" step='0.1' ref='$offset' /></div>\n                <div><input type='number' data-key='length' min='0' max=\"100\" step='0.1' ref='$offsetNumber' /></div>              \n                <div><select ref='$offsetSelect'>\n                  <option value='%'>%</option>\n                  <option value='px'>px</option>\n                  <option value='em'>em</option>\n                </select></div>\n              </div>\n            </div>\n            <div class='sub-editor' ref='$subEditor'> \n              <div data-editor='angle'>\n                <label>Angle</label>\n                <div class='unit'>                \n                  <div><input type='range' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angle' /> </div>\n                  <div><input type='number' data-key='angle' min='-720' max=\"720\" step='0.1' ref='$angleNumber' /></div> \n                  <span>deg</span>\n                </div>\n              </div>\n              <div data-editor='centerX'>\n                <label>Center X</label>\n                <div class='unit'>\n                  <div><input type='range' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerX' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerXNumber' /></div>\n                  <div><select ref='$centerXSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='centerY'>           \n                <label>Center Y</label>                 \n                <div class='unit'>\n                  <div><input type='range' data-key='centerY' min='-100' max=\"100\" step='0.1' ref='$centerY' /></div>\n                  <div><input type='number' data-key='centerX' min='-100' max=\"100\" step='0.1' ref='$centerYNumber' /></div>\n                  <div><select ref='$centerYSelect'>\n                      <option value='%'>%</option>\n                      <option value='px'>px</option>\n                      <option value='em'>em</option>\n                    </select></div>\n                </div>\n              </div>                \n              <div data-editor='radialType'>       \n                <label>Radial Type</label>              \n                <div><select ref='$radialType'>\n                  " + radialTypeList.map(function (k) {
           var selected = _this2.radialType === k ? 'selected' : '';
           return "<option value=\"" + k + "\" " + selected + ">" + k + "</option>";
         }).join('') + "\n                </select></div>\n              </div>\n            </div>            \n        </div>\n      "
@@ -10181,9 +10188,14 @@ var GradientEditor = function (_UIElement) {
       }
     }
   }, {
+    key: 'click $remove',
+    value: function click$remove() {
+      this.removeStep(this.index);
+    }
+  }, {
     key: "removeStep",
     value: function removeStep(index) {
-      if (this.colorsteps.length === 2) return;
+      // if (this.colorsteps.length === 1) return; 
       this.colorsteps.splice(index, 1);
       var currentStep = this.colorsteps[index];
       var currentIndex = index;
@@ -10333,13 +10345,21 @@ var GradientEditor = function (_UIElement) {
       this.refs.$angle.val(this.angle.value);
       this.refs.$angleNumber.val(this.angle.value);
 
-      this.refs.$centerX.val(this.radialPosition[0].value);
-      this.refs.$centerXNumber.val(this.radialPosition[0].value);
-      this.refs.$centerXSelect.val(this.radialPosition[0].unit);
+      var radialPosition = this.radialPosition.map(function (it) {
+        if (it === 'center') {
+          return Length.percent(50);
+        }
 
-      this.refs.$centerY.val(this.radialPosition[1].value);
-      this.refs.$centerYNumber.val(this.radialPosition[1].value);
-      this.refs.$centerYSelect.val(this.radialPosition[1].unit);
+        return it;
+      });
+
+      this.refs.$centerX.val(radialPosition[0].value);
+      this.refs.$centerXNumber.val(radialPosition[0].value);
+      this.refs.$centerXSelect.val(radialPosition[0].unit);
+
+      this.refs.$centerY.val(radialPosition[1].value);
+      this.refs.$centerYNumber.val(radialPosition[1].value);
+      this.refs.$centerYSelect.val(radialPosition[1].unit);
 
       this.refs.$radialType.val(this.radialType);
     }
@@ -10375,12 +10395,12 @@ var GradientEditor = function (_UIElement) {
   }, {
     key: "radialPositionX",
     get: function get$$1() {
-      return new Length(this.refs.$centerX.val(), this.refs.$centerXSelect.val());
+      return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val());
     }
   }, {
     key: "radialPositionY",
     get: function get$$1() {
-      return new Length(this.refs.$centerY.val(), this.refs.$centerYSelect.val());
+      return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val());
     }
   }]);
   return GradientEditor;
@@ -10998,9 +11018,10 @@ var GradientPicker$1 = function (_BaseColorPicker) {
   }, {
     key: "template",
     value: function template() {
-      return "\n      <div class=\"gradient-body\">\n\n        <div class='box'>\n          <div class='gradient-preview'>\n            <div class='gradient-view' ref='$gradientView'></div>\n          </div>\n          <div class=\"picker-tab\">\n            <div class=\"picker-tab-list\" ref=\"$tab\" data-value=\"static-gradient\" data-is-image-hidden=\"false\">\n              " + tabs.map(function (it) {
-        return "\n                  <span \n                    class='picker-tab-item " + (it.selected ? "selected" : '') + "' \n                    data-selected-value='" + it.type + "'\n                    title='" + it.title + "'\n                  > \n                  <div class='icon'></div>\n                  </span>";
-      }).join('') + "\n            </div>\n          </div>\n          <div target='gradientEditor'></div>\n\n        </div>\n        <div class='box'>\n          <div target=\"EmbedColorPicker\"></div>\n        </div>\n      </div>\n     \n    ";
+      return (/*html*/"\n      <div class=\"gradient-body\">\n\n        <div class='box'>\n          <div class='gradient-preview'>\n            <div class='gradient-view' ref='$gradientView'></div>\n          </div>\n          <div class=\"picker-tab\">\n            <div class=\"picker-tab-list\" ref=\"$tab\" data-value=\"static-gradient\" data-is-image-hidden=\"false\">\n              " + tabs.map(function (it) {
+          return "\n                  <span \n                    class='picker-tab-item " + (it.selected ? "selected" : '') + "' \n                    data-selected-value='" + it.type + "'\n                    title='" + it.title + "'\n                  > \n                  <div class='icon'></div>\n                  </span>";
+        }).join('') + "\n            </div>\n          </div>\n          <div target='gradientEditor'></div>\n\n        </div>\n        <div class='box'>\n          <div target=\"EmbedColorPicker\"></div>\n        </div>\n      </div>\n     \n    "
+      );
     }
   }, {
     key: "getColorString",
@@ -11147,6 +11168,40 @@ var GradientPicker$1 = function (_BaseColorPicker) {
       if (this.image) {
         this.refs.$gradientView.css('background-image', this.image.toString());
         this.updateData();
+      }
+    }
+  }, {
+    key: 'mousedown $gradientView',
+    value: function mousedown$gradientView(e) {
+      this.mouseDown = true;
+      this.mouseDownX = e.clientX;
+      this.mouseDownY = e.clientY;
+      this.rect = this.refs.$gradientView.rect();
+    }
+  }, {
+    key: 'mousemove document',
+    value: function mousemoveDocument(e) {
+      if (this.mouseDown) {
+
+        var minX = this.rect.left;
+        var maxX = this.rect.right;
+        var minY = this.rect.top;
+        var maxY = this.rect.bottom;
+
+        var currentX = Math.min(Math.max(minX, e.clientX), maxX);
+        var currentY = Math.min(Math.max(minY, e.clientY), maxY);
+
+        var posX = Length.percent((currentX - minX) / (maxX - minX) * 100);
+        var posY = Length.percent((currentY - minY) / (maxY - minY) * 100);
+
+        this.$store.emit('changeRadialPosition', posX, posY);
+      }
+    }
+  }, {
+    key: 'mouseup document',
+    value: function mouseupDocument(e) {
+      if (this.mouseDown) {
+        this.mouseDown = false;
       }
     }
   }, {
