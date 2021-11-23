@@ -153,6 +153,38 @@ export default class DefaultGradientPicker extends BaseColorPicker {
     return value; 
   }
 
+  'mousedown $gradientView' (e) {
+    this.mouseDown = true;
+    this.mouseDownX = e.clientX;
+    this.mouseDownY = e.clientY;
+    this.rect = this.refs.$gradientView.rect();
+  }
+
+  'mousemove document' (e) {
+    if (this.mouseDown) {
+
+
+      var minX = this.rect.left;
+      var maxX = this.rect.right;
+      var minY = this.rect.top;
+      var maxY = this.rect.bottom;
+
+      var currentX = Math.min(Math.max(minX, e.clientX), maxX);
+      var currentY = Math.min(Math.max(minY, e.clientY), maxY);
+
+      var posX = Length.percent((currentX - minX) / (maxX - minX) * 100).round(100);
+      var posY = Length.percent((currentY - minY) / (maxY - minY) * 100).round(100);
+
+      this.$store.emit('changeRadialPosition', posX, posY);
+    }
+  }
+
+  'mouseup document' (e) {
+    if (this.mouseDown) {
+      this.mouseDown = false;
+    }
+  }
+
   getCurrentStepColor() {
     var colorstep = this.image.colorsteps[this.selectColorStepIndex || 0] || {color: 'rgba(0, 0, 0, 1)'};
     return colorstep.color; 
