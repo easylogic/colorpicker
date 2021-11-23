@@ -10145,26 +10145,39 @@ var GradientEditor = function (_UIElement) {
         this.colorsteps.splice(next.index, 0, {
           cut: false,
           offset: Length.percent(percent),
-          color: Color.mix(prev.color, next.color, (percent - prev.offset.value) / (next.offset.value - prev.offset.value))
+          color: Color$1.mix(prev.color, next.color, (percent - prev.offset.value) / (next.offset.value - prev.offset.value))
         });
+        this.selectStep(prev.index + 1);
       } else if (prev) {
         this.colorsteps.splice(prev.index + 1, 0, {
           cut: false,
           offset: Length.percent(percent),
-          color: 'rgba(0, 0, 0, 1)'
+          color: prev.color
         });
+        this.selectStep(prev.index + 1);
       } else if (next) {
-        this.colorsteps.splice(next.index - 1, 0, {
+
+        var colorstep = {
           cut: false,
           offset: Length.percent(percent),
-          color: 'rgba(0, 0, 0, 1)'
-        });
+          color: next.color
+        };
+        var targetIndex = next.index;
+
+        if (targetIndex === 0) {
+          this.colorsteps.unshift(colorstep);
+          this.selectStep(0);
+        } else {
+          this.colorsteps.splice(next.index - 1, 0, colorstep);
+          this.selectStep(next.index);
+        }
       } else {
         this.colorsteps.push({
           cut: false,
           offset: Length.percent(0),
           color: 'rgba(0, 0, 0, 1)'
         });
+        this.selectStep(0);
       }
 
       this.refresh();
