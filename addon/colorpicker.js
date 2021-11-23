@@ -10060,6 +10060,7 @@ var GradientEditor = function (_UIElement) {
       var next = list.filter(function (it) {
         return it.offset.value >= percent;
       }).shift();
+      var targetIndex = 0;
 
       if (prev && next) {
         this.colorsteps.splice(next.index, 0, {
@@ -10067,29 +10068,34 @@ var GradientEditor = function (_UIElement) {
           offset: Length.percent(percent),
           color: Color$1.mix(prev.color, next.color, (percent - prev.offset.value) / (next.offset.value - prev.offset.value))
         });
-        this.selectStep(prev.index + 1);
+        targetIndex = prev.index + 1;
       } else if (prev) {
-        this.colorsteps.splice(prev.index + 1, 0, {
+        var colorstep = {
           cut: false,
           offset: Length.percent(percent),
           color: prev.color
-        });
-        this.selectStep(prev.index + 1);
+        };
+
+        if (this.colorsteps.length - 1 === prev.index) {
+          this.colorsteps.push(colorstep);
+        } else {
+          this.colorsteps.splice(prev.index + 1, 0, colorstep);
+        }
+        targetIndex = prev.index + 1;
       } else if (next) {
 
-        var colorstep = {
+        var _colorstep = {
           cut: false,
           offset: Length.percent(percent),
           color: next.color
         };
-        var targetIndex = next.index;
 
-        if (targetIndex === 0) {
-          this.colorsteps.unshift(colorstep);
-          this.selectStep(0);
+        if (next.index === 0) {
+          this.colorsteps.unshift(_colorstep);
+          targetIndex = 0;
         } else {
-          this.colorsteps.splice(next.index - 1, 0, colorstep);
-          this.selectStep(next.index);
+          this.colorsteps.splice(next.index - 1, 0, _colorstep);
+          targetIndex = next.index;
         }
       } else {
         this.colorsteps.push({
@@ -10097,11 +10103,13 @@ var GradientEditor = function (_UIElement) {
           offset: Length.percent(0),
           color: 'rgba(0, 0, 0, 1)'
         });
-        this.selectStep(0);
+        targetIndex = 0;
       }
 
       this.refresh();
       this.updateData();
+
+      this.selectStep(targetIndex);
     }
   }, {
     key: "reloadStepList",
