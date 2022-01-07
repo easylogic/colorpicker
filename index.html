@@ -794,7 +794,10 @@ var scaleColors = Color.scale.copper(count);   // ['#000000', '#3d2618', '#9d623
             },
             gradient: 'linear-gradient(to right, red 0%, white 100%)',
             onChange : function (gradientString, gradientObject) {
-                console.log('change', gradientString, gradientObject);
+                // console.log('change', gradientString, gradientObject);
+            },
+            onLastUpdate: function (gradientString, gradientObject) {
+                console.log('on last changed', gradientString, gradientObject);
             }
         });
 

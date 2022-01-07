@@ -14,6 +14,9 @@ export default class EmbedColorPicker extends UIElement {
       onChange: c => {
         this.changeColor(c);
       },
+      onLastUpdate: c => {
+        this.changeColor(c, true);
+      },
       ...options
     });
   }
@@ -22,8 +25,8 @@ export default class EmbedColorPicker extends UIElement {
     return `<div ref="$color"></div>`;
   }
 
-  changeColor(color) {
-    this.$store.emit ('changeEmbedColorPicker', color);
+  changeColor(color, isLastUpdate = false) {
+    this.$store.emit ('changeEmbedColorPicker', color, isLastUpdate);
   }
 
   setValue (color) {

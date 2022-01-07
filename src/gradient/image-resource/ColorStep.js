@@ -94,7 +94,7 @@ export class ColorStep extends Item {
    */
   toLength(maxValue) {
     // TODO: apply maxValue
-    return Length.parse(this.json);
+    return Length.parse(this.json).round(1000);
   }
 
   getPrevLength() {

@@ -8532,6 +8532,9 @@ var EmbedColorPicker = function (_UIElement) {
         container: this.refs.$el.el,
         onChange: function onChange(c) {
           _this2.changeColor(c);
+        },
+        onLastUpdate: function onLastUpdate(c) {
+          _this2.changeColor(c, true);
         }
       }, options));
     }
@@ -8543,7 +8546,9 @@ var EmbedColorPicker = function (_UIElement) {
   }, {
     key: "changeColor",
     value: function changeColor(color) {
-      this.$store.emit('changeEmbedColorPicker', color);
+      var isLastUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      this.$store.emit('changeEmbedColorPicker', color, isLastUpdate);
     }
   }, {
     key: "setValue",
@@ -9583,7 +9588,7 @@ var ColorStep = function (_Item) {
      */
     value: function toLength(maxValue) {
       // TODO: apply maxValue
-      return Length.parse(this.json);
+      return Length.parse(this.json).round(1000);
     }
   }, {
     key: "getPrevLength",
@@ -10030,10 +10035,15 @@ var GradientEditor = function (_UIElement) {
       this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
     }
   }, {
+    key: 'mouseup $offset',
+    value: function mouseup$offset(e) {
+      this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()), true);
+    }
+  }, {
     key: 'input $offsetNumber',
     value: function input$offsetNumber(e) {
       this.refs.$offset.val(this.refs.$offsetNumber.val());
-      this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
+      this['@changeColorStepOffset']('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()), true);
     }
   }, {
     key: 'input $angle',
@@ -10042,16 +10052,26 @@ var GradientEditor = function (_UIElement) {
       this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()));
     }
   }, {
+    key: 'mouseup $angle',
+    value: function mouseup$angle(e) {
+      this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()), true);
+    }
+  }, {
     key: 'input $angleNumber',
     value: function input$angleNumber(e) {
       this.refs.$angle.val(this.refs.$angleNumber.val());
-      this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()));
+      this['@changeKeyValue']('angle', Length.deg(this.refs.$angle.val()), true);
     }
   }, {
     key: 'input $centerX',
     value: function input$centerX(e) {
       this.refs.$centerXNumber.val(this.refs.$centerX.val());
       this['@changeKeyValue']('radialPositionX');
+    }
+  }, {
+    key: 'mouseup $centerX',
+    value: function mouseup$centerX(e) {
+      this['@changeKeyValue']('radialPositionX', null, true);
     }
   }, {
     key: 'input $centerXNumber',
@@ -10066,6 +10086,11 @@ var GradientEditor = function (_UIElement) {
       this['@changeKeyValue']('radialPositionY');
     }
   }, {
+    key: 'mouseup $centerY',
+    value: function mouseup$centerY(e) {
+      this['@changeKeyValue']('radialPositionY', null, true);
+    }
+  }, {
     key: 'input $centerYNumber',
     value: function input$centerYNumber(e) {
       this.refs.$centerY.val(this.refs.$centerYNumber.val());
@@ -10075,21 +10100,23 @@ var GradientEditor = function (_UIElement) {
     key: 'change $centerXSelect',
     value: function change$centerXSelect(e) {
 
-      this['@changeKeyValue']('radialPositionX');
+      this['@changeKeyValue']('radialPositionX', null, true);
     }
   }, {
     key: 'change $centerYSelect',
     value: function change$centerYSelect(e) {
-      this['@changeKeyValue']('radialPositionY');
+      this['@changeKeyValue']('radialPositionY', null, true);
     }
   }, {
     key: 'change $radialType',
     value: function change$radialType(e) {
-      this['@changeKeyValue']('radialType', this.refs.$radialType.val());
+      this['@changeKeyValue']('radialType', this.refs.$radialType.val(), true);
     }
   }, {
     key: '@changeKeyValue',
     value: function changeKeyValue(key, value) {
+      var isLastUpdate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
 
       if (key === 'angle') {
         value = value.value;
@@ -10101,18 +10128,20 @@ var GradientEditor = function (_UIElement) {
         this[key] = value;
       }
 
-      this.updateData();
+      this.updateData(isLastUpdate);
     }
   }, {
     key: '@changeColorStepOffset',
     value: function changeColorStepOffset(key, value) {
+      var isLastUpdate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
       if (this.currentStep) {
         this.currentStep.offset = value.clone();
         this.$currentStep.css({
           left: this.currentStep.offset
         });
         this.setColorUI();
-        this.updateData();
+        this.updateData(isLastUpdate);
       }
     }
   }, {
@@ -10187,7 +10216,7 @@ var GradientEditor = function (_UIElement) {
       }
 
       this.refresh();
-      this.updateData();
+      this.updateData(true);
 
       this.selectStep(targetIndex);
     }
@@ -10205,7 +10234,7 @@ var GradientEditor = function (_UIElement) {
         this.currentStep.cut = this.refs.$cut.checked();
         this.$currentStep.attr('data-cut', this.currentStep.cut);
         this.setColorUI();
-        this.updateData();
+        this.updateData(true);
       }
     }
   }, {
@@ -10229,7 +10258,7 @@ var GradientEditor = function (_UIElement) {
         this.selectStep(currentIndex);
       }
       this.refresh();
-      this.updateData();
+      this.updateData(true);
     }
   }, {
     key: "selectStep",
@@ -10276,6 +10305,7 @@ var GradientEditor = function (_UIElement) {
     value: function mouseupDocument(e) {
       if (this.startXY) {
         this.startXY = null;
+        this.updateData(true);
       }
     }
   }, {
@@ -10387,6 +10417,8 @@ var GradientEditor = function (_UIElement) {
   }, {
     key: '@setColorStepColor',
     value: function setColorStepColor(color) {
+      var isLastUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
 
       if (this.currentStep) {
         this.currentStep.color = color;
@@ -10397,12 +10429,14 @@ var GradientEditor = function (_UIElement) {
           'background-color': color
         });
         this.setColorUI();
-        this.updateData();
+        this.updateData(isLastUpdate);
       }
     }
   }, {
     key: "updateData",
     value: function updateData() {
+      var isLastUpdate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
 
       this.$store.emit('changeGradientEditor', {
         type: this.type,
@@ -10411,17 +10445,17 @@ var GradientEditor = function (_UIElement) {
         colorsteps: this.colorsteps,
         radialPosition: this.radialPosition,
         radialType: this.radialType
-      });
+      }, isLastUpdate);
     }
   }, {
     key: "radialPositionX",
     get: function get$$1() {
-      return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val());
+      return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val()).round(1000);
     }
   }, {
     key: "radialPositionY",
     get: function get$$1() {
-      return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val());
+      return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val()).round(1000);
     }
   }]);
   return GradientEditor;
@@ -10629,7 +10663,24 @@ var RadialGradient = function (_Gradient) {
       var radialType = json.radialType;
       var radialPosition = json.radialPosition || ["center", "center"];
 
-      radialPosition = DEFINED_POSITIONS[radialPosition] ? radialPosition : radialPosition.join(' ');
+      if (DEFINED_POSITIONS[radialPosition]) {
+        // noop 
+      } else {
+        if (typeof radialPosition === 'string') {} else {
+          radialPosition = radialPosition.map(function (it) {
+
+            if (typeof it === 'string') {
+              return it;
+            }
+
+            if (it.isString()) {
+              return it.value;
+            }
+
+            return it.round(1000);
+          }).join(' ');
+        }
+      }
 
       opt = radialPosition ? radialType + " at " + radialPosition : radialType;
 
@@ -10990,6 +11041,11 @@ var GradientPicker$1 = function (_BaseColorPicker) {
 
       return image;
     }
+
+    /**
+     * @override
+     */
+
   }, {
     key: "callbackColorValue",
     value: function callbackColorValue(color) {
@@ -11000,6 +11056,19 @@ var GradientPicker$1 = function (_BaseColorPicker) {
 
       if (typeof this.colorpickerShowCallback == 'function') {
         this.colorpickerShowCallback(gradientString, this.image);
+      }
+    }
+
+    /**
+     * @override
+     */
+
+  }, {
+    key: "callbackLastUpdateColorValue",
+    value: function callbackLastUpdateColorValue(color) {
+      var gradientString = this.image.toString();
+      if (typeof this.opt.onLastUpdate == 'function') {
+        this.opt.onLastUpdate.call(this, gradientString, this.image);
       }
     }
   }, {
@@ -11063,6 +11132,8 @@ var GradientPicker$1 = function (_BaseColorPicker) {
   }, {
     key: '@changeGradientEditor',
     value: function changeGradientEditor(data) {
+      var isLastUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
 
       var colorsteps = data.colorsteps.map(function (it, index) {
         return new ColorStep({
@@ -11080,8 +11151,8 @@ var GradientPicker$1 = function (_BaseColorPicker) {
 
       this.image.reset(data);
 
-      this.updateGradientPreview();
-      this.updateData();
+      this.updateGradientPreview(isLastUpdate);
+      // this.updateData(isLastUpdate);
     }
   }, {
     key: "click $tab .picker-tab-item",
@@ -11111,7 +11182,7 @@ var GradientPicker$1 = function (_BaseColorPicker) {
 
       this['@selectColorStep'](color);
 
-      this.updateGradientPreview();
+      this.updateGradientPreview(true);
     }
   }, {
     key: "createGradient",
@@ -11165,7 +11236,9 @@ var GradientPicker$1 = function (_BaseColorPicker) {
   }, {
     key: '@changeEmbedColorPicker',
     value: function changeEmbedColorPicker(color) {
-      this.$store.emit('setColorStepColor', color);
+      var isLastUpdate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+      this.$store.emit('setColorStepColor', color, isLastUpdate);
     }
   }, {
     key: "@selectColorStep",
@@ -11186,9 +11259,11 @@ var GradientPicker$1 = function (_BaseColorPicker) {
   }, {
     key: "updateGradientPreview",
     value: function updateGradientPreview() {
+      var isLastUpdate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
       if (this.image) {
         this.refs.$gradientView.css('background-image', this.image.toString());
-        this.updateData();
+        this.updateData(isLastUpdate);
       }
     }
   }, {
@@ -11223,12 +11298,21 @@ var GradientPicker$1 = function (_BaseColorPicker) {
     value: function mouseupDocument(e) {
       if (this.mouseDown) {
         this.mouseDown = false;
+        this.updateData(true);
       }
     }
   }, {
     key: "updateData",
     value: function updateData() {
+      var isLastUpdate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+
       this.callbackChange();
+
+      // on last update 
+      if (isLastUpdate) {
+        this.callbackLastUpdate();
+      }
     }
   }]);
   return GradientPicker;

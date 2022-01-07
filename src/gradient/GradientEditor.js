@@ -162,9 +162,13 @@ export default class GradientEditor extends UIElement  {
     this['@changeColorStepOffset'] ('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
   }
 
+  'mouseup $offset' (e) {
+    this['@changeColorStepOffset'] ('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()), true);
+  }  
+
   'input $offsetNumber' (e) {
     this.refs.$offset.val(this.refs.$offsetNumber.val())                
-    this['@changeColorStepOffset'] ('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()));
+    this['@changeColorStepOffset'] ('offset', new Length(this.refs.$offset.val(), this.refs.$offsetSelect.val()), true);
   }  
 
   'input $angle' (e) {
@@ -172,15 +176,24 @@ export default class GradientEditor extends UIElement  {
     this['@changeKeyValue'] ('angle', Length.deg(this.refs.$angle.val()))
   }  
 
+  'mouseup $angle' (e) {
+    this['@changeKeyValue'] ('angle', Length.deg(this.refs.$angle.val()), true)
+  }
+
   'input $angleNumber' (e) {
     this.refs.$angle.val(this.refs.$angleNumber.val())        
-    this['@changeKeyValue'] ('angle', Length.deg(this.refs.$angle.val()))
+    this['@changeKeyValue'] ('angle', Length.deg(this.refs.$angle.val()), true)
   }    
 
   'input $centerX' (e) {
     this.refs.$centerXNumber.val(this.refs.$centerX.val())    
     this['@changeKeyValue'] ('radialPositionX')
   }
+
+  'mouseup $centerX' (e) {
+    this['@changeKeyValue'] ('radialPositionX', null, true)
+  }
+
   'input $centerXNumber' (e) {
     this.refs.$centerX.val(this.refs.$centerXNumber.val())
     this['@changeKeyValue'] ('radialPositionX')
@@ -190,6 +203,11 @@ export default class GradientEditor extends UIElement  {
     this.refs.$centerYNumber.val(this.refs.$centerY.val())        
     this['@changeKeyValue'] ('radialPositionY')
   }  
+
+  'mouseup $centerY' (e) {
+    this['@changeKeyValue'] ('radialPositionY', null, true)
+  }
+
   'input $centerYNumber' (e) {
     this.refs.$centerY.val(this.refs.$centerYNumber.val())
     this['@changeKeyValue'] ('radialPositionX')
@@ -197,26 +215,26 @@ export default class GradientEditor extends UIElement  {
 
   'change $centerXSelect' (e) {
 
-    this['@changeKeyValue'] ('radialPositionX')
+    this['@changeKeyValue'] ('radialPositionX', null, true)
   }
 
   'change $centerYSelect' (e) {
-    this['@changeKeyValue'] ('radialPositionY')
+    this['@changeKeyValue'] ('radialPositionY', null, true)
   }  
 
   get radialPositionX () {
-    return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val())
+    return new Length(+this.refs.$centerX.val(), this.refs.$centerXSelect.val()).round(1000)
   }
 
   get radialPositionY () {
-    return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val())
+    return new Length(+this.refs.$centerY.val(), this.refs.$centerYSelect.val()).round(1000)
   }  
 
   'change $radialType' (e) {
-    this['@changeKeyValue'] ('radialType', this.refs.$radialType.val())
+    this['@changeKeyValue'] ('radialType', this.refs.$radialType.val(), true)
   }
 
-  '@changeKeyValue' (key, value) {
+  '@changeKeyValue' (key, value, isLastUpdate = false) {
 
     if (key === 'angle') {
       value = value.value; 
@@ -228,17 +246,17 @@ export default class GradientEditor extends UIElement  {
       this[key] = value;
     }
 
-    this.updateData();
+    this.updateData(isLastUpdate);
   }
 
-  '@changeColorStepOffset' (key, value) {
+  '@changeColorStepOffset' (key, value, isLastUpdate = false) {
     if (this.currentStep) {
       this.currentStep.offset = value.clone();
       this.$currentStep.css({
         left: this.currentStep.offset
       })  
       this.setColorUI()
-      this.updateData();      
+      this.updateData(isLastUpdate);      
     }
   }
 
@@ -310,7 +328,7 @@ export default class GradientEditor extends UIElement  {
     } 
 
     this.refresh();
-    this.updateData();
+    this.updateData(true);
 
     this.selectStep(targetIndex);
   }
@@ -329,7 +347,7 @@ export default class GradientEditor extends UIElement  {
       this.currentStep.cut = this.refs.$cut.checked()
       this.$currentStep.attr('data-cut', this.currentStep.cut);
       this.setColorUI()
-      this.updateData();      
+      this.updateData(true);      
     } 
   }
 
@@ -352,7 +370,7 @@ export default class GradientEditor extends UIElement  {
       this.selectStep(currentIndex);
     }
     this.refresh();
-    this.updateData();          
+    this.updateData(true);          
   }
 
 
@@ -401,6 +419,7 @@ export default class GradientEditor extends UIElement  {
   'mouseup document' (e) {
     if (this.startXY) {
       this.startXY = null; 
+      this.updateData(true);
     }
   }
 
@@ -432,8 +451,6 @@ export default class GradientEditor extends UIElement  {
         percent = this.next.offset.value
       }
     }
-
-
 
     this.currentStep.offset.set(round(percent, 100));
     this.$currentStep.css({
@@ -511,7 +528,7 @@ export default class GradientEditor extends UIElement  {
     this.refs.$radialType.val(this.radialType);
   }
 
-  '@setColorStepColor' (color) {
+  '@setColorStepColor' (color, isLastUpdate = false) {
 
     if (this.currentStep) {
       this.currentStep.color = color;
@@ -522,11 +539,11 @@ export default class GradientEditor extends UIElement  {
         'background-color': color
       })      
       this.setColorUI()
-      this.updateData();
+      this.updateData(isLastUpdate);
     }
   }
 
-  updateData() {
+  updateData(isLastUpdate = false) {
 
     this.$store.emit('changeGradientEditor', {
       type: this.type,
@@ -535,7 +552,7 @@ export default class GradientEditor extends UIElement  {
       colorsteps: this.colorsteps,
       radialPosition: this.radialPosition,
       radialType: this.radialType
-    });
+    }, isLastUpdate);
   }
 
 }

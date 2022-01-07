@@ -612,7 +612,7 @@
     .easylogic-colorpicker .gradient-editor[data-selected-editor='radial-gradient'] [data-editor='radialType'], .easylogic-colorpicker .gradient-editor[data-selected-editor='repeating-radial-gradient'] [data-editor='radialType'] {
       margin-top: 5px;
       display: grid;
-      grid-template-columns: 1fr 100px;
+      grid-template-columns: 1fr 105px;
       grid-column-gap: 2px; }
       .easylogic-colorpicker .gradient-editor[data-selected-editor='radial-gradient'] [data-editor='radialType'] select, .easylogic-colorpicker .gradient-editor[data-selected-editor='repeating-radial-gradient'] [data-editor='radialType'] select {
         width: 100%; }

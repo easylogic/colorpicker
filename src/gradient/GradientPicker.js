@@ -55,7 +55,9 @@ export default class GradientPicker extends BaseColorPicker {
     return image
   }  
 
-
+  /**
+   * @override
+   */
   callbackColorValue(color) {
     var gradientString = this.image.toString();
     if (typeof this.opt.onChange == 'function') {
@@ -66,6 +68,16 @@ export default class GradientPicker extends BaseColorPicker {
         this.colorpickerShowCallback(gradientString, this.image);
     }        
   }
+
+  /**
+   * @override
+   */
+  callbackLastUpdateColorValue(color) {
+    var gradientString = this.image.toString();
+    if (typeof this.opt.onLastUpdate == 'function') {
+        this.opt.onLastUpdate.call(this, gradientString, this.image);
+    }
+  }  
 
   callbackHideColorValue(color) {
     var gradientString = this.image.toString();
@@ -147,7 +159,7 @@ export default class GradientPicker extends BaseColorPicker {
     return colorstep.color; 
   }
 
-  '@changeGradientEditor' (data) {
+  '@changeGradientEditor' (data, isLastUpdate = false) {
 
     var colorsteps = data.colorsteps.map((it, index) => {
       return new ColorStep({
@@ -166,8 +178,8 @@ export default class GradientPicker extends BaseColorPicker {
 
     this.image.reset(data);
 
-    this.updateGradientPreview();
-    this.updateData();
+    this.updateGradientPreview(isLastUpdate);
+    // this.updateData(isLastUpdate);
   }
 
 
@@ -198,7 +210,7 @@ export default class GradientPicker extends BaseColorPicker {
     this['@selectColorStep'](color);
 
 
-    this.updateGradientPreview();    
+    this.updateGradientPreview(true);    
 
   }
 
@@ -251,8 +263,8 @@ export default class GradientPicker extends BaseColorPicker {
   }
 
 
-  '@changeEmbedColorPicker' (color) { 
-    this.$store.emit('setColorStepColor', color);
+  '@changeEmbedColorPicker' (color, isLastUpdate = false) { 
+    this.$store.emit('setColorStepColor', color, isLastUpdate);
   }
 
   "@selectColorStep" (color) {
@@ -269,10 +281,10 @@ export default class GradientPicker extends BaseColorPicker {
     // this.updateData();
   }
 
-  updateGradientPreview () {
+  updateGradientPreview (isLastUpdate = false) {
     if (this.image) {
       this.refs.$gradientView.css('background-image', this.image.toString())
-      this.updateData();      
+      this.updateData(isLastUpdate);      
     }
 
   }
@@ -306,11 +318,18 @@ export default class GradientPicker extends BaseColorPicker {
   'mouseup document' (e) {
     if (this.mouseDown) {
       this.mouseDown = false;
+      this.updateData(true);            
     }
   }
 
-  updateData() {
+  updateData(isLastUpdate = false) {
+
     this.callbackChange();
+
+    // on last update 
+    if (isLastUpdate) {
+      this.callbackLastUpdate();
+    }
   }
 
 }

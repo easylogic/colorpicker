@@ -44,9 +44,28 @@ export class RadialGradient extends Gradient {
     var radialType = json.radialType;
     var radialPosition = json.radialPosition || ["center", "center"];
 
-    radialPosition = DEFINED_POSITIONS[radialPosition]
-      ? radialPosition
-      : radialPosition.join(' ');
+    if (DEFINED_POSITIONS[radialPosition]) {
+      // noop 
+    } else {  
+      if (typeof radialPosition === 'string') {
+        
+      } else {
+        radialPosition = radialPosition.map(it => {
+
+          if (typeof it === 'string') {
+            return it;
+          }
+
+          if (it.isString()) {
+            return it.value;
+          }
+  
+          return it.round(1000);
+        }).join(' ');
+      }
+
+    }
+
 
     opt = radialPosition ? `${radialType} at ${radialPosition}` : radialType;
 
