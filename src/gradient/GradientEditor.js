@@ -280,10 +280,17 @@ export default class GradientEditor extends UIElement  {
     })
 
     var prev = list.filter(it => it.offset.value <= percent).pop();
-    var next = list.filter(it => it.offset.value >= percent).shift();
+    var next = list.filter(it => it.offset.value > percent).shift();
     let targetIndex = 0;
 
     if (prev && next) {
+
+      // if color and offset are same, dont change index
+      if (prev.offset.value === percent) {
+        return;
+      }
+      
+
       this.colorsteps.splice(next.index, 0, {
         cut: false, 
         offset: Length.percent(percent),
@@ -291,6 +298,7 @@ export default class GradientEditor extends UIElement  {
       })      
       targetIndex = prev.index + 1;
     } else if (prev) {
+
       const colorstep = {
         cut: false, 
         offset: Length.percent(percent),

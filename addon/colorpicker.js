@@ -10087,11 +10087,17 @@ var GradientEditor = function (_UIElement) {
         return it.offset.value <= percent;
       }).pop();
       var next = list.filter(function (it) {
-        return it.offset.value >= percent;
+        return it.offset.value > percent;
       }).shift();
       var targetIndex = 0;
 
       if (prev && next) {
+
+        // if color and offset are same, dont change index
+        if (prev.offset.value === percent) {
+          return;
+        }
+
         this.colorsteps.splice(next.index, 0, {
           cut: false,
           offset: Length.percent(percent),
@@ -10099,6 +10105,7 @@ var GradientEditor = function (_UIElement) {
         });
         targetIndex = prev.index + 1;
       } else if (prev) {
+
         var colorstep = {
           cut: false,
           offset: Length.percent(percent),
