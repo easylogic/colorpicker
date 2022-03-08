@@ -792,7 +792,7 @@ var scaleColors = Color.scale.copper(count);   // ['#000000', '#3d2618', '#9d623
             colorpickerOptions: {
                 type: 'chromedevtool'
             },
-            gradient: 'linear-gradient(to right, red 0%, white 100%)',
+            gradient: 'conic-gradient(from 90deg at 50% 50%, white  0deg,black  360deg)',
             onChange : function (gradientString, gradientObject) {
                 // console.log('change', gradientString, gradientObject);
             },
@@ -801,7 +801,7 @@ var scaleColors = Color.scale.copper(count);   // ['#000000', '#3d2618', '#9d623
             }
         });
 
-        picker.setValue('radial-gradient(circle, yellow 10%, black 100%)')
+        // picker.setValue('conic-gradient(from 45deg, yellow 10%, black 100%)')
     }
 /*
         picker.setUserPalette([

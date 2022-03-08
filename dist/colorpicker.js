@@ -1993,19 +1993,19 @@ var image = {
 
 var Color$1 = _extends({}, formatter, math, mixin, parser, fromYCrCb, fromRGB, fromCMYK, fromHSV, fromHSL, fromLAB, image);
 
-function isUndefined$1(value) {
+function isUndefined(value) {
     return typeof value == 'undefined' || value === null;
 }
 
 function isNotUndefined(value) {
-    return isUndefined$1(value) === false;
+    return isUndefined(value) === false;
 }
 
 
 
 
 
-function isString$1(value) {
+function isString(value) {
     return typeof value == 'string';
 }
 
@@ -2045,8 +2045,8 @@ function getHueScale(p) {
     var maxScale = arguments[2];
 
 
-    var start = isUndefined$1(maxScale) ? p - minScale : minScale;
-    var end = isUndefined$1(maxScale) ? p + scale : maxScale;
+    var start = isUndefined(maxScale) ? p - minScale : minScale;
+    var end = isUndefined(maxScale) ? p + scale : maxScale;
 
     var list = [];
 
@@ -5442,7 +5442,7 @@ var UIElement = function (_EventMachin) {
     return UIElement;
 }(EventMachin);
 
-function isUndefined$2(v) {
+function isUndefined$1(v) {
     return typeof v == 'undefined' || v == null;
 }
 
@@ -5492,7 +5492,7 @@ var ColorManager = function (_BaseModule) {
 
             colorObj.source = colorObj.source || source;
 
-            $store.alpha = isUndefined$2(colorObj.a) ? $store.alpha : colorObj.a;
+            $store.alpha = isUndefined$1(colorObj.a) ? $store.alpha : colorObj.a;
             $store.format = colorObj.type != 'hsv' ? colorObj.type || $store.format : $store.format;
 
             if (colorObj.type == 'hsl') {
@@ -8772,7 +8772,7 @@ var Item = function () {
   }, {
     key: "toggle",
     value: function toggle(field, toggleValue) {
-      if (isUndefined$1(toggleValue)) {
+      if (isUndefined(toggleValue)) {
         this.json[field] = !this.json[field];
       } else {
         this.json[field] = !!toggleValue;
@@ -9076,7 +9076,7 @@ var Length = function () {
     }
   }, {
     key: "isString",
-    value: function isString() {
+    value: function isString$$1() {
       return this.isUnitType('');
     }
   }, {
@@ -9371,7 +9371,7 @@ var Length = function () {
   }, {
     key: "parse",
     value: function parse(obj) {
-      if (isString$1(obj)) {
+      if (isString(obj)) {
         if (obj.indexOf("calc(") > -1) {
           return new Length(obj.split("calc(")[1].split(")")[0], "calc");
         } else {
@@ -9761,7 +9761,7 @@ var Gradient = function (_ImageResource) {
     key: "calculateAngle",
     value: function calculateAngle() {
       var angle = this.json.angle;
-      return isUndefined$1(DEFINED_ANGLES[angle]) ? angle : DEFINED_ANGLES[angle] || 0;
+      return isUndefined(DEFINED_ANGLES[angle]) ? angle : DEFINED_ANGLES[angle] || 0;
     }
 
     /**
@@ -10575,7 +10575,7 @@ var LinearGradient = function (_Gradient) {
           colorsteps.push.apply(colorsteps, toConsumableArray(ColorStep.parse(newValue)));
         } else {
           // direction
-          angle = isUndefined$1(DEFINED_ANGLES$1[newValue]) ? Length.parse(newValue) : Length.deg(+DEFINED_ANGLES$1[newValue]);
+          angle = isUndefined(DEFINED_ANGLES$1[newValue]) ? Length.parse(newValue) : Length.deg(+DEFINED_ANGLES$1[newValue]);
         }
       });
 
@@ -10721,7 +10721,7 @@ var RadialGradient = function (_Gradient) {
             radialType = newValue;
           }
 
-          if (isString$1(radialPosition)) {
+          if (isString(radialPosition)) {
             var arr = radialPosition.split(' ');
             if (arr.length === 1) {
               var len = Length.parse(arr[0]);

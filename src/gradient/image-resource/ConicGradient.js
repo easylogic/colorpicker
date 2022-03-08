@@ -1,6 +1,6 @@
 import { Gradient } from "./Gradient";
 import { Position, Length } from "../Length";
-import { isNotUndefined } from "../../util/functions/func";
+import { isNotUndefined, isString, isUndefined } from "../../util/functions/func";
 import { convertMatches, reverseMatches } from "../../util/functions/parser";
 import { ColorStep } from "./ColorStep";
 
