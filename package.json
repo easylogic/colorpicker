@@ -1,6 +1,6 @@
 {
   "name": "@easylogic/colorpicker",
-  "version": "1.10.10",
+  "version": "1.10.11",
   "description": "simple colorpicker used anywhere",
   "main": "./dist/colorpicker.js",
   "scripts": {

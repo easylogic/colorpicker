@@ -9375,7 +9375,8 @@ var Length = function () {
         if (obj.indexOf("calc(") > -1) {
           return new Length(obj.split("calc(")[1].split(")")[0], "calc");
         } else {
-          var arr = obj.replace(REG_CSS_UNIT, "$1 $2").split(" ");
+          // remove blank space 
+          var arr = obj.replace(REG_CSS_UNIT, "$1 $2").split(" ").filter(Boolean);
           var isNumberString = +arr[0] == arr[0];
           if (isNumberString) {
             return new Length(+arr[0], arr[1]);
